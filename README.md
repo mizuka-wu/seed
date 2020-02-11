@@ -1,29 +1,41 @@
-# seed
+# Seed
 
-## Project setup
-```
-npm install
-```
+A simple `Vue` component collection for build backstage page
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Getting Started
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Building, place waiting.
 
-### Run your unit tests
-```
-npm run test:unit
-```
+### Docs
 
-### Lints and fixes files
-```
-npm run lint
-```
+- [中文文档](http://www.mizuka.top/Seed/)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- [English](./)
+
+### Prerequisites
+
+`Element-UI >= 2.4.5`
+
+`Vue >= 2.6.2`
+
+### Installing
+
+Step will be
+`npm i --save`
+
+And then
+
+`npm i`
+
+## Deployment
+
+Fork this project
+
+## Built With
+
+- [Vue](https://cn.vuejs.org/index.html)
+- [Element-UI](https://element.eleme.cn/#/zh-CN/component/quickstart)
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE)

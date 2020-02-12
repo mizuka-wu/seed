@@ -1,7 +1,12 @@
 <template>
   <div>
+    <!-- filter -->
+    <seed-filter v-bind="$props" />
+    <!-- table -->
     <SeedTable v-loading="loading" :data="data" v-bind="$props" />
-    <br />
+    <!-- form -->
+    <SeedFrom ref="form" v-bind="$props" />
+    <!-- pagination -->
     <SeedPagination
       @change:params="paginationParams => (params = paginationParams)"
       ref="pagination"
@@ -16,11 +21,18 @@
  */
 import SeedPagination from "./SeedPagination.vue";
 import SeedTable from "./SeedTable/Index.vue";
+import SeedFrom from "./SeedForm/DialogContainer.vue";
+import SeedFilter from "./SeedFilter/Index.vue";
 import debounce from "lodash/debounce";
 import isEqual from "lodash/isEqual";
 
 export default {
-  components: { SeedPagination, SeedTable },
+  components: {
+    SeedPagination,
+    SeedTable,
+    SeedFrom,
+    SeedFilter
+  },
   props: {
     /**
      * 获取数据

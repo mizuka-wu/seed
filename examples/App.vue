@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Seed from "./components/SeedContainer.vue";
-import resource from "@/mock/resource";
+import Seed from "../packages/SeedContainer.vue";
+import resource from "./mock/resource";
 
 export default {
   name: "app",

@@ -8,7 +8,7 @@
     "docs:build": "npx vuepress build docs",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "changelog": "npx conventional-changelog -p angular -i lib/CHANGELOG.md -s -r 0"
+    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "author": {
     "name": "Edward Wu",
@@ -48,7 +48,7 @@
     "@vue/test-utils": "1.0.0-beta.31",
     "babel-eslint": "^10.0.3",
     "chai": "^4.1.2",
-    "conventional-changelog": "^3.1.18",
+    "conventional-changelog-cli": "^2.0.31",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.1.2",

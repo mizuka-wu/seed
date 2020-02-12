@@ -1,6 +1,7 @@
 <template>
   <div>
-    <SeedTable :data="data" v-bind="$props" />
+    <SeedTable v-loading="loading" :data="data" v-bind="$props" />
+    <br />
     <SeedPagination
       @change:params="paginationParams => (params = paginationParams)"
       ref="pagination"

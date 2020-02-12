@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <el-pagination
       @size-change="size => (pageSize = size)"
       @current-change="index => (pageIndex = index)"
@@ -46,3 +46,9 @@ export default {
   }
 };
 </script>
+<style lang="stylus" scoped>
+.container {
+  width: 100%;
+  text-align: center;
+}
+</style>

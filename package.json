@@ -1,10 +1,30 @@
 {
   "name": "seed",
   "version": "0.1.0",
-  "private": true,
+  "author": {
+    "name": "Edward Wu",
+    "email": "mizuka.wu@outlook.com",
+    "url": "https://www.mizuka.top"
+  },
+  "files": [
+    "packages/*",
+    "lib/*"
+  ],
+  "main": "lib/seed.umd.min.js",
+  "keywords": [
+    "vue",
+    "seed",
+    "vue2",
+    "form",
+    "element-ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mizuka-wu/Seed"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --dest lib --name vue2-typeahead packages/SeedContainer.vue",
+    "build": "vue-cli-service build --target lib --dest lib --name seed packages/SeedContainer.vue",
     "docs:dev": "npx vuepress dev docs",
     "docs:build": "npx vuepress build docs",
     "test:unit": "vue-cli-service test:unit",

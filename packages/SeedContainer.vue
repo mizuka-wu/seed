@@ -111,7 +111,7 @@ export default {
         pagination.pageIndex = pageIndex;
         pagination.totalNumber = totalNumber;
       } catch (e) {
-        console.error(e);
+        this.$message.error(e.message);
       }
       vm.loading = false;
     }, 100);

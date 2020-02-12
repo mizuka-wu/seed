@@ -2,12 +2,16 @@
   <el-card shadow="hover">
     <!-- 查询系统 -->
     <el-row>
-      <el-form></el-form>
+      <el-form :inline="true">
+        <el-form-item></el-form-item>
+      </el-form>
     </el-row>
     <!-- 查询，重制按钮 -->
     <el-row>
-      <el-button type="primary">查询</el-button>
-      <el-button>重置</el-button>
+      <el-button size="small" @click="$emit('search')" type="primary"
+        >查询</el-button
+      >
+      <el-button size="small" @click="$emit('reset')">重置</el-button>
     </el-row>
   </el-card>
 </template>

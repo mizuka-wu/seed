@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- filter -->
-    <seed-filter v-bind="$props" />
+    <SeedFilter v-bind="$props" />
     <!-- table -->
     <SeedTable v-loading="loading" :data="data" v-bind="$props" />
     <!-- form -->

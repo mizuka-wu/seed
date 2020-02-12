@@ -7,8 +7,9 @@
     "url": "https://www.mizuka.top"
   },
   "files": [
-    "packages/*",
-    "lib/*"
+    "packages/",
+    "lib/",
+    "README.md"
   ],
   "main": "lib/seed.umd.min.js",
   "keywords": [

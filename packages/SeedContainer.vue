@@ -1,14 +1,16 @@
 <template>
   <div>
     <!-- filter -->
-    <SeedFilter v-bind="$props" />
+    <SeedFilter v-bind="$props" @search="handleSearch" />
     <!-- table -->
     <SeedTable v-loading="loading" :data="data" v-bind="$props" />
     <!-- form -->
     <SeedFrom ref="form" v-bind="$props" />
     <!-- pagination -->
     <SeedPagination
-      @change:params="paginationParams => (params = paginationParams)"
+      @change:params="
+        paginationParams => (params = { ...params, ...paginationParams })
+      "
       ref="pagination"
     />
   </div>
@@ -62,7 +64,14 @@ export default {
       loading: false
     };
   },
-  methods: {},
+  methods: {
+    handleSearch(params) {
+      this.$nextTick(() => {
+        this.params = params;
+        this.$refs.pagination.reset();
+      });
+    }
+  },
   computed: {
     /**
      * 混合之后的params, 分页的未初始化的话，不进行请求

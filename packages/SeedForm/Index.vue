@@ -1,20 +1,17 @@
 <template>
-  <component :is="dialogType ? 'el-dialog' : 'div'" :visible="true">
+  <el-form>
     hello
-  </component>
+  </el-form>
 </template>
 
 <script>
 export default {
   props: {
-    dialogType: {
-      type: Boolean,
-      required: false,
-      default: true
+    seeds: {
+      type: Array
     }
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>

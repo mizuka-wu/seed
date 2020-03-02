@@ -1,6 +1,15 @@
 <template>
   <el-dialog :visible.sync="visible">
-    <SeedForm v-on="$listeners" v-bind="$props" /> </el-dialog
+    <template slot="title">
+      {{ isEdit ? "编辑" : "添加" }}
+      <slot name="title" />
+    </template>
+    <SeedForm
+      ref="form"
+      v-if="visible"
+      v-on="$listeners"
+      v-bind="$props"
+    /> </el-dialog
 ></template>
 
 <script>
@@ -12,12 +21,21 @@ export default {
   components: {
     SeedForm
   },
-  props: {},
   data() {
     return {
-      visible: true
+      visible: true,
+      isEdit: false,
+      form: null
     };
   },
-  methods: {}
+  methods: {
+    open(form = null) {
+      this.isEdit = !!form;
+      this.visible = true;
+      this.$nextTick(() => {
+        this.$refs.form.defaultForm = form;
+      });
+    }
+  }
 };
 </script>

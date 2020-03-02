@@ -1,5 +1,5 @@
 <template>
-  <el-form>
+  <el-form :model="form">
     hello
   </el-form>
 </template>
@@ -10,6 +10,12 @@ export default {
     seeds: {
       type: Array
     }
+  },
+  data() {
+    return {
+      defaultForm: null,
+      form: null
+    };
   }
 };
 </script>

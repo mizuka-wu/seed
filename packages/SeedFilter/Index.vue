@@ -3,7 +3,13 @@
     <!-- 查询系统 -->
     <el-row>
       <el-form :inline="true">
-        <el-form-item></el-form-item>
+        <el-form-item
+          v-for="param of seeds"
+          :key="param.key"
+          :label="param.label || param.key"
+        >
+          <el-input v-model="params[param.key]" />
+        </el-form-item>
       </el-form>
     </el-row>
     <!-- 查询，重制按钮 -->
@@ -26,7 +32,7 @@ export default {
   },
   data() {
     return {
-      params() {}
+      params: {}
     };
   },
   watch: {

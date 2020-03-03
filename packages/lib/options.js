@@ -7,16 +7,18 @@ export default function(seeds = [], key) {
   if (!key) {
     return seeds;
   }
-  return seeds.map(({ options = {}, ...seed }) => {
-    const customerSeed = options[key] || {}; // 覆盖的配置
-    delete options[key];
-    return {
-      ...seed,
-      ...customerSeed,
-      options: {
-        ...options,
-        ...customerSeed.options
-      }
-    };
-  });
+  return seeds
+    .map(({ options = {}, ...seed }) => {
+      const customerSeed = options[key] || {}; // 覆盖的配置
+      delete options[key];
+      return {
+        ...seed,
+        ...customerSeed,
+        options: {
+          ...options,
+          ...customerSeed.options
+        }
+      };
+    })
+    .filter(({ show = true }) => show);
 }

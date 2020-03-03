@@ -11,7 +11,9 @@
   </div>
 </template>
 <script>
+import components from "./render";
 export default {
+  components,
   name: "SeedTable",
   props: {
     data: {

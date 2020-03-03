@@ -1,5 +1,11 @@
 <template>
-  <SeedTable v-bind="$attrs" :seeds="tableSeeds" v-on="$listeners" />
+  <div class="table-container">
+    <!-- 控制器层 -->
+    <el-row>
+      <el-button size="mini" type="primary">添加</el-button>
+    </el-row>
+    <SeedTable v-bind="$attrs" :seeds="tableSeeds" v-on="$listeners" />
+  </div>
 </template>
 
 <script>
@@ -24,4 +30,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.table-container {
+  margin: 16px 0;
+}
+</style>

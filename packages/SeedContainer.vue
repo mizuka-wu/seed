@@ -5,9 +5,8 @@
     <!-- table -->
     <SeedTable v-loading="loading" :data="data" v-bind="$props" />
     <!-- form -->
-    <SeedFrom ref="form" v-bind="$props" />
+    <SeedFrom v-if="false" ref="form" v-bind="$props" />
     <!-- pagination -->
-    <br />
     <SeedPagination
       @change:params="
         paginationParams => (params = { ...params, ...paginationParams })

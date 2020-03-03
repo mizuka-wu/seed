@@ -36,6 +36,8 @@
     "ant-design-vue": "^1.2.4",
     "core-js": "^3.6.4",
     "element-ui": "^2.4.5",
+    "less": "^3.11.1",
+    "less-loader": "^5.0.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {

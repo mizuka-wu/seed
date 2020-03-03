@@ -21,6 +21,7 @@
  * 内部使用SeedForm的查询条件生成系统
  */
 import SeedForm from "./components/SeedForm/Index";
+import optionsHelper from "./lib/options";
 export default {
   components: {
     SeedForm
@@ -42,10 +43,7 @@ export default {
     seeds: {
       immediate: true,
       handler(seeds = []) {
-        this.filterSeeds = seeds.map(({ options = {}, ...seed }) => ({
-          ...seed,
-          ...(options.filter || {})
-        }));
+        this.filterSeeds = optionsHelper(seeds, "filter");
       }
     }
   }

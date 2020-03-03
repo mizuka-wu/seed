@@ -18,6 +18,7 @@
  * 提供一个dialog的封装
  */
 import SeedForm from "./components/SeedForm/Index";
+import optionsHelper from "./lib/options";
 export default {
   components: {
     SeedForm
@@ -50,10 +51,7 @@ export default {
     seeds: {
       immediate: true,
       handler(seeds = []) {
-        this.formSeeds = seeds.map(({ options = {}, ...seed }) => ({
-          ...seed,
-          ...(options.form || {})
-        }));
+        this.formSeeds = optionsHelper(seeds, "form");
       }
     }
   }

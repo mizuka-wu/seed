@@ -4,6 +4,7 @@
 
 <script>
 import SeedTable from "./components/SeedTable/Index.vue";
+import optionsHelper from "./lib/options";
 export default {
   components: {
     SeedTable
@@ -17,11 +18,7 @@ export default {
   },
   computed: {
     tableSeeds() {
-      const seeds = this.seeds || [];
-      return seeds.map(({ options = {}, ...seed }) => ({
-        ...seed,
-        ...(options.table || {})
-      }));
+      return optionsHelper(this.seeds, "table");
     }
   }
 };

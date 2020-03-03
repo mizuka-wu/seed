@@ -22,9 +22,9 @@
  * @todo 探讨是不是需要拆成mixins
  */
 import SeedPagination from "./SeedPagination.vue";
-import SeedTable from "./SeedTable/Index.vue";
-import SeedFrom from "./SeedForm/DialogContainer.vue";
-import SeedFilter from "./SeedFilter/Index.vue";
+import SeedTable from "./components/SeedTable/Index.vue";
+import SeedFrom from "./components/SeedForm/DialogContainer.vue";
+import SeedFilter from "./SeedFilter.vue";
 
 // 函数
 import debounce from "lodash/debounce";

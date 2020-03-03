@@ -25,6 +25,9 @@
   </el-card>
 </template>
 <script>
+/**
+ * 内部使用SeedForm的查询条件生成系统
+ */
 export default {
   name: "SeedFilter",
   props: {

@@ -7,6 +7,7 @@
     <!-- form -->
     <SeedFrom ref="form" v-bind="$props" />
     <!-- pagination -->
+    <br />
     <SeedPagination
       @change:params="
         paginationParams => (params = { ...params, ...paginationParams })
@@ -22,7 +23,7 @@
  * @todo 探讨是不是需要拆成mixins
  */
 import SeedPagination from "./SeedPagination.vue";
-import SeedTable from "./components/SeedTable/Index.vue";
+import SeedTable from "./SeedTable.vue";
 import SeedFrom from "./SeedFrom.vue";
 import SeedFilter from "./SeedFilter.vue";
 

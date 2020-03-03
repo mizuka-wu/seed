@@ -2,7 +2,7 @@
   <el-card shadow="hover">
     <!-- 查询系统 -->
     <el-row>
-      <SeedForm ref="form" v-bind="$attrs" inline />
+      <SeedForm ref="form" v-bind="$attrs" :seeds="filterSeeds" inline />
     </el-row>
     <!-- 查询，重制按钮 -->
     <el-row>
@@ -27,21 +27,25 @@ export default {
   },
   name: "SeedFilter",
   props: {
-    // seeds: {
-    //   type: Array,
-    //   required: true
-    // }
+    seeds: {
+      type: Array,
+      required: true
+    }
   },
   data() {
     return {
+      filterSeeds: [],
       params: {}
     };
   },
   watch: {
     seeds: {
       immediate: true,
-      handler(seeds) {
-        console.log(seeds);
+      handler(seeds = []) {
+        this.filterSeeds = seeds.map(({ options = {}, ...seed }) => ({
+          ...seed,
+          ...(options.filter || {})
+        }));
       }
     }
   }

@@ -6,6 +6,7 @@
     </template>
     <SeedForm
       ref="form"
+      :seeds="formSeeds"
       v-if="visible"
       v-on="$listeners"
       v-bind="$attrs"
@@ -22,8 +23,15 @@ export default {
     SeedForm
   },
   name: "SeedFromContainer",
+  props: {
+    seeds: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
+      formSeeds: [],
       visible: true,
       isEdit: false,
       form: null
@@ -36,6 +44,17 @@ export default {
       this.$nextTick(() => {
         this.$refs.form.defaultForm = form;
       });
+    }
+  },
+  watch: {
+    seeds: {
+      immediate: true,
+      handler(seeds = []) {
+        this.formSeeds = seeds.map(({ options = {}, ...seed }) => ({
+          ...seed,
+          ...(options.form || {})
+        }));
+      }
     }
   }
 };

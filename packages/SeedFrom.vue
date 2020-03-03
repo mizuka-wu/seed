@@ -8,7 +8,7 @@
       ref="form"
       v-if="visible"
       v-on="$listeners"
-      v-bind="$props"
+      v-bind="$attrs"
     /> </el-dialog
 ></template>
 
@@ -16,11 +16,12 @@
 /**
  * 提供一个dialog的封装
  */
-import SeedForm from "./Index";
+import SeedForm from "./components/SeedForm/Index";
 export default {
   components: {
     SeedForm
   },
+  name: "SeedFromContainer",
   data() {
     return {
       visible: true,

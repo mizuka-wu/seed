@@ -23,7 +23,7 @@
  */
 import SeedPagination from "./SeedPagination.vue";
 import SeedTable from "./components/SeedTable/Index.vue";
-import SeedFrom from "./components/SeedForm/DialogContainer.vue";
+import SeedFrom from "./SeedFrom.vue";
 import SeedFilter from "./SeedFilter.vue";
 
 // 函数

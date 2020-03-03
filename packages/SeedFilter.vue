@@ -2,15 +2,7 @@
   <el-card shadow="hover">
     <!-- 查询系统 -->
     <el-row>
-      <el-form :inline="true">
-        <el-form-item
-          v-for="param of seeds"
-          :key="param.key"
-          :label="param.label || param.key"
-        >
-          <el-input v-model="params[param.key]" />
-        </el-form-item>
-      </el-form>
+      <SeedForm ref="form" v-bind="$attrs" inline />
     </el-row>
     <!-- 查询，重制按钮 -->
     <el-row>
@@ -28,13 +20,17 @@
 /**
  * 内部使用SeedForm的查询条件生成系统
  */
+import SeedForm from "./components/SeedForm/Index";
 export default {
+  components: {
+    SeedForm
+  },
   name: "SeedFilter",
   props: {
-    seeds: {
-      type: Array,
-      required: true
-    }
+    // seeds: {
+    //   type: Array,
+    //   required: true
+    // }
   },
   data() {
     return {

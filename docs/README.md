@@ -4,7 +4,7 @@ heroImage: logo.png
 heroText: Seed组件
 tagline: 一个构建后台页面的快捷组件
 actionText: 快速上手 →
-actionLink: /zh/guide/
+actionLink: /guide/
 features:
   - title: 组件化
     details: 完全组件化，基本不强制以来某个cli进行生成页面，安装即用，渐进式配置

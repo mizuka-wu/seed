@@ -1,13 +1,14 @@
 <template>
   <div>
     <!-- filter -->
-    <SeedFilter v-bind="$props" @search="handleSearch" />
+    <SeedFilter v-if="fetchList" v-bind="$props" @search="handleSearch" />
     <!-- table -->
     <SeedTable v-loading="loading" :data="data" v-bind="$props" />
     <!-- form -->
     <SeedFrom v-if="false" ref="form" v-bind="$props" />
     <!-- pagination -->
     <SeedPagination
+      v-if="fetchList"
       @change:params="
         paginationParams => (params = { ...params, ...paginationParams })
       "
@@ -43,7 +44,7 @@ export default {
      */
     fetchList: {
       type: Function,
-      required: true
+      required: false
     },
     lazy: {
       type: Boolean,
@@ -103,6 +104,9 @@ export default {
   },
   created() {
     const vm = this;
+    if (!this.fetchList) {
+      return;
+    }
     this.fetchData = debounce(async function(reset = false) {
       const params = Object.assign(
         {},

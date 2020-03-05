@@ -18,10 +18,12 @@ export default {
     return {
       seeds: [
         {
-          key: "name"
+          key: "name",
+          title: "名字"
         },
         {
-          key: "address"
+          key: "address",
+          title: "地址"
         },
         {
           key: "pic"

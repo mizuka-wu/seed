@@ -14,5 +14,11 @@ module.exports = {
       title: "Seed",
       description: "A component for building backend manage page"
     }
+  },
+  themeConfig: {
+    sidebar: {
+      "/guide/": ["", "SEED", "DSL"]
+    },
+    displayAllHeaders: true
   }
 };

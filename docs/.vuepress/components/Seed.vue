@@ -15,6 +15,8 @@ export default {
 <style lang="stylus">
 // 修复组件内因为外部主题导致的样式问题
 .seed-demo
+  table
+    margin initial
   th, td
     border initial
 </style>

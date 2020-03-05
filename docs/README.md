@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: logo.png
+heroImage: /logo.png
 heroText: Seed组件
 tagline: 一个构建后台页面的快捷组件
 actionText: 快速上手 →

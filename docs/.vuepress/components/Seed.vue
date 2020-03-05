@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <SeedContainer v-bind="$attrs" />
+    <SeedContainer class="seed-demo" v-bind="$attrs" />
   </ClientOnly>
 </template>
 
@@ -12,3 +12,9 @@ export default {
   }
 };
 </script>
+<style lang="stylus">
+// 修复组件内因为外部主题导致的样式问题
+.seed-demo
+  th, td
+    border initial
+</style>

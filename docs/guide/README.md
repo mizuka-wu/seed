@@ -16,6 +16,8 @@
 
 给你的文件加入以下两个选项即可
 
+### 代码
+
 ```vue
 <template>
   <Seed :fetch-list="fetchList" :seeds="seeds" />
@@ -38,5 +40,7 @@ export default {
 };
 </script>
 ```
+
+### 实际效果
 
 <Seed :seeds="[{ key: 'a', title: '标题' }, {key: 'b', title: '标题2'}]" />

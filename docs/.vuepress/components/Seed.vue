@@ -1,14 +1,33 @@
 <template>
   <ClientOnly>
-    <SeedContainer class="seed-demo" v-bind="$attrs" />
+    <SeedContainer
+      class="seed-demo"
+      v-bind="$attrs"
+      :seeds="seeds"
+      :fetchList="isShowFetchList ? fetchList : undefined"
+    />
   </ClientOnly>
 </template>
 
 <script>
 import SeedContainer from "../../../packages/SeedContainer.vue";
+import ExampleApp from "../../../examples/App";
+import resource from "../../../examples/mock/resource";
 export default {
+  extends: ExampleApp,
+  props: {
+    isShowFetchList: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     SeedContainer
+  },
+  methods: {
+    fetchList(params) {
+      return resource.getList(params);
+    }
   }
 };
 </script>

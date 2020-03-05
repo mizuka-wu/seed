@@ -43,4 +43,4 @@ export default {
 
 ### 实际效果
 
-<Seed :seeds="[{ key: 'a', title: '标题' }, {key: 'b', title: '标题2'}]" />
+<Seed isShowFetchList />

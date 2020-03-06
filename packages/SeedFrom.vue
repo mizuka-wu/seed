@@ -32,7 +32,6 @@ export default {
   },
   data() {
     return {
-      formSeeds: [],
       visible: true,
       isEdit: false,
       form: null
@@ -47,12 +46,14 @@ export default {
       });
     }
   },
-  watch: {
-    seeds: {
-      immediate: true,
-      handler(seeds = []) {
-        this.formSeeds = optionsHelper(seeds, "form");
-      }
+  computed: {
+    /**
+     * 根据类型动态调整
+     */
+    formSeeds() {
+      const { seeds, isEdit } = this;
+      const formSeeds = optionsHelper(seeds, "form");
+      return optionsHelper(formSeeds, isEdit ? "update" : "add");
     }
   }
 };

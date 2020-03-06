@@ -9,6 +9,10 @@ export default function(seeds = [], key) {
   }
   return seeds
     .map(({ options = {}, ...seed }) => {
+      if (Array.isArray(options)) {
+        throw new Error("处理options失败, 请检查是否传入了array");
+      }
+
       const customerSeed = options[key] || {}; // 覆盖的配置
       delete options[key];
       return {
@@ -16,7 +20,7 @@ export default function(seeds = [], key) {
         ...customerSeed,
         options: {
           ...options,
-          ...customerSeed.options
+          ...(Array.isArray(customerSeed.options) ? {} : customerSeed.options)
         }
       };
     })

@@ -3,7 +3,7 @@
     <el-form-item
       :key="formItem.key"
       v-for="formItem of seeds"
-      :label="formItem.title || formItem.key"
+      :label="formItem.label || formItem.key"
     >
       <el-input v-model="form[formItem.key]"></el-input>
     </el-form-item>

@@ -30,6 +30,7 @@ import SeedFilter from "./SeedFilter.vue";
 // 函数
 import debounce from "lodash/debounce";
 import isEqual from "lodash/isEqual";
+import guid from "./lib/guid";
 
 export default {
   components: {
@@ -54,6 +55,10 @@ export default {
     seeds: {
       type: Array,
       required: true
+    },
+    rowKey: {
+      type: String,
+      default: "id"
     }
   },
   data() {
@@ -127,7 +132,14 @@ export default {
           params
         );
 
-        vm.data = data;
+        vm.data = data.map(item =>
+          Object.assign(
+            {
+              _key: item[this.rowKey] || guid()
+            },
+            item
+          )
+        );
 
         /**
          * 修改整个pagination

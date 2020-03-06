@@ -16,6 +16,7 @@ module.exports = {
     }
   },
   themeConfig: {
+    sidebarDepth: 2,
     sidebar: {
       "/guide/": ["", "SEED", "DSL"]
     },

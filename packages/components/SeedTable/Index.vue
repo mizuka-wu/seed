@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="data">
+    <el-table :data="data" :row-key="rowKey">
       <el-table-column
         v-for="column of columns"
         :key="column.key"
@@ -20,6 +20,10 @@ export default {
       type: Array,
       required: true
     },
+    rowKey: {
+      type: String,
+      default: "_key"
+    },
     seeds: {
       type: Array,
       required: true
@@ -28,7 +32,7 @@ export default {
   computed: {
     columns() {
       return this.seeds.map(seed => ({
-        label: seed.title || seed.key,
+        label: seed.label || seed.key,
         prop: seed.key
       }));
     }

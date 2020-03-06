@@ -42,10 +42,6 @@ module.exports = {
         text: "贡献/提问",
         link: "https://github.com/mizuka-wu/Seed/issue"
       },
-      {
-        text: "贡献/提问",
-        link: "https://github.com/mizuka-wu/Seed/issue"
-      },
       { text: "Github", link: "https://github.com/mizuka-wu/Seed" }
     ],
     displayAllHeaders: true

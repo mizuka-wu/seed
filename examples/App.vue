@@ -19,7 +19,10 @@ export default {
       seeds: [
         {
           key: "name",
-          label: "名字"
+          label: "名字",
+          render(h, value) {
+            return <div>"{value}"</div>;
+          }
         },
         {
           key: "address",

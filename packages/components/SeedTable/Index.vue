@@ -4,20 +4,23 @@
       <el-table-column
         v-for="column of columns"
         :key="column.key"
-        :label="column.label"
-        :prop="column.prop"
-      ></el-table-column>
+        :label="column.label || column.key"
+      >
+        <Render slot-scope="scope" :column="column" :scope="scope" />
+      </el-table-column>
     </el-table>
   </div>
 </template>
 <script>
-import components from "./render";
+import Render from "./render/Index.vue";
 import Sortable from "sortablejs";
 
 const TIME = 500;
 
 export default {
-  components,
+  components: {
+    Render
+  },
   name: "SeedTable",
   props: {
     data: {
@@ -39,10 +42,7 @@ export default {
   },
   computed: {
     columns() {
-      return this.seeds.map(seed => ({
-        label: seed.label || seed.key,
-        prop: seed.key
-      }));
+      return this.seeds;
     }
   },
   methods: {

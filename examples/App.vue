@@ -19,11 +19,11 @@ export default {
       seeds: [
         {
           key: "name",
-          title: "名字"
+          label: "名字"
         },
         {
           key: "address",
-          title: "地址"
+          label: "地址"
         },
         {
           key: "pic"

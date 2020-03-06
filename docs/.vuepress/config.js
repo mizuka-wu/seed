@@ -20,6 +20,34 @@ module.exports = {
     sidebar: {
       "/guide/": ["", "SEED", "DSL"]
     },
+    nav: [
+      {
+        text: "学习",
+        items: [
+          {
+            text: "文档",
+            items: [
+              { text: "起步", link: "/guide/index.html" },
+              { text: "SEED配置", link: "/guide/SEED" },
+              { text: "DSL说明", link: "/guide/DSL" }
+            ]
+          },
+          {
+            text: "组件参数",
+            items: [{ text: "起步", link: "/guide/index.html" }]
+          }
+        ]
+      },
+      {
+        text: "贡献/提问",
+        link: "https://github.com/mizuka-wu/Seed/issue"
+      },
+      {
+        text: "贡献/提问",
+        link: "https://github.com/mizuka-wu/Seed/issue"
+      },
+      { text: "Github", link: "https://github.com/mizuka-wu/Seed" }
+    ],
     displayAllHeaders: true
   }
 };

@@ -7,7 +7,8 @@ export default function(seeds = [], key) {
   if (!key) {
     return seeds;
   }
-  return seeds
+
+  const _seeds = seeds
     .map(({ options = {}, ...seed }) => {
       if (Array.isArray(options)) {
         throw new Error("处理options失败, 请检查是否传入了array");
@@ -25,4 +26,16 @@ export default function(seeds = [], key) {
       };
     })
     .filter(({ show = true }) => show);
+
+  const keys = _seeds.map(seed => seed.key);
+
+  if (keys.some(key => typeof key !== "string")) {
+    throw new Error("Seed定义错误，请检查key");
+  }
+
+  if (Array.from(new Set(keys)).length !== keys.length) {
+    throw new Error("Seed中的key重复");
+  }
+
+  return _seeds;
 }

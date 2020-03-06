@@ -20,8 +20,6 @@
 
 通过在`options`中定义`form`, `filter`, `table`这三个属性，该属性下面的对象将会被合并到相应的`seed`对象上，这样就能完成合并啦
 
-### 例
-
 ```javascript
 {
     key: 'a',

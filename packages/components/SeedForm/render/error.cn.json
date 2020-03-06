@@ -1,0 +1,47 @@
+{
+  "default": "%s 字段校验失败！",
+  "required": "%s 必填！",
+  "enum": "%s 不在 %s 之中！",
+  "whitespace": "%s 必填！",
+  "date": {
+    "format": "%s date %s is invalid for format %s",
+    "parse": "%s date could not be parsed, %s is invalid ",
+    "invalid": "%s date %s is invalid"
+  },
+  "types": {
+    "string": "%s 的类型不属于 %s",
+    "method": "%s 的类型不属于 %s (方法)",
+    "array": "%s 不是一个 %s",
+    "object": "%s 不是一个 %s",
+    "number": "%s 不是一个 %s",
+    "date": "%s 不是一个 %s",
+    "boolean": "%s 不是一个 %s",
+    "integer": "%s 不是一个 %s",
+    "float": "%s 不是一个 %s",
+    "regexp": "%s 不是一个 %s",
+    "email": "%s 不是一个 %s",
+    "url": "%s 不是一个 %s",
+    "hex": "%s 不是一个 %s"
+  },
+  "string": {
+    "len": "%s 必须为正好 %s 个字符",
+    "min": "%s 不能少于 %s 个字符",
+    "max": "%s 不得多于 %s 个字符",
+    "range": "%s 必须在 %s 和 %s 个字符之间"
+  },
+  "number": {
+    "len": "%s 必须等于 %s",
+    "min": "%s 不能少于 %s",
+    "max": "%s 不能多余 %s",
+    "range": "%s 必须在 %s - %s"
+  },
+  "array": {
+    "len": "%s 必须正好有 %s 个成员",
+    "min": "%s 不能少于 %s 个成员",
+    "max": "%s c不能多余 %s 个】个成员",
+    "range": "%s 的成员必须处于 %s - %s 个"
+  },
+  "pattern": {
+    "mismatch": "%s 的 %s 不满足正则表达式 %s"
+  }
+}

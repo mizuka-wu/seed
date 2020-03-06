@@ -2,19 +2,25 @@
   <el-form :model="form" :inline="inline" v-if="form">
     <el-form-item
       :key="formItem.key"
-      v-for="formItem of seeds"
+      v-for="(formItem, index) of seeds"
       :label="formItem.label || formItem.key"
     >
-      <el-input v-model="form[formItem.key]"></el-input>
+      <Render
+        :seed="formItem"
+        :scope="{ row: form, column: null, $index: index }"
+        :form.sync="form"
+      />
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-import components from "./render";
+import Render from "./render/Index.vue";
 
 export default {
-  components,
+  components: {
+    Render
+  },
   props: {
     seeds: {
       type: Array
@@ -32,5 +38,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

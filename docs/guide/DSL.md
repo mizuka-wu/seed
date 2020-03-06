@@ -67,6 +67,7 @@
 }
 ```
 
-## 最重要的一点
+## 最重要的几点
 
-和[vue](https://cn.vuejs.org/v2/guide/index.html)等前端框架一样，`key`这个属性绝对不能重复
+- 和[vue](https://cn.vuejs.org/v2/guide/index.html)等前端框架一样，`key`这个属性绝对不能重复
+- `render`的影响是全局的，如果定义的话，请分别给`form`, `table`等地方分开定义，**起码`table`需要分开定义！**，否则`form`中出现纯文本？

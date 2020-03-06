@@ -16,6 +16,7 @@ const components = modules.keys().reduce((components, id) => {
  */
 export default {
   components,
+  name: "ColumnRender",
   props: {
     // scope
     scope: {

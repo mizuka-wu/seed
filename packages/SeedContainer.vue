@@ -9,9 +9,7 @@
     <!-- pagination -->
     <SeedPagination
       v-if="fetchList"
-      @change:params="
-        paginationParams => (params = { ...params, ...paginationParams })
-      "
+      :params.sync="paginationParams"
       ref="pagination"
     />
   </div>
@@ -65,8 +63,9 @@ export default {
     // const vm = this;
     return {
       params: null,
+      paginationParams: null,
       data: [],
-      fetchData: () => {},
+      fetchData: null,
       loading: false
     };
   },
@@ -82,12 +81,11 @@ export default {
     /**
      * 混合之后的params, 分页的未初始化的话，不进行请求
      */
-    queryParams() {
-      const params = this.params;
-      if (params) {
-        return Object.assign({}, params);
-      }
-      return undefined;
+    queryParams({ paginationParams, params }) {
+      return {
+        ...paginationParams,
+        ...params
+      };
     }
   },
   watch: {
@@ -113,15 +111,14 @@ export default {
       return;
     }
     this.fetchData = debounce(async function(reset = false) {
-      const params = Object.assign(
-        {},
-        vm.queryParams,
-        reset
+      const params = {
+        ...vm.queryParams,
+        ...(reset
           ? {
               pageIndex: 1
             }
-          : null
-      );
+          : null)
+      };
 
       /**
        * 获取数据

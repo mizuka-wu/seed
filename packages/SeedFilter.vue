@@ -6,7 +6,7 @@
     </el-row>
     <!-- 查询，重制按钮 -->
     <el-row>
-      <el-button size="small" @click="$emit('search', params)" type="primary"
+      <el-button size="small" @click="handlerSearch" type="primary"
         >查询</el-button
       >
       <el-button size="small" @click="$emit('reset')">重置</el-button>
@@ -30,18 +30,13 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      filterSeeds: [],
-      params: {}
-    };
+  computed: {
+    filterSeeds: ({ seeds }) => optionsHelper(seeds, "filter")
   },
-  watch: {
-    seeds: {
-      immediate: true,
-      handler(seeds = []) {
-        this.filterSeeds = optionsHelper(seeds, "filter");
-      }
+  methods: {
+    handlerSearch() {
+      const form = this.$refs.form;
+      this.$emit("search", form.model);
     }
   }
 };

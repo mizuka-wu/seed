@@ -40,15 +40,14 @@ export default {
     params: {
       immediate: true,
       handler(params) {
-        this.$emit("change:params", params);
+        this.$emit("update:params", params);
       }
     }
   }
 };
 </script>
 <style lang="stylus" scoped>
-.container {
-  width: 100%;
-  text-align: center;
-}
+.container
+  width 100%
+  text-align center
 </style>

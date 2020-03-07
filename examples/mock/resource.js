@@ -58,7 +58,11 @@ export function getList(params) {
       const response = Mock.mock(template);
       log(
         `获取${pageSize * (pageIndex - 1)} ${pageIndex *
-          pageSize}, ${JSON.stringify(response, null, 4)}`
+          pageSize}, 查询条件${JSON.stringify(
+          params,
+          null,
+          2
+        )}, 结果: ${JSON.stringify(response, null, 2)}`
       );
       resolve(response);
     }, Math.random() * 1000);

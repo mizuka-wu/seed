@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" :inline="inline" v-if="form">
+  <el-form :model="form" :inline="inline" :rules="rules" v-if="form">
     <el-form-item
       :key="formItem.key"
       v-for="(formItem, index) of seeds"
@@ -35,6 +35,31 @@ export default {
       defaultForm: null,
       form: {}
     };
+  },
+  computed: {
+    rules() {
+      return this.seeds.reduce((rules, seed) => {
+        const { key, label, options = {} } = seed;
+        const customerRules = options.rules;
+        let _rules = [
+          options.required
+            ? {
+                required: true,
+                message: `${label || key}字段 必填！`
+              }
+            : null
+        ];
+
+        if (Array.isArray(customerRules)) {
+          _rules = [..._rules, ...customerRules];
+        } else {
+          _rules = [..._rules, customerRules];
+        }
+
+        rules[key] = _rules.filter(item => !!item);
+        return rules;
+      }, {});
+    }
   }
 };
 </script>

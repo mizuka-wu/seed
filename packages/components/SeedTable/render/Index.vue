@@ -1,4 +1,5 @@
 <script>
+import valueHelper from "../../../lib/value";
 const modules = require.context("./", false, /^\.\/(.*)\.vue$/);
 
 const components = modules.keys().reduce((components, id) => {
@@ -29,20 +30,9 @@ export default {
     }
   },
   computed: {
-    // 这里有一个自动判断是否是多级的方法
     value() {
       const { row } = this.scope;
-      let key = this.column.key || "";
-      let value = row[key];
-      if (!value && key.includes(".")) {
-        let keys = key.split(".");
-        value = keys.reduce(
-          (data, key) => (typeof data[key] === "undefined" ? {} : data[key]),
-          row
-        );
-        return JSON.stringify(value) === "{}" ? undefined : value;
-      }
-      return value;
+      return valueHelper(row, this.column);
     },
     Tag() {
       if (this.customerRender) {

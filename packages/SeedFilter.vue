@@ -6,10 +6,7 @@
     </el-row>
     <!-- 查询，重制按钮 -->
     <el-row>
-      <el-button
-        size="small"
-        @click="$emit('search', this.params)"
-        type="primary"
+      <el-button size="small" @click="$emit('search', params)" type="primary"
         >查询</el-button
       >
       <el-button size="small" @click="$emit('reset')">重置</el-button>

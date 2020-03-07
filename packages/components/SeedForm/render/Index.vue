@@ -10,9 +10,6 @@ const components = modules.keys().reduce((components, id) => {
   return components;
 }, {});
 
-// import Schema from "async-validator";
-// import ERROR_CN from "./error.cn.json";
-
 export default {
   components,
   name: "FormRender",
@@ -30,8 +27,25 @@ export default {
       required: true
     }
   },
+  computed: {
+    value() {
+      const { seed, form } = this;
+      return form.get(seed.key);
+    }
+  },
+  methods: {
+    handerChange(value) {
+      const {
+        seed: { key },
+        form
+      } = this;
+
+      this.$emit("update:form", form.set(key, value));
+    }
+  },
   render() {
-    return <ElInput />;
+    const { handerChange, value } = this;
+    return <ElInput value={value} onInput={handerChange} />;
   }
 };
 </script>

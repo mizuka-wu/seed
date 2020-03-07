@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" :inline="inline" :rules="rules" v-if="form">
+  <el-form :model="model" :inline="inline" :rules="rules" v-if="form">
     <el-form-item
       :key="formItem.key"
       v-for="(formItem, index) of seeds"
@@ -16,6 +16,8 @@
 
 <script>
 import Render from "./render/Index.vue";
+import Immutable from "immutable";
+import debounce from "lodash/debounce";
 
 export default {
   components: {
@@ -28,12 +30,19 @@ export default {
     inline: {
       type: Boolean,
       default: false
+    },
+    defaultForm: {
+      type: Object
     }
   },
   data() {
+    const { defaultForm } = this;
+    const form = Immutable.fromJS(defaultForm || {});
     return {
-      defaultForm: null,
-      form: {}
+      isUpdating: false,
+      form,
+      // eslint-disable-next-line
+      _formCache: form // form的缓存，不需要vue遍历
     };
   },
   computed: {
@@ -59,6 +68,25 @@ export default {
         rules[key] = _rules.filter(item => !!item);
         return rules;
       }, {});
+    },
+    // 模型，方便验证
+    model: ({ form }) => form.toJS()
+  },
+  methods: {
+    update: debounce(function(form) {
+      const { $data } = this;
+      this.$emit("endUpdate", form.toJS(), $data._formCache.toJS());
+      $data._formCache = form;
+    }, 1000)
+  },
+  watch: {
+    form(form) {
+      this.update(form);
+      if (this.isUpdating) {
+        return;
+      }
+      this.isUpdating = true;
+      this.$emit("startUpdate");
     }
   }
 };

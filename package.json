@@ -36,8 +36,10 @@
     "ant-design-vue": "^1.2.4",
     "core-js": "^3.6.4",
     "element-ui": "^2.4.5",
+    "immutable": "^4.0.0-rc.12",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "lodash-es": "^4.17.15",
     "sortablejs": "^1.10.2",
     "uuid": "^7.0.2",
     "vue": "^2.6.11"

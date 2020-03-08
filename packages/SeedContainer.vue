@@ -1,11 +1,11 @@
 <template>
   <div>
     <!-- filter -->
-    <SeedFilter v-if="fetchList" v-bind="$props" @search="handleSearch" />
+    <SeedFilter v-if="fetchList" v-bind="$attrs" @search="handleSearch" />
     <!-- table -->
-    <SeedTable v-loading="loading" :data="data" v-bind="$props" />
+    <SeedTable v-loading="loading" :data="data" v-bind="$attrs" />
     <!-- form -->
-    <SeedFrom v-if="false" ref="form" v-bind="$props" />
+    <SeedFrom v-if="false" ref="form" v-bind="$attrs" />
     <!-- pagination -->
     <SeedPagination
       v-if="fetchList"
@@ -49,10 +49,6 @@ export default {
       type: Boolean,
       required: false,
       default: false
-    },
-    seeds: {
-      type: Array,
-      required: true
     },
     rowKey: {
       type: String,

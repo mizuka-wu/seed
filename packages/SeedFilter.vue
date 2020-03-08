@@ -23,7 +23,7 @@ export default {
   components: {
     SeedForm
   },
-  name: "SeedFilter",
+  name: "SeedFilterContainer",
   props: {
     seeds: {
       type: Array,

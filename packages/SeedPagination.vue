@@ -16,6 +16,7 @@
 const DEFAULT_PAGESIZE = 10;
 
 export default {
+  name: "SeedPaginationContainer",
   data() {
     return {
       pageSize: 10,

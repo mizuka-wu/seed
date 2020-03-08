@@ -8,6 +8,17 @@
       >
         <Render slot-scope="scope" :column="column" :scope="scope" />
       </el-table-column>
+      <!-- sortable控制 -->
+      <el-table-column v-if="sortable">
+        <template slot-scope="{ $index }">
+          <el-button
+            circle
+            icon="el-icon-upload2"
+            size="mini"
+            @click="exchange($index, 0, true)"
+          />
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>

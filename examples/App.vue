@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png" />
-    <Seed :fetch-list="fetchList" :seeds="seeds" />
+    <Seed :sortable="true" :fetch-list="fetchList" :seeds="seeds" />
   </div>
 </template>
 

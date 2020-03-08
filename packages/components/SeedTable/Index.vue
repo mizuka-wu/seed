@@ -51,7 +51,7 @@
         v-model="isCheckAll"
         >{{ isCheckAll ? "取消" : "全选" }}
       </el-checkbox>
-      <slot :rows="selectedRows" name="batch"></slot>
+      <slot :rows="selectedRows" name="batchList"></slot>
     </div>
   </div>
 </template>

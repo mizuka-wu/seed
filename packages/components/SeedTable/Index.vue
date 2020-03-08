@@ -1,6 +1,19 @@
 <template>
   <div>
-    <el-table :data="data" :row-key="rowKey">
+    <!-- 控制栏 -->
+    <div>
+      <slot />
+      <slot v-if="isShowBatchList" :rows="selectedRows" name="batchList" />
+    </div>
+    <el-table
+      ref="table"
+      :data="data"
+      :row-key="rowKey"
+      @selection-change="onSelectionChange"
+    >
+      <!-- 批量选择 -->
+      <el-table-column v-if="isShowBatchList" type="selection" />
+      <!-- 正常渲染 -->
       <el-table-column
         v-for="column of columns"
         :key="column.key"
@@ -11,7 +24,11 @@
       <!-- sortable控制 -->
       <el-table-column v-if="sortable" width="50">
         <template slot-scope="{ $index }">
-          <div v-for="{ icon, target, isShow } of sortControls" :key="icon">
+          <div
+            v-for="{ icon, target, isShow } of sortControls"
+            :key="icon"
+            style="padding: 5px"
+          >
             <el-button
               circle
               :icon="icon"
@@ -23,6 +40,19 @@
         </template>
       </el-table-column>
     </el-table>
+    <div
+      v-if="isShowBatchList"
+      style="flot: left; display: inline-flex;
+    align-items: flex-end;"
+    >
+      <el-checkbox
+        style="margin-right: 15px;"
+        :indeterminate="isIndeterminate"
+        v-model="isCheckAll"
+        >{{ isCheckAll ? "取消" : "全选" }}
+      </el-checkbox>
+      <slot :rows="selectedRows" name="batch"></slot>
+    </div>
   </div>
 </template>
 <script>
@@ -54,6 +84,11 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      selectedRows: []
+    };
+  },
   computed: {
     columns() {
       return this.seeds;
@@ -78,9 +113,45 @@ export default {
           isShow: index => index < data.length
         }
       ];
+    },
+    isShowBatchList() {
+      return !!this.$scopedSlots.batchList;
+    },
+    isIndeterminate() {
+      if (this.selectedRows.length === 0 || this.isCheckAll) {
+        return false;
+      }
+      return true;
+    },
+    isCheckAll: {
+      get() {
+        return this.selectedRows.length === this.data.length;
+      },
+      /**
+       * @param {boolean} vlaue - 是否全选
+       */
+      set(value) {
+        let table = this.$refs.table;
+        // 全选就是清除之后再全部切换
+        if (table) {
+          table.clearSelection();
+          if (value) {
+            table.toggleAllSelection();
+          }
+        } else {
+          this.$message({
+            type: "error",
+            message: "无法初始化table"
+          });
+        }
+      }
     }
   },
   methods: {
+    onSelectionChange(val) {
+      this.selectedRows = val;
+      this.selectionChange && this.selectionChange(val);
+    },
     // 以下是交换行相关的操作
     /**
      * 模拟的效果
@@ -181,6 +252,15 @@ export default {
         this.data.splice(toAfter ? index : index + 1, 1);
         this.$emit("exchange", array);
       }
+    }
+  },
+  watch: {
+    data(data) {
+      const key = this.rowKey;
+      const keys = data.map(row => row[key]);
+      this.selectedRows = this.selectedRows.filter(row =>
+        keys.includes(row[key])
+      );
     }
   },
   mounted() {

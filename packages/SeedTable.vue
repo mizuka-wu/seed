@@ -1,10 +1,17 @@
 <template>
   <div class="table-container">
-    <!-- 控制器层 -->
-    <el-row>
+    <SeedTable v-bind="$attrs" :seeds="tableSeeds" v-on="$listeners">
+      <!-- 基础控制 -->
       <el-button size="mini" type="primary">添加</el-button>
-    </el-row>
-    <SeedTable v-bind="$attrs" :seeds="tableSeeds" v-on="$listeners" />
+      <!-- 批量 -->
+      <el-button
+        size="mini"
+        type="danger"
+        slot="batchList"
+        slot-scope="{ rows }"
+        >测试{{ rows.length }}</el-button
+      >
+    </SeedTable>
   </div>
 </template>
 
@@ -23,8 +30,8 @@ export default {
     }
   },
   computed: {
-    tableSeeds() {
-      return optionsHelper(this.seeds, "table");
+    tableSeeds({ seeds }) {
+      return optionsHelper(seeds, "table");
     }
   }
 };

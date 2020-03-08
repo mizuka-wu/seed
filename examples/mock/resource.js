@@ -57,12 +57,9 @@ export function getList(params) {
     setTimeout(() => {
       const response = Mock.mock(template);
       log(
-        `获取${pageSize * (pageIndex - 1)} ${pageIndex *
-          pageSize}, 查询条件${JSON.stringify(
-          params,
-          null,
-          2
-        )}, 结果: ${JSON.stringify(response, null, 2)}`
+        `获取${pageSize * (pageIndex - 1)} ${pageIndex * pageSize}, 
+          查询条件${JSON.stringify(params, null, 2)}, 
+        结果: ${JSON.stringify(response, null, 2)}`
       );
       resolve(response);
     }, Math.random() * 1000);

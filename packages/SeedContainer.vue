@@ -57,6 +57,9 @@ export default {
     rowKey: {
       type: String,
       default: "id"
+    },
+    extraParams: {
+      type: Object
     }
   },
   data() {
@@ -81,10 +84,11 @@ export default {
     /**
      * 混合之后的params, 分页的未初始化的话，不进行请求
      */
-    queryParams({ paginationParams, params }) {
+    queryParams({ paginationParams, params, extraParams }) {
       return {
         ...paginationParams,
-        ...params
+        ...params,
+        ...extraParams
       };
     }
   },

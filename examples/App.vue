@@ -1,7 +1,15 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png" />
-    <Seed :sortable="true" :fetch-list="fetchList" :seeds="seeds" />
+    <Seed :sortable="true" :fetch-list="fetchList" :seeds="seeds">
+      <el-button
+        size="mini"
+        type="danger"
+        slot-scope="{ rows }"
+        slot="batchList"
+        >{{ rows.length }}已选择</el-button
+      >
+    </Seed>
   </div>
 </template>
 

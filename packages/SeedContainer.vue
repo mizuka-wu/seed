@@ -1,11 +1,16 @@
 <template>
   <div>
     <!-- filter -->
-    <SeedFilter v-if="fetchList" v-bind="$attrs" @search="handleSearch" />
+    <SeedFilter
+      ref="filter"
+      v-if="fetchList"
+      v-bind="$attrs"
+      @search="handleSearch"
+    />
     <!-- table -->
-    <SeedTable v-loading="loading" :data="data" v-bind="$attrs" />
+    <SeedTable ref="table" v-loading="loading" :data="data" v-bind="$attrs" />
     <!-- form -->
-    <SeedFrom v-if="false" ref="form" v-bind="$attrs" />
+    <SeedFrom ref="form" v-if="false" v-bind="$attrs" />
     <!-- pagination -->
     <SeedPagination
       v-if="fetchList"

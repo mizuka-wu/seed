@@ -1,20 +1,3 @@
-<template>
-  <div class="table-container">
-    <SeedTable v-bind="$attrs" :seeds="tableSeeds" v-on="$listeners">
-      <!-- 基础控制 -->
-      <el-button size="mini" type="primary">添加</el-button>
-      <!-- 批量 -->
-      <el-button
-        size="mini"
-        type="danger"
-        slot="batchList"
-        slot-scope="{ rows }"
-        >测试{{ rows.length }}</el-button
-      >
-    </SeedTable>
-  </div>
-</template>
-
 <script>
 import SeedTable from "./components/SeedTable/Index.vue";
 import optionsHelper from "./lib/options";
@@ -33,6 +16,27 @@ export default {
     tableSeeds({ seeds }) {
       return optionsHelper(seeds, "table");
     }
+  },
+  // 改用render函数，保证slot的传递
+  render() {
+    const { tableSeeds, $attrs, $listeners } = this;
+    const batchList = this.$parent.$scopedSlots.batchList;
+
+    const data = {
+      props: $attrs,
+      on: $listeners,
+      scopedSlots: {
+        batchList
+      }
+    };
+
+    return (
+      <SeedTable class="table-container" seeds={tableSeeds} {...data}>
+        <ElButton size="mini" type="primary">
+          添加
+        </ElButton>
+      </SeedTable>
+    );
   }
 };
 </script>

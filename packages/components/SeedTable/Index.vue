@@ -9,14 +9,17 @@
         <Render slot-scope="scope" :column="column" :scope="scope" />
       </el-table-column>
       <!-- sortable控制 -->
-      <el-table-column v-if="sortable">
+      <el-table-column v-if="sortable" width="50">
         <template slot-scope="{ $index }">
-          <el-button
-            circle
-            icon="el-icon-upload2"
-            size="mini"
-            @click="exchange($index, 0, true)"
-          />
+          <div v-for="{ icon, target, isShow } of sortControls" :key="icon">
+            <el-button
+              circle
+              :icon="icon"
+              size="mini"
+              v-if="isShow($index)"
+              @click="exchangeRow($index, target($index), true)"
+            />
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -54,6 +57,27 @@ export default {
   computed: {
     columns() {
       return this.seeds;
+    },
+    sortControls({ data }) {
+      return [
+        // 置顶
+        {
+          icon: "el-icon-upload2",
+          target: () => 0,
+          isShow: index => index !== 0
+        },
+        // 向上
+        {
+          icon: "el-icon-caret-top",
+          target: index => index - 1,
+          isShow: index => index !== 0
+        },
+        {
+          icon: "el-icon-caret-bottom",
+          target: index => index + 1,
+          isShow: index => index < data.length
+        }
+      ];
     }
   },
   methods: {

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible="visible" v-on="$listeners" destroy-on-close>
+  <el-dialog :visible.sync="visible" v-on="$listeners" destroy-on-close>
     <template slot="title">
       {{ isEdit ? "编辑" : "添加" }}
       <slot name="title" />
@@ -8,11 +8,12 @@
       ref="form"
       :seeds="formSeeds"
       v-if="visible"
+      :defaultForm="defaultForm"
       v-on="$listeners"
       v-bind="$attrs"
     />
     <template slot="footer">
-      <el-button size="mini" type="primary" @click="confirm">提交</el-button>
+      <el-button size="mini" type="primary" @click="submit">提交</el-button>
       <el-button size="mini">取消</el-button>
     </template>
   </el-dialog>
@@ -30,31 +31,39 @@ export default {
     seeds: {
       type: Array,
       required: true
-    },
-    visible: {
-      type: Boolean,
-      default: true
     }
   },
   data() {
     return {
       isEdit: false,
-      form: null
+      form: null,
+      visible: false,
+      defaultForm: null
     };
   },
   methods: {
     open(form = null) {
+      this.defaultForm = form;
       this.isEdit = !!form;
       this.visible = true;
-      this.$nextTick(() => {
-        this.$refs.form.defaultForm = form;
-      });
     },
-    confirm() {
+    submit() {
       const form = this.$refs.form;
-      form.validate().then(validate => {
-        console.log(validate);
-      });
+      form
+        .validate()
+        .then(validated => {
+          if (validated) {
+            this.$emit("submit", {
+              form: form.model,
+              isAdd: !this.isEdit
+            });
+            this.visible = false;
+          }
+        })
+        .catch(e => {
+          this.visible = false;
+          console.error(e);
+        });
     }
   },
   computed: {

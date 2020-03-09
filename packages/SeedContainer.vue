@@ -88,6 +88,9 @@ export default {
           behavior: "smooth"
         });
       });
+    },
+    refresh() {
+      this.fetchData && this.fetchData();
     }
   },
   computed: {

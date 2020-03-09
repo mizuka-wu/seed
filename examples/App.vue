@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png" />
-    <Seed :fetchList="fetchList" :seeds="seeds" :addItem="addItem">
+    <Seed
+      :fetchList="fetchList"
+      :seeds="seeds"
+      :addItem="addItem"
+      :updateItem="updateItem"
+      :deleteItem="deleteItem"
+    >
       <el-button
         size="mini"
         type="danger"
@@ -69,6 +75,12 @@ export default {
     },
     addItem(row) {
       return resource.addItem(row);
+    },
+    updateItem(row) {
+      return resource.updateItem(row);
+    },
+    deleteItem(row) {
+      return resource.deleteItem(row);
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png" />
-    <Seed :fetch-list="fetchList" :seeds="seeds">
+    <Seed :fetchList="fetchList" :seeds="seeds" :addItem="addItem">
       <el-button
         size="mini"
         type="danger"
@@ -63,6 +63,9 @@ export default {
   methods: {
     fetchList(params) {
       return resource.getList(params);
+    },
+    addItem(row) {
+      return resource.addItem(row);
     }
   }
 };

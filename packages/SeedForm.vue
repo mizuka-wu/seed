@@ -10,13 +10,11 @@
       v-if="visible"
       v-on="$listeners"
       v-bind="$attrs"
-    /> </el-dialog
-></template>
+    />
+  </el-dialog>
+</template>
 
 <script>
-/**
- * 提供一个dialog的封装
- */
 import SeedForm from "./components/SeedForm/Index";
 import optionsHelper from "./lib/options";
 export default {

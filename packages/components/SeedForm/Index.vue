@@ -1,5 +1,11 @@
 <template>
-  <el-form :model="model" :inline="inline" :rules="rules" v-if="form">
+  <el-form
+    ref="form"
+    :model="model"
+    :inline="inline"
+    :rules="rules"
+    v-if="form"
+  >
     <el-form-item
       :key="formItem.key"
       v-for="(formItem, index) of seeds"
@@ -77,7 +83,11 @@ export default {
       const { $data } = this;
       this.$emit("endUpdate", form.toJS(), $data._formCache.toJS());
       $data._formCache = form;
-    }, 1000)
+    }, 1000),
+    validate() {
+      const form = this.$refs.form;
+      return form.validate();
+    }
   },
   watch: {
     form(form) {

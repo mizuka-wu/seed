@@ -18,7 +18,8 @@ module.exports = {
   themeConfig: {
     sidebarDepth: 2,
     sidebar: {
-      "/guide/": ["", "SEED", "DSL"]
+      "/guide/": ["", "SEED", "DSL"],
+      "/components/": ["Form.html", "Table.html"]
     },
     nav: [
       {
@@ -35,8 +36,8 @@ module.exports = {
           {
             text: "组件",
             items: [
-              { text: "Form", link: "/components/Form" },
-              { text: "Table", link: "/components/Table" }
+              { text: "Form", link: "/components/Form.html" },
+              { text: "Table", link: "/components/Table.html" }
             ]
           }
         ]

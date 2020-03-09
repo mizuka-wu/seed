@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible="visible" v-on="$listeners">
+  <el-dialog :visible="visible" v-on="$listeners" destroy-on-close>
     <template slot="title">
       {{ isEdit ? "编辑" : "添加" }}
       <slot name="title" />
@@ -11,6 +11,10 @@
       v-on="$listeners"
       v-bind="$attrs"
     />
+    <template slot="footer">
+      <el-button size="mini" type="primary" @click="confirm">提交</el-button>
+      <el-button size="mini">取消</el-button>
+    </template>
   </el-dialog>
 </template>
 
@@ -45,6 +49,10 @@ export default {
       this.$nextTick(() => {
         this.$refs.form.defaultForm = form;
       });
+    },
+    confirm() {
+      const form = this.$refs.form;
+      form.validate();
     }
   },
   computed: {

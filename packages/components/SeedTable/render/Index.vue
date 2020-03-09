@@ -34,17 +34,18 @@ export default {
       const { row } = this.scope;
       return valueHelper(row, this.column);
     },
-    Tag() {
-      if (this.customerRender) {
+    isCustomerRender: ({ column }) => typeof column.render === "function",
+    Tag({ isCustomerRender, column }) {
+      if (isCustomerRender) {
         return "div";
       }
-      const render = this.column.render + "Render";
+      const render = column.render + "Render";
       return render in components ? render : "div";
     }
   },
   render(h) {
-    const { value, Tag, column, scope } = this;
-    if (typeof column.render === "function") {
+    const { value, Tag, column, scope, isCustomerRender } = this;
+    if (isCustomerRender) {
       return column.render(h, value, column, scope);
     }
     return (

@@ -28,6 +28,14 @@ export default {
     }
   },
   computed: {
+    isCustomerRender: ({ seed }) => typeof seed.render === "function",
+    Tag({ isCustomerRender, seed }) {
+      if (isCustomerRender) {
+        return "ElInput";
+      }
+      const render = seed.render + "Render";
+      return render in components ? render : "ElInput";
+    },
     value() {
       const { seed, form } = this;
       return form.get(seed.key);
@@ -44,8 +52,8 @@ export default {
     }
   },
   render() {
-    const { handerChange, value } = this;
-    return <ElInput value={value} onInput={handerChange} />;
+    const { handerChange, value, Tag } = this;
+    return <Tag value={value} onInput={handerChange} />;
   }
 };
 </script>

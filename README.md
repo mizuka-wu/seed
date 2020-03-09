@@ -39,3 +39,5 @@ Fork this project
 ## License
 
 This project is licensed under the [MIT License](./LICENSE)
+
+![donate](https://github.com/mizuka-wu/mizuka-wu.github.io/blob/master/assets/donate.jpg?raw=true)

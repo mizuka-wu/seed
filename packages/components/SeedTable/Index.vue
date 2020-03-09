@@ -37,7 +37,7 @@
             <el-button
               circle
               :icon="icon"
-              size="mini"
+              size="small"
               v-if="isShow($index)"
               @click="exchangeRow($index, target($index), true)"
             />

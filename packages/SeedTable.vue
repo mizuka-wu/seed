@@ -47,7 +47,7 @@ export default {
                 {updateItem && (
                   <ElButton
                     type="warning"
-                    size="mini"
+                    size="small"
                     onClick={() => openForm(row)}
                   >
                     编辑
@@ -60,7 +60,7 @@ export default {
                     title="您确定删除该记录么？"
                     onOnConfirm={() => deleteRow(row)}
                   >
-                    <ElButton type="danger" size="mini" slot="reference">
+                    <ElButton type="danger" size="small" slot="reference">
                       删除
                     </ElButton>
                   </ElPopconfirm>
@@ -148,7 +148,7 @@ export default {
       <div class="table-container">
         <SeedTable seeds={tableSeeds} {...tableVnodeData}>
           {addItem && (
-            <ElButton size="mini" type="primary" onClick={() => openForm()}>
+            <ElButton size="small" type="primary" onClick={() => openForm()}>
               添加
             </ElButton>
           )}

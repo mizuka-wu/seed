@@ -9,7 +9,7 @@
       :deleteItem="deleteItem"
     >
       <el-button
-        size="mini"
+        size="small"
         type="danger"
         slot-scope="{ rows }"
         slot="batchList"

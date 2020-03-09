@@ -13,8 +13,8 @@
       v-bind="$attrs"
     />
     <template slot="footer">
-      <el-button size="mini" type="primary" @click="submit">提交</el-button>
-      <el-button size="mini">取消</el-button>
+      <el-button size="small" type="primary" @click="submit">提交</el-button>
+      <el-button size="small">取消</el-button>
     </template>
   </el-dialog>
 </template>

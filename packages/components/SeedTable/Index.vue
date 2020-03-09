@@ -298,13 +298,13 @@ export default {
       position sticky
       top 0
       z-index 10
-  >>>table
-    position sticky
-    top 0
-    thead
-      position relative
-      th
+      table
         position sticky
         top 0
-        z-index 10
+        thead
+          position relative
+          th
+            position sticky
+            top 0
+            z-index 10
 </style>

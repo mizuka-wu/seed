@@ -34,7 +34,7 @@ export default {
   computed: {
     tableSeeds({
       seeds,
-      $scopedSlots,
+      $parent,
       updateItem,
       deleteItem,
       openForm,
@@ -43,8 +43,8 @@ export default {
       const tableSeeds = optionsHelper(seeds, "table");
 
       // 判断是否需要增加工具列
-      const control = $scopedSlots.control;
-      if (control || updateItem || deleteItem) {
+      const scopeControl = $parent.$scopedSlots.control;
+      if (scopeControl || updateItem || deleteItem) {
         tableSeeds.push({
           key: "_control",
           label: " ",
@@ -52,6 +52,7 @@ export default {
             const row = scope.row;
             return (
               <div class="control-column">
+                {scopeControl && scopeControl(scope)}
                 {updateItem && (
                   <ElButton
                     type="warning"

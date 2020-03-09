@@ -33,8 +33,11 @@ module.exports = {
             ]
           },
           {
-            text: "组件参数",
-            items: [{ text: "起步", link: "/guide/index.html" }]
+            text: "组件",
+            items: [
+              { text: "Form", link: "/components/Form" },
+              { text: "Table", link: "/components/Table" }
+            ]
           }
         ]
       },

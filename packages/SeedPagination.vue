@@ -43,6 +43,11 @@ export default {
       handler(params) {
         this.$emit("update:params", params);
       }
+    },
+    pageIndex(index) {
+      if (index > 1) {
+        this.$emit("scrollUp");
+      }
     }
   }
 };

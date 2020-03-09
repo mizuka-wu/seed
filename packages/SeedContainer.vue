@@ -13,6 +13,7 @@
     <SeedFrom ref="form" v-if="false" v-bind="$attrs" />
     <!-- pagination -->
     <SeedPagination
+      @scrollUp="scrollUp"
       v-if="fetchList"
       :params.sync="paginationParams"
       ref="pagination"
@@ -34,6 +35,8 @@ import SeedFilter from "./SeedFilter.vue";
 import debounce from "lodash/debounce";
 import isEqual from "lodash/isEqual";
 import guid from "./lib/guid";
+
+const OFFSET = 16; // table距离filter的偏移量，保证不完全吸顶
 
 export default {
   components: {
@@ -78,6 +81,16 @@ export default {
       this.$nextTick(() => {
         this.params = params;
         this.$refs.pagination.reset();
+      });
+    },
+    scrollUp() {
+      this.$nextTick(() => {
+        const table = this.$refs.table;
+        const { top } = table.$el.getBoundingClientRect();
+        window.scrollTo({
+          top: top + window.scrollY - OFFSET,
+          behavior: "smooth"
+        });
       });
     }
   },

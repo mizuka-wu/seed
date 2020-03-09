@@ -1,9 +1,13 @@
 <template>
-  <div>
+  <div :class="{ 'sticky-head': stickyHead }">
     <!-- 控制栏 -->
-    <div>
-      <slot />
-      <slot v-if="isShowBatchList" :rows="selectedRows" name="batchList" />
+    <div class="control-container">
+      <div>
+        <slot v-if="isShowBatchList" :rows="selectedRows" name="batchList" />
+      </div>
+      <div>
+        <slot />
+      </div>
     </div>
     <el-table
       ref="table"
@@ -40,11 +44,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div
-      v-if="isShowBatchList"
-      style="flot: left; display: inline-flex;
-    align-items: flex-end;"
-    >
+    <div v-if="isShowBatchList" class="batch-control">
       <el-checkbox
         style="margin-right: 15px;"
         :indeterminate="isIndeterminate"
@@ -82,6 +82,10 @@ export default {
     sortable: {
       type: Boolean,
       default: false
+    },
+    stickyHead: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -278,3 +282,29 @@ export default {
   }
 };
 </script>
+<style lang="stylus" scoped>
+.control-container
+  display flex
+  justify-content space-between
+.batch-control
+  display flex
+  margin 10px 0
+  align-items center
+.sticky-head
+  >>>.el-table
+    overflow visible
+    .el-table__header-wrapper
+      overflow visible
+      position sticky
+      top 0
+      z-index 10
+  >>>table
+    position sticky
+    top 0
+    thead
+      position relative
+      th
+        position sticky
+        top 0
+        z-index 10
+</style>

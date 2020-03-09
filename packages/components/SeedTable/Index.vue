@@ -22,6 +22,7 @@
         v-for="column of columns"
         :key="column.key"
         :label="column.label || column.key"
+        v-bind="column.options || {}"
       >
         <Render slot-scope="scope" :column="column" :scope="scope" />
       </el-table-column>

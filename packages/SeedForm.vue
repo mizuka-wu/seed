@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visible">
+  <el-dialog :visible="visible" v-on="$listeners">
     <template slot="title">
       {{ isEdit ? "编辑" : "添加" }}
       <slot name="title" />
@@ -26,11 +26,14 @@ export default {
     seeds: {
       type: Array,
       required: true
+    },
+    visible: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
-      visible: true,
       isEdit: false,
       form: null
     };

@@ -9,8 +9,6 @@
     />
     <!-- table -->
     <SeedTable ref="table" v-loading="loading" :data="data" v-bind="$attrs" />
-    <!-- 内置的表单 -->
-    <SeedForm ref="form" v-if="showForm" v-bind="$attrs" />
     <!-- pagination -->
     <SeedPagination
       @scrollUp="scrollUp"
@@ -29,7 +27,6 @@
 import SeedPagination from "./SeedPagination.vue";
 import SeedTable from "./SeedTable.vue";
 import SeedFilter from "./SeedFilter.vue";
-import SeedForm from "./SeedForm.vue";
 
 // 函数
 import debounce from "lodash/debounce";
@@ -42,7 +39,6 @@ export default {
   components: {
     SeedPagination,
     SeedTable,
-    SeedForm,
     SeedFilter
   },
   props: {
@@ -73,8 +69,7 @@ export default {
       paginationParams: null,
       data: [],
       fetchData: null,
-      loading: false,
-      showForm: false
+      loading: false
     };
   },
   methods: {

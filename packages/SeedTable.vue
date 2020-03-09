@@ -2,6 +2,14 @@
 import SeedTable from "./components/SeedTable/Index.vue";
 import SeedForm from "./SeedForm.vue";
 import optionsHelper from "./lib/options";
+import { Message } from "element-ui";
+
+const injectErrorCatch = function(promise) {
+  promise.catch(e => {
+    Message.error(e.message);
+  });
+};
+
 export default {
   components: {
     SeedTable,
@@ -108,7 +116,7 @@ export default {
       if (form) {
         const promise = this.$props[isAdd ? "addItem" : "updateItem"](form);
         if (promise instanceof Promise) {
-          promise.then(() => this.refresh());
+          injectErrorCatch(promise.then(() => this.refresh()));
         } else {
           this.$nextTick(() => {
             setTimeout(() => {
@@ -121,7 +129,7 @@ export default {
     deleteRow(row) {
       const promise = this.deleteItem(row);
       if (promise instanceof Promise) {
-        promise.then(() => this.refresh());
+        injectErrorCatch(promise.then(() => this.refresh()));
       } else {
         this.$nextTick(() => {
           setTimeout(() => {

@@ -8,7 +8,11 @@
       @search="handleSearch"
     />
     <!-- table -->
-    <SeedTable ref="table" v-loading="loading" :data="data" v-bind="$attrs" />
+    <SeedTable ref="table" v-loading="loading" :data="data" v-bind="$attrs">
+      <template slot="control" slot-scope="scope">
+        <slot :scope="scope" name="control" />
+      </template>
+    </SeedTable>
     <!-- pagination -->
     <SeedPagination
       @scrollUp="scrollUp"

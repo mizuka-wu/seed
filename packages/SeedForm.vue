@@ -52,7 +52,9 @@ export default {
     },
     confirm() {
       const form = this.$refs.form;
-      form.validate();
+      form.validate().then(validate => {
+        console.log(validate);
+      });
     }
   },
   computed: {

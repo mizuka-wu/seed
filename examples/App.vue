@@ -30,6 +30,9 @@ export default {
           label: "名字",
           render(h, value) {
             return <div>"{value}"</div>;
+          },
+          options: {
+            required: true
           }
         },
         {

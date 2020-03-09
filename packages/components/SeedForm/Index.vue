@@ -8,6 +8,7 @@
   >
     <el-form-item
       :key="formItem.key"
+      :prop="formItem.key"
       v-for="(formItem, index) of seeds"
       :label="formItem.label || formItem.key"
     >
@@ -60,7 +61,8 @@ export default {
           options.required
             ? {
                 required: true,
-                message: `${label || key}字段 必填！`
+                message: `${label || key}字段 必填！`,
+                trigger: "blur"
               }
             : null
         ];

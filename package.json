@@ -8,7 +8,7 @@
     "docs:build": "npx vuepress build docs",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "changelog": "npx conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    "changelog": "npx conventional-changelog -p angular -i ./lib/CHANGELOG.md -s -r 0"
   },
   "author": {
     "name": "Edward Wu",

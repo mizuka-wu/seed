@@ -62,6 +62,7 @@ export default {
         })
         .catch(e => {
           this.visible = false;
+          // eslint-disable-next-line
           console.error(e);
         });
     }

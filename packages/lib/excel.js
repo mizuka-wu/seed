@@ -4,7 +4,6 @@
 import Excel from "exceljs/dist/es5/exceljs.browser";
 import { saveAs } from "file-saver";
 import optionsHelper from "./options";
-import columnRender from "@/components/SeedForm/render/index.vue";
 
 /**
  * 将seed转为excelJS专用格式
@@ -89,7 +88,7 @@ export function readExcelFromTemplate(data, seeds) {
 export function generateExcel(rows, seeds, workbook) {
   workbook = workbook || new Excel.Workbook();
 
-  let worksheet = workbook.addWorksheet("导出数据");
+  let worksheet = workbook.addWorksheet("数据");
   let columns = getColumns(seeds);
   worksheet.columns = columns;
 
@@ -109,18 +108,17 @@ export function generateExcel(rows, seeds, workbook) {
                       resolve(_seed.options.excelRenderer(row));
                     } else {
                       // 模拟环境然后生成vue项目
-                      let context = {
-                        row,
-                        column: _seed,
-                        ...columnRender.computed
-                      };
+                      // let context = {
+                      //   row,
+                      //   column: _seed,
+                      //   ...columnRender.computed
+                      // };
                       // let renderer =
                       //   columnRender.components[context.renderer()];
                       /**
                        * 如果拥有Excel相关渲染函数的话，就交给它们
                        * @todo 拥有文件后缀支持插入图片
                        */
-                      let contextValue = context.value();
                       // if (renderer && renderer.excelRenderer) {
                       //   // 后缀系统
                       //   // if (
@@ -136,7 +134,7 @@ export function generateExcel(rows, seeds, workbook) {
                       //   resolve(renderer.excelRenderer(_seed, contextValue));
                       // } else {
                       // }
-                      resolve(contextValue);
+                      resolve(1);
                     }
                   } catch (e) {
                     reject(e);

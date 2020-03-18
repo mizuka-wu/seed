@@ -2,13 +2,17 @@
   <div id="app">
     <img src="./assets/logo.png" />
     <Seed :fetchList="fetchList" :seeds="seeds" :addItem="addItem">
-      <el-button
-        size="small"
-        type="danger"
-        slot-scope="{ rows }"
-        slot="batchList"
-        >{{ rows.length }}已选择</el-button
-      >
+      <template #batchList="{ rows }">
+        <el-button size="small" type="danger"
+          >{{ rows.length }}已选择</el-button
+        >
+      </template>
+      <template #control="scope">
+        <el-button>审核{{ scope.row }}</el-button>
+      </template>
+      <template #tools>
+        hello
+      </template>
     </Seed>
   </div>
 </template>

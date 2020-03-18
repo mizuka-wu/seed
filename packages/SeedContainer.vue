@@ -6,11 +6,20 @@
       v-if="fetchList"
       v-bind="$attrs"
       @search="handleSearch"
+      :seeds="seeds"
     />
     <!-- table -->
-    <SeedTable ref="table" v-loading="loading" :data="data" v-bind="$attrs">
-      <template slot="control" slot-scope="scope">
-        <slot :scope="scope" name="control" />
+    <SeedTable
+      ref="table"
+      v-loading="loading"
+      :data="data"
+      v-bind="$attrs"
+      :seeds="seeds"
+    >
+      <template #tools>
+        <ElButton size="small" type="success" @click="exportExcel">
+          导出为Excel
+        </ElButton>
       </template>
     </SeedTable>
     <!-- pagination -->
@@ -36,6 +45,8 @@ import SeedFilter from "./SeedFilter.vue";
 import debounce from "lodash/debounce";
 import isEqual from "lodash/isEqual";
 import guid from "./lib/guid";
+import optionsHelper from "./lib/options.js";
+import { generateExcel, download } from "./lib/excel";
 
 const OFFSET = 16; // table距离filter的偏移量，保证不完全吸顶
 
@@ -64,6 +75,10 @@ export default {
     },
     extraParams: {
       type: Object
+    },
+    seeds: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -95,6 +110,11 @@ export default {
     },
     refresh() {
       this.fetchData && this.fetchData();
+    },
+    async exportExcel() {
+      const seeds = optionsHelper(this.seeds, "table");
+      const workbook = await generateExcel([], seeds);
+      download(workbook);
     }
   },
   computed: {

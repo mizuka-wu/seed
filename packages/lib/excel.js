@@ -111,7 +111,7 @@ export async function generateExcel(
  * @param {*} seeds
  */
 async function rowRenderer(row, seeds) {
-  seeds = optionsHelper(optionsHelper(seeds, "table"), "excel"); // 获取excel的渲染方案
+  seeds = optionsHelper(seeds, "excel"); // 获取excel的渲染方案
   /**
    * 全列渲染，增加Promise.all 防止未来使用renderfunction的时候造成的问题
    */

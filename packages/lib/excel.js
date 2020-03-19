@@ -4,6 +4,7 @@
 import Excel from "exceljs/dist/es5/exceljs.browser";
 import { saveAs } from "file-saver";
 import optionsHelper from "./options";
+import valueHelper from "./value";
 
 /**
  * 将seed转为excelJS专用格式
@@ -85,79 +86,60 @@ export function readExcelFromTemplate(data, seeds) {
  * @param {*} seeds
  * @param {*} workbook
  */
-export function generateExcel(rows, seeds, workbook) {
+export async function generateExcel(
+  rows,
+  seeds,
+  { workbook, sheetName = "数据" } = {}
+) {
   workbook = workbook || new Excel.Workbook();
 
-  let worksheet = workbook.addWorksheet("数据");
+  let worksheet = workbook.addWorksheet(sheetName);
   let columns = getColumns(seeds);
   worksheet.columns = columns;
 
-  return rows
-    .reduce(
-      (promise, row) =>
-        promise
-          .then(() =>
-            Promise.all(
-              columns.map(({ _seed }) => {
-                return new Promise((resolve, reject) => {
-                  try {
-                    if (
-                      _seed.options.excelRenderer &&
-                      typeof _seed.options.excelRenderer === "function"
-                    ) {
-                      resolve(_seed.options.excelRenderer(row));
-                    } else {
-                      // 模拟环境然后生成vue项目
-                      // let context = {
-                      //   row,
-                      //   column: _seed,
-                      //   ...columnRender.computed
-                      // };
-                      // let renderer =
-                      //   columnRender.components[context.renderer()];
-                      /**
-                       * 如果拥有Excel相关渲染函数的话，就交给它们
-                       * @todo 拥有文件后缀支持插入图片
-                       */
-                      // if (renderer && renderer.excelRenderer) {
-                      //   // 后缀系统
-                      //   // if (
-                      //   //   value.extension &&
-                      //   //   ['jpeg', 'png', 'gif'].includes(value.extension)
-                      //   // ) {
-                      //   //   let imageId = workbook.addImage({
-                      //   //     buffer: '',
-                      //   //     extension: value.extension
-                      //   //   })
-                      //   //   worksheet.addImage(imageId, 'B1:D1')
-                      //   // }
-                      //   resolve(renderer.excelRenderer(_seed, contextValue));
-                      // } else {
-                      // }
-                      resolve(1);
-                    }
-                  } catch (e) {
-                    reject(e);
-                  }
-                }).then(value => {
-                  // 优化为文本插入
-                  row[_seed.key] = Array.isArray(value)
-                    ? value.join("\n")
-                    : value;
-                  return row;
-                });
-              })
-            )
-          )
-          .then(() => {
-            worksheet.addRow(row);
-            return 0;
-          }),
-      Promise.resolve()
-    )
-    .then(() => {
-      return workbook;
-    });
+  for (let row of rows) {
+    let renderedRow = await rowRenderer(row, seeds, workbook, worksheet);
+    worksheet.addRow(renderedRow);
+  }
+
+  return workbook;
+}
+
+/**
+ * 渲染单行数据
+ * @param {*} row
+ * @param {*} seeds
+ */
+async function rowRenderer(row, seeds) {
+  seeds = optionsHelper(optionsHelper(seeds, "table"), "excel"); // 获取excel的渲染方案
+  /**
+   * 全列渲染，增加Promise.all 防止未来使用renderfunction的时候造成的问题
+   */
+  return Promise.all(
+    seeds.map(async seed => {
+      const value = valueHelper(row, seed);
+
+      /**
+       * @todo 转excel相关格式, jsx支持
+       */
+      let result = value;
+      // typeof seed.render === "function" ? await seed.render(value) : value;
+
+      // 判断result是否是jpg等图片，是的话加入成图片
+      // if (
+      //   value.extension &&
+      //   ['jpeg', 'png', 'gif'].includes(value.extension)
+      // ) {
+      //   let imageId = workbook.addImage({
+      //     buffer: '',
+      //     extension: value.extension
+      //   })
+      //   worksheet.addImage(imageId, 'B1:D1')
+      // }
+
+      return Array.isArray(result) ? result.join(",") : result;
+    })
+  );
 }
 
 export default Excel;

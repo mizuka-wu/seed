@@ -57,7 +57,7 @@
   </div>
 </template>
 <script>
-import Render from "./render/Index.vue";
+import Render from "./render/index.vue";
 import Sortable from "sortablejs";
 
 const TIME = 500;

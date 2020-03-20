@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import Render from "./render/Index.vue";
 import Immutable from "immutable";
 import debounce from "lodash/debounce";
+import Render from "./render/index.vue";
 
 export default {
   components: {

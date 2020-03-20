@@ -3,7 +3,7 @@ const modules = require.context("./", false, /^\.\/(.*)\.vue$/);
 
 const components = modules.keys().reduce((components, id) => {
   const renderName = `${/^\.\/(.*)\.vue$/.exec(id)[1]}Render`;
-  if (renderName === "IndexRender") {
+  if (renderName === "indexRender") {
     return components;
   }
   components[renderName] = modules(id);

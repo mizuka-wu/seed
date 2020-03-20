@@ -3,21 +3,20 @@
  */
 import Excel from "exceljs/dist/es5/exceljs.browser";
 import { saveAs } from "file-saver";
-import columnRender from "@/components/SeedForm/render/index.vue";
-import { Notification } from "element-ui";
-const MAX_PAGE_SIZE = 50; // 一次性拉取的数据数量
+import optionsHelper from "./options";
+import valueHelper from "./value";
 
 /**
  * 将seed转为excelJS专用格式
  * @param {*} formItems
  */
-function getColumns(formItems) {
-  return formItems.map(item => {
+function getColumns(seeds) {
+  return optionsHelper(seeds, "excel").map(seed => {
     let column = {
-      header: item.label ? `${item.label}(${item.key})` : item.key,
-      key: item.key,
+      header: seed.label ? `${seed.label}(${seed.key})` : seed.key,
+      key: seed.key,
       width: 20,
-      _column: item // 原始配置
+      _seed: seed // 原始配置
     };
     return column;
   });
@@ -39,14 +38,14 @@ export function download(workbook, name = "template") {
 }
 
 /**
- *
+ * 根据seed来读取excel
  * @param {*} data
  * @param {*} formItems
  */
-export function readExcelTemplate(data, formItems) {
+export function readExcelFromTemplate(data, seeds) {
   let { file } = data;
   let workbook = new Excel.Workbook();
-  let columns = getColumns(formItems);
+  let columns = getColumns(seeds);
 
   return new Promise((resolve, reject) => {
     let reader = new FileReader();
@@ -67,6 +66,9 @@ export function readExcelTemplate(data, formItems) {
         if (rowNumber > 1) {
           rows.push(
             columns.reduce((value, { key }, index) => {
+              /**
+               * @todo 处理一些key特殊情况
+               */
               value[key] = row.values[index + 1]; // excel 没有0
               return value;
             }, {})
@@ -77,3 +79,67 @@ export function readExcelTemplate(data, formItems) {
       return rows;
     });
 }
+
+/**
+ * 生成excel文件
+ * @param {*} rows
+ * @param {*} seeds
+ * @param {*} workbook
+ */
+export async function generateExcel(
+  rows,
+  seeds,
+  { workbook, sheetName = "数据" } = {}
+) {
+  workbook = workbook || new Excel.Workbook();
+
+  let worksheet = workbook.addWorksheet(sheetName);
+  let columns = getColumns(seeds);
+  worksheet.columns = columns;
+
+  for (let row of rows) {
+    let renderedRow = await rowRenderer(row, seeds, workbook, worksheet);
+    worksheet.addRow(renderedRow);
+  }
+
+  return workbook;
+}
+
+/**
+ * 渲染单行数据
+ * @param {*} row
+ * @param {*} seeds
+ */
+async function rowRenderer(row, seeds) {
+  seeds = optionsHelper(seeds, "excel"); // 获取excel的渲染方案
+  /**
+   * 全列渲染，增加Promise.all 防止未来使用renderfunction的时候造成的问题
+   */
+  return Promise.all(
+    seeds.map(async seed => {
+      const value = valueHelper(row, seed);
+
+      /**
+       * @todo 转excel相关格式, jsx支持
+       */
+      let result = value;
+      // typeof seed.render === "function" ? await seed.render(value) : value;
+
+      // 判断result是否是jpg等图片，是的话加入成图片
+      // if (
+      //   value.extension &&
+      //   ['jpeg', 'png', 'gif'].includes(value.extension)
+      // ) {
+      //   let imageId = workbook.addImage({
+      //     buffer: '',
+      //     extension: value.extension
+      //   })
+      //   worksheet.addImage(imageId, 'B1:D1')
+      // }
+
+      return Array.isArray(result) ? result.join(",") : result;
+    })
+  );
+}
+
+export default Excel;

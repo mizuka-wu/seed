@@ -6,11 +6,23 @@
       v-if="fetchList"
       v-bind="$attrs"
       @search="handleSearch"
+      :seeds="seeds"
     />
     <!-- table -->
-    <SeedTable ref="table" v-loading="loading" :data="data" v-bind="$attrs">
-      <template slot="control" slot-scope="scope">
-        <slot :scope="scope" name="control" />
+    <SeedTable
+      ref="table"
+      v-loading="loading"
+      :data="data"
+      v-bind="$attrs"
+      :seeds="seeds"
+    >
+      <template #tools>
+        <ElButton size="small" type="success" @click="exportExcel">
+          导出为Excel
+        </ElButton>
+        <ElButton size="small" type="warning" @click="parsingExcel"
+          >Excel批量修改</ElButton
+        >
       </template>
     </SeedTable>
     <!-- pagination -->
@@ -31,11 +43,14 @@
 import SeedPagination from "./SeedPagination.vue";
 import SeedTable from "./SeedTable.vue";
 import SeedFilter from "./SeedFilter.vue";
+import { Notification } from "element-ui";
 
 // 函数
 import debounce from "lodash/debounce";
 import isEqual from "lodash/isEqual";
 import guid from "./lib/guid";
+import optionsHelper from "./lib/options.js";
+import { generateExcel, download } from "./lib/excel";
 
 const OFFSET = 16; // table距离filter的偏移量，保证不完全吸顶
 
@@ -64,6 +79,10 @@ export default {
     },
     extraParams: {
       type: Object
+    },
+    seeds: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -95,7 +114,61 @@ export default {
     },
     refresh() {
       this.fetchData && this.fetchData();
-    }
+    },
+    async exportExcel() {
+      const seeds = optionsHelper(this.seeds, "table");
+      const { fetchList, queryParams } = this;
+
+      /**
+       * 获取数据
+       */
+      const notify = Notification({
+        title: "导出Excel中",
+        position: "bottom-right",
+        message: "正在拉取全部数据......",
+        duration: 0
+      });
+
+      let rows = [];
+      const pagination = this.$refs.pagination;
+
+      const { totalNumber = 0, pageSize = 20 } = pagination || {};
+
+      // 生成页码
+      let pageIndexs = Object.keys(
+        Array.from(new Array(Math.ceil(totalNumber / pageSize)))
+      ).map(index => +index + 1);
+
+      // 导出
+      try {
+        await Promise.race([
+          // 停止导出
+          new Promise((resolve, reject) => {
+            notify.onClose = function() {
+              reject(new Error("手动停止导出！"));
+            };
+          }),
+          (async function() {
+            for (let pageIndex of pageIndexs) {
+              const { data } = await fetchList({
+                ...queryParams,
+                pageSize,
+                pageIndex
+              });
+              rows = rows.concat(data);
+              notify.message = `数据拉取中 ${pageIndex}/${pageIndexs.length} ....`;
+            }
+          })()
+        ]);
+      } catch (e) {
+        this.$mesasge.error(e.message);
+      }
+
+      const workbook = await generateExcel(rows, seeds);
+      notify.close();
+      download(workbook);
+    },
+    async parsingExcel() {}
   },
   computed: {
     /**

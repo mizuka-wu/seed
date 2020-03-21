@@ -3,10 +3,11 @@
     "target": "esnext",
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "checkJs": true,
+    "checkJs": false,
     "paths": {
-      "@/*": ["./examples/*"]
+      "@/*": ["./examples/*"],
+      "types/*": ["types/*"]
     }
   },
-  "include": ["types/*", "packages/*", "examples/*"]
+  "exclude": ["node_modules", "lib", "docs", ".github", "public"]
 }

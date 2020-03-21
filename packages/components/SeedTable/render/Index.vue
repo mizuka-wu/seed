@@ -24,33 +24,30 @@ export default {
       type: Object,
       required: true
     },
-    // 行得配置
-    column: {
+    //
+    seed: {
       type: Object
     }
   },
   computed: {
     value() {
       const { row } = this.scope;
-      return valueHelper(row, this.column);
+      return valueHelper(row, this.seed);
     },
-    isCustomerRender: ({ column }) => typeof column.render === "function",
-    Tag({ isCustomerRender, column }) {
+    isCustomerRender: ({ seed }) => typeof seed.render === "function",
+    Tag({ isCustomerRender, seed }) {
       if (isCustomerRender) {
         return "div";
       }
-      const render = column.render + "Render";
+      const render = seed.render + "Render";
       return render in components ? render : "div";
     }
   },
   render(h) {
-    const { value, Tag, column, scope, isCustomerRender } = this;
-    if (isCustomerRender) {
-      return column.render(h, value, column, scope);
-    }
+    const { value, Tag, seed, scope, isCustomerRender } = this;
     return (
-      <Tag value={value} data={value} column={column}>
-        {value}
+      <Tag value={value} data={value} seed={seed}>
+        {isCustomerRender ? seed.render(h, value, seed, scope) : value}
       </Tag>
     );
   }

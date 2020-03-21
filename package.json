@@ -33,7 +33,7 @@
     "type": "git",
     "url": "https://github.com/mizuka-wu/Seed"
   },
-  "typings": "types/index.d.ts",
+  "typings": "typings/index.d.ts",
   "dependencies": {
     "ant-design-vue": "^1.2.4",
     "core-js": "^3.6.4",

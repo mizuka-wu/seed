@@ -19,12 +19,12 @@
       <el-table-column v-if="isShowBatchList" type="selection" />
       <!-- 正常渲染 -->
       <el-table-column
-        v-for="column of columns"
-        :key="column.key"
-        :label="column.label || column.key"
-        v-bind="column.options || {}"
+        v-for="seed of tableSeeds"
+        :key="seed.key"
+        :label="seed.label || seed.key"
+        v-bind="seed.options || {}"
       >
-        <Render slot-scope="scope" :column="column" :scope="scope" />
+        <Render slot-scope="scope" :seed="seed" :scope="scope" />
       </el-table-column>
       <!-- sortable控制 -->
       <el-table-column v-if="sortable" width="50">
@@ -58,6 +58,7 @@
 </template>
 <script>
 import Render from "./render/index.vue";
+import optionsHelper from "../../lib/options";
 import Sortable from "sortablejs";
 
 const TIME = 500;
@@ -95,8 +96,8 @@ export default {
     };
   },
   computed: {
-    columns() {
-      return this.seeds;
+    tableSeeds() {
+      return optionsHelper(this.seeds, "table");
     },
     sortControls({ data }) {
       return [

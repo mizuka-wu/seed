@@ -1,6 +1,11 @@
 import { VNode } from "vue/types/vnode.d.ts";
 import { CreateElement } from "vue/types/vue.d.ts";
-export function render(h: CreateElement): any {}
+export function render(
+  h: CreateElement,
+  value: any,
+  scope: any,
+  seed: Seed
+): any {}
 
 export interface SeedOptions {
   excel?: SeedOptions;

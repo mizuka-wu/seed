@@ -47,7 +47,7 @@ export default {
     const { value, Tag, seed, scope, isCustomerRender } = this;
     return (
       <Tag value={value} data={value} seed={seed}>
-        {isCustomerRender ? seed.render(h, value, seed, scope) : value}
+        {isCustomerRender ? seed.render(h, value, scope, seed) : value}
       </Tag>
     );
   }

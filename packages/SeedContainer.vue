@@ -77,8 +77,7 @@ export default {
       default: false
     },
     rowKey: {
-      type: String,
-      default: "id"
+      type: String
     },
     extraParams: {
       type: Object

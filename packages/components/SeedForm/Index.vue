@@ -24,7 +24,7 @@
 <script>
 import Immutable from "immutable";
 import debounce from "lodash/debounce";
-import Render from "./render/index.vue";
+import Render from "./render/Index.vue";
 
 export default {
   components: {

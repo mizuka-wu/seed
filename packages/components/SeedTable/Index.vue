@@ -74,7 +74,7 @@ export default {
       required: true
     },
     rowKey: {
-      type: String,
+      type: [String, Function],
       default: "_key"
     },
     seeds: {
@@ -262,10 +262,13 @@ export default {
   },
   watch: {
     data(data) {
-      const key = this.rowKey;
-      const keys = data.map(row => row[key]);
+      const getKey =
+        typeof this.rowKey === "function"
+          ? this.rowKey
+          : row => row[this.rowKey];
+      const keys = data.map(getKey);
       this.selectedRows = this.selectedRows.filter(row =>
-        keys.includes(row[key])
+        keys.includes(getKey(row))
       );
     }
   },

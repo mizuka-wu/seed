@@ -1,7 +1,7 @@
 /**
  * 将对应类型的options取出，然后生成对应的seed
- * @param {seed} seeds - seed列表
- * @param {string} key - 取出的key
+ * @param seeds - seed列表
+ * @param key - 取出的key
  */
 export default function(seeds = [], key) {
   if (!key) {

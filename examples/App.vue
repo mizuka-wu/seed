@@ -33,7 +33,7 @@ export default {
           key: "name",
           label: "名字",
           render(h, value) {
-            return <div>"{value}"</div>;
+            return `"${value}"`;
           },
           options: {
             required: true

@@ -20,9 +20,10 @@
         <ElButton size="small" type="success" @click="exportExcel">
           导出为Excel
         </ElButton>
-        <ElButton size="small" type="warning" @click="parsingExcel"
-          >Excel批量修改</ElButton
-        >
+        <ExcelUploader
+          :seeds="seeds"
+          @uploaded="rows => $emit('uploaded', rows)"
+        />
       </template>
     </SeedTable>
     <!-- pagination -->
@@ -44,6 +45,7 @@ import SeedPagination from "./SeedPagination.vue";
 import SeedTable from "./SeedTable.vue";
 import SeedFilter from "./SeedFilter.vue";
 import { Notification } from "element-ui";
+import ExcelUploader from "./ExcelUploader";
 
 // 函数
 import debounce from "lodash/debounce";
@@ -58,7 +60,8 @@ export default {
   components: {
     SeedPagination,
     SeedTable,
-    SeedFilter
+    SeedFilter,
+    ExcelUploader
   },
   props: {
     /**
@@ -74,8 +77,7 @@ export default {
       default: false
     },
     rowKey: {
-      type: String,
-      default: "id"
+      type: String
     },
     extraParams: {
       type: Object
@@ -167,8 +169,7 @@ export default {
       const workbook = await generateExcel(rows, seeds);
       notify.close();
       download(workbook);
-    },
-    async parsingExcel() {}
+    }
   },
   computed: {
     /**

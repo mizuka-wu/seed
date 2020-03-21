@@ -39,11 +39,10 @@ export function download(workbook, name = "template") {
 
 /**
  * 根据seed来读取excel
- * @param {*} data
+ * @param {File} file
  * @param {*} formItems
  */
-export function readExcelFromTemplate(data, seeds) {
-  let { file } = data;
+export function readExcelFromTemplate(file, seeds) {
   let workbook = new Excel.Workbook();
   let columns = getColumns(seeds);
 
@@ -75,7 +74,6 @@ export function readExcelFromTemplate(data, seeds) {
           );
         }
       });
-      data.onSuccess();
       return rows;
     });
 }

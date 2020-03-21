@@ -19,12 +19,12 @@
       <el-table-column v-if="isShowBatchList" type="selection" />
       <!-- 正常渲染 -->
       <el-table-column
-        v-for="column of columns"
-        :key="column.key"
-        :label="column.label || column.key"
-        v-bind="column.options || {}"
+        v-for="seed of tableSeeds"
+        :key="seed.key"
+        :label="seed.label || seed.key"
+        v-bind="seed.options || {}"
       >
-        <Render slot-scope="scope" :column="column" :scope="scope" />
+        <Render slot-scope="scope" :seed="seed" :scope="scope" />
       </el-table-column>
       <!-- sortable控制 -->
       <el-table-column v-if="sortable" width="50">
@@ -57,7 +57,8 @@
   </div>
 </template>
 <script>
-import Render from "./render/Index.vue";
+import Render from "./render/index.vue";
+import optionsHelper from "../../lib/options";
 import Sortable from "sortablejs";
 
 const TIME = 500;
@@ -73,7 +74,7 @@ export default {
       required: true
     },
     rowKey: {
-      type: String,
+      type: [String, Function],
       default: "_key"
     },
     seeds: {
@@ -95,8 +96,8 @@ export default {
     };
   },
   computed: {
-    columns() {
-      return this.seeds;
+    tableSeeds() {
+      return optionsHelper(this.seeds, "table");
     },
     sortControls({ data }) {
       return [
@@ -261,10 +262,13 @@ export default {
   },
   watch: {
     data(data) {
-      const key = this.rowKey;
-      const keys = data.map(row => row[key]);
+      const getKey =
+        typeof this.rowKey === "function"
+          ? this.rowKey
+          : row => row[this.rowKey];
+      const keys = data.map(getKey);
       this.selectedRows = this.selectedRows.filter(row =>
-        keys.includes(row[key])
+        keys.includes(getKey(row))
       );
     }
   },

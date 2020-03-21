@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "checkJs": false,
+    "paths": {
+      "@/*": ["./examples/*"],
+      "types/*": ["types/*"]
+    }
+  },
+  "exclude": ["node_modules", "lib", "docs", ".github", "public"]
+}

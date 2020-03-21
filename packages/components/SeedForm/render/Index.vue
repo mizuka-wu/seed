@@ -3,7 +3,7 @@ const modules = require.context("./", false, /^\.\/(.*)\.vue$/);
 
 const components = modules.keys().reduce((components, id) => {
   const renderName = `${/^\.\/(.*)\.vue$/.exec(id)[1]}Render`;
-  if (renderName === "IndexRender") {
+  if (renderName === "indexRender") {
     return components;
   }
   components[renderName] = modules(id);
@@ -31,7 +31,7 @@ export default {
     isCustomerRender: ({ seed }) => typeof seed.render === "function",
     Tag({ isCustomerRender, seed }) {
       if (isCustomerRender) {
-        return "ElInput";
+        return "div";
       }
       const render = seed.render + "Render";
       return render in components ? render : "ElInput";
@@ -51,9 +51,22 @@ export default {
       this.$emit("update:form", form.set(key, value));
     }
   },
-  render() {
-    const { handerChange, value, Tag } = this;
-    return <Tag value={value} onInput={handerChange} />;
+  render(h) {
+    const { handerChange, value, Tag, isCustomerRender, form, seed } = this;
+    return (
+      <Tag value={value} onInput={handerChange}>
+        {isCustomerRender &&
+          seed.render(
+            h,
+            value,
+            {
+              handerChange,
+              form
+            },
+            seed
+          )}
+      </Tag>
+    );
   }
 };
 </script>

@@ -18,7 +18,7 @@ module.exports = {
   themeConfig: {
     sidebarDepth: 2,
     sidebar: {
-      "/guide/": ["", "SEED", "DSL"],
+      "/guide/": ["", "SEED", "DSL", "EXCEL"],
       "/components/": ["Form.html", "Table.html"]
     },
     nav: [
@@ -30,7 +30,8 @@ module.exports = {
             items: [
               { text: "起步", link: "/guide/index.html" },
               { text: "SEED配置", link: "/guide/SEED" },
-              { text: "DSL说明", link: "/guide/DSL" }
+              { text: "DSL说明", link: "/guide/DSL" },
+              { text: "Excel相关说明", link: "/guide/EXCEL" }
             ]
           },
           {
@@ -44,9 +45,9 @@ module.exports = {
       },
       {
         text: "贡献/提问",
-        link: "https://github.com/mizuka-wu/Seed/issue"
+        link: "https://github.com/mizuka-wu/seed/issues"
       },
-      { text: "Github", link: "https://github.com/mizuka-wu/Seed" }
+      { text: "Github", link: "https://github.com/mizuka-wu/seed" }
     ],
     displayAllHeaders: true
   }

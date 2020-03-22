@@ -49,6 +49,30 @@ module.exports = {
       },
       { text: "Github", link: "https://github.com/mizuka-wu/seed" }
     ],
-    displayAllHeaders: true
-  }
+    displayAllHeaders: true,
+    repo: "mizuka-wu/seed",
+    repoLabel: "查看源码",
+    docsBranch: "gh-pages",
+    editLinks: true,
+    docsDir: "docs",
+    editLinkText: "帮助我们改善此页面！"
+  },
+  plugins: [
+    [
+      "vuepress-plugin-mygitalk",
+      {
+        enable: true,
+        home: true,
+        // Gitalk配置
+        gitalk: {
+          clientID: "6629e6333b67beef1bbe",
+          clientSecret: "a535790e6ce34573475404abe6dfbbe7b5c95b80",
+          // GitHub repository. 存储评论的 repo
+          repo: "mizuka-wu/seed",
+          owner: "mizuka-wu",
+          language: "zh-CN"
+        }
+      }
+    ]
+  ]
 };

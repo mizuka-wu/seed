@@ -11,7 +11,7 @@ Building, place waiting.
 
 ### Docs
 
-- [中文文档](http://www.mizuka.top/Seed/)
+- [中文文档](http://www.mizuka.top/seed/)
 
 - [English](./)
 

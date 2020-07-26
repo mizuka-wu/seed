@@ -4,6 +4,7 @@
       class="seed-demo"
       v-bind="$attrs"
       :seeds="seeds"
+      sortable
       :fetchList="isShowFetchList ? fetchList : undefined"
     />
   </ClientOnly>

@@ -38,7 +38,7 @@
     "ant-design-vue": "^1.2.4",
     "core-js": "^3.6.4",
     "element-ui": "^2.4.5",
-    "exceljs": "^3.8.1",
+    "exceljs": "^3.10.0",
     "file-saver": "^2.0.2",
     "immutable": "^4.0.0-rc.12",
     "less": "^3.11.1",

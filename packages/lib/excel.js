@@ -1,7 +1,8 @@
 /**
  * 借用table 进行渲染的
  */
-import Excel from "exceljs/dist/es5/exceljs.browser";
+import * as Excel from "exceljs/dist/exceljs.min.js";
+
 import { saveAs } from "file-saver";
 import optionsHelper from "./options";
 import valueHelper from "./value";

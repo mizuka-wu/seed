@@ -18,7 +18,7 @@ export default {
   props: {
     isShowFetchList: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   components: {

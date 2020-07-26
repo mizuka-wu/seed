@@ -1,12 +1,13 @@
 <template>
   <ClientOnly>
-    <SeedContainer
-      class="seed-demo"
-      v-bind="$attrs"
-      :seeds="seeds"
-      sortable
-      :fetchList="isShowFetchList ? fetchList : undefined"
-    />
+    <div class="seed-demo">
+      <SeedContainer
+        v-bind="$attrs"
+        :seeds="seeds"
+        sortable
+        :fetchList="isShowFetchList ? fetchList : undefined"
+      />
+    </div>
   </ClientOnly>
 </template>
 
@@ -35,10 +36,11 @@ export default {
 <style lang="stylus">
 // 修复组件内因为外部主题导致的样式问题
 .seed-demo
-  padding 10px
   border 1px solid #ddd
   margin 10px 0
   border-radius 4px
+  max-height 900px
+  overflow scroll
   table
     margin initial
   th, td

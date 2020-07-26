@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="seed-container">
     <!-- filter -->
     <SeedFilter
       ref="filter"
@@ -249,3 +249,7 @@ export default {
   }
 };
 </script>
+<style lang="stylus" scoped>
+.seed-container
+  padding 10px
+</style>

@@ -195,7 +195,7 @@ export default {
           return;
         }
         this.$nextTick(() => {
-          params && this.fetchData();
+          params && this.refresh();
         });
       }
     }

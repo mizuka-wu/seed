@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" />
     <Seed :fetchList="fetchList" :seeds="seeds" :addItem="addItem" sortable>
       <template #batchList="{ rows }">
         <el-button size="small" type="danger"

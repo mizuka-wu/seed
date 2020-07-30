@@ -7,47 +7,44 @@
         @change="e => (isFullscreen = e)"
       >
         <div class="control">
-          <h1>Demo: {{ example }}</h1>
-          <div>
-            <el-tooltip
-              effect="dark"
-              :content="isShowSourceCode ? '返回' : '查看源代码'"
-              placement="bottom"
-            >
-              <el-button
-                size="large"
-                type="text"
-                icon="el-icon-document"
-                @click="handleShowSourceCode(!isShowSourceCode)"
-              />
-            </el-tooltip>
-            <el-tooltip
-              v-if="isShowSourceCode"
-              effect="dark"
-              content="复制当前代码"
-              placement="bottom"
-            >
-              <el-button
-                size="large"
-                type="text"
-                v-clipboard:copy="sourceCodeRaw"
-                v-clipboard:success="handleCopySourceCode"
-                icon="el-icon-copy-document"
-              />
-            </el-tooltip>
-            <el-tooltip
-              effect="dark"
-              :content="isFullscreen ? '退出全屏' : '全屏'"
-              placement="bottom"
-            >
-              <el-button
-                size="large"
-                type="text"
-                icon="el-icon-full-screen"
-                @click="handleFullscreen"
-              />
-            </el-tooltip>
-          </div>
+          <el-tooltip
+            effect="dark"
+            :content="isShowSourceCode ? '返回' : '查看源代码'"
+            placement="bottom"
+          >
+            <el-button
+              size="large"
+              type="text"
+              icon="el-icon-document"
+              @click="handleShowSourceCode(!isShowSourceCode)"
+            />
+          </el-tooltip>
+          <el-tooltip
+            v-if="isShowSourceCode"
+            effect="dark"
+            content="复制当前代码"
+            placement="bottom"
+          >
+            <el-button
+              size="large"
+              type="text"
+              v-clipboard:copy="sourceCodeRaw"
+              v-clipboard:success="handleCopySourceCode"
+              icon="el-icon-copy-document"
+            />
+          </el-tooltip>
+          <el-tooltip
+            effect="dark"
+            :content="isFullscreen ? '退出全屏' : '全屏'"
+            placement="bottom"
+          >
+            <el-button
+              size="large"
+              type="text"
+              icon="el-icon-full-screen"
+              @click="handleFullscreen"
+            />
+          </el-tooltip>
         </div>
         <div v-if="isShowSourceCode" class="source-code">
           <div class="language-vue extra-class">
@@ -63,10 +60,13 @@
 </template>
 
 <script>
-import SeedContainer from "../../../packages/SeedContainer.vue";
+import fullscreen from "vue-fullscreen";
+import Vue from "vue";
 import App from "../../../examples/App";
 import resource from "../../../examples/mock/resource";
 import prism from "prismjs";
+
+Vue.use(fullscreen);
 
 export default {
   components: {
@@ -131,9 +131,7 @@ export default {
   .control
     padding 0 10px
     display flex
-    justify-content space-between
-    h1
-      margin 0
+    flex-direction row-reverse
   .source-code
     padding 10px
   table

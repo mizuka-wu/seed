@@ -18,7 +18,7 @@
 
 ### 以下是一个简单的例子
 
-<SeedExample />
+<SeedExample example="BaseExample" />
 
 就可以生成一个表格了
 

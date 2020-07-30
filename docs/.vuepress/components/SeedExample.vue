@@ -7,7 +7,7 @@
         @change="e => (isFullscreen = e)"
       >
         <div class="control">
-          <h1>Demo: {{ exampleAppName }}</h1>
+          <h1>Demo: {{ example }}</h1>
           <div>
             <el-tooltip
               effect="dark"
@@ -56,7 +56,7 @@
             ><code ref="code" v-html="sourceCode" /></pre>
           </div>
         </div>
-        <component :is="exampleAppName" v-else />
+        <App :example="example" v-else />
       </fullscreen>
     </div>
   </ClientOnly>
@@ -72,11 +72,15 @@ export default {
   components: {
     App
   },
+  props: {
+    example: {
+      type: String
+    }
+  },
   data() {
     return {
       isFullscreen: false,
       isShowSourceCode: false,
-      exampleAppName: "App",
       sourceCode: "",
       sourceCodeRaw: "",
       loadingSourceCode: false
@@ -91,7 +95,7 @@ export default {
       if (e) {
         vm.loadingSourceCode = true;
         fetch(
-          `https://cdn.jsdelivr.net/gh/mizuka-wu/seed/examples/${this.exampleAppName}.vue`
+          `https://cdn.jsdelivr.net/gh/mizuka-wu/seed/examples/${this.example}.vue`
         )
           .then(function(response) {
             return response.text();

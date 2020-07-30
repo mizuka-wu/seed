@@ -16,26 +16,9 @@
 
 给你的文件加入以下两个选项即可
 
-### 代码
+### 以下是一个简单的例子
 
-```vue
-<template>
-  <Seed :seeds="seeds" />
-</template>
-<script>
-export default {
-  data() {
-    return {
-      seeds: [{ key: "a", title: "标题" }]
-    };
-  }
-};
-</script>
-```
-
-### 实际效果
-
-<Seed />
+<SeedExample />
 
 就可以生成一个表格了
 

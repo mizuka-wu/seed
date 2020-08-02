@@ -36,48 +36,48 @@ export default {
       seeds,
       $parent,
       updateItem,
-      deleteItem
-      // openForm,
-      // deleteRow
+      deleteItem,
+      openForm,
+      deleteRow
     }) {
       const tableSeeds = optionsHelper(seeds, "table");
 
       // 判断是否需要增加工具列
       const scopeControl = $parent.$scopedSlots.control;
       if (scopeControl || updateItem || deleteItem) {
-        // tableSeeds.push({
-        //   key: "_control",
-        //   label: "操作",
-        //   render(h, props) {
-        //     const { row, ...scope } = props;
-        //     return (
-        //       <div class="control-column">
-        //         {scopeControl && scopeControl({ row, ...scope })}
-        //         {updateItem && (
-        //           <ElButton
-        //             type="warning"
-        //             size="small"
-        //             onClick={() => openForm(row)}
-        //           >
-        //             编辑
-        //           </ElButton>
-        //         )}
-        //         {deleteItem && (
-        //           <ElPopconfirm
-        //             confirmButtonText="确定"
-        //             cancelButtonText="取消"
-        //             title="您确定删除该记录么？"
-        //             onOnConfirm={() => deleteRow(row)}
-        //           >
-        //             <ElButton type="danger" size="small" slot="reference">
-        //               删除
-        //             </ElButton>
-        //           </ElPopconfirm>
-        //         )}
-        //       </div>
-        //     );
-        //   }
-        // });
+        tableSeeds.push({
+          key: "_control",
+          label: "操作",
+          render(h, props) {
+            const { row, ...scope } = props;
+            return (
+              <div class="control-column">
+                {scopeControl && scopeControl({ row, ...scope })}
+                {updateItem && (
+                  <ElButton
+                    type="warning"
+                    size="small"
+                    onClick={() => openForm(row)}
+                  >
+                    编辑
+                  </ElButton>
+                )}
+                {deleteItem && (
+                  <ElPopconfirm
+                    confirmButtonText="确定"
+                    cancelButtonText="取消"
+                    title="您确定删除该记录么？"
+                    onOnConfirm={() => deleteRow(row)}
+                  >
+                    <ElButton type="danger" size="small" slot="reference">
+                      删除
+                    </ElButton>
+                  </ElPopconfirm>
+                )}
+              </div>
+            );
+          }
+        });
       }
 
       return tableSeeds;

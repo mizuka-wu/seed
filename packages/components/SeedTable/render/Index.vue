@@ -35,7 +35,7 @@ export default {
 
     // 自定义渲染器优先
     if (isCustomerRender) {
-      return seed.render(h.props);
+      return seed.render(h, props);
     }
 
     // 找得到的渲染器其次

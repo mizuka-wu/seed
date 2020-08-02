@@ -41,9 +41,9 @@
  * 容器组件，负责基本布局系统，传递参数
  * @todo 探讨是不是需要拆成mixins
  */
-import SeedPagination from "./SeedPagination.vue";
-import SeedTable from "./SeedTable.vue";
-import SeedFilter from "./SeedFilter.vue";
+import SeedPagination from "#/blocks/SeedPagination.vue";
+import SeedTable from "#/blocks/SeedTable.vue";
+import SeedFilter from "#/blocks/SeedFilter.vue";
 import { Notification } from "element-ui";
 import ExcelUploader from "#/components/ExcelUploader";
 

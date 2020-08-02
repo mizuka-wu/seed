@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import App from "../../../examples/App";
-import resource from "../../../examples/mock/resource";
+import App from "@/examples/App";
+import resource from "@/examples/mock/resource";
 import prism from "prismjs";
 
 export default {

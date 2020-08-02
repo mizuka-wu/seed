@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import SeedForm from "./components/SeedForm/Index";
+import SeedForm from "#/components/SeedForm/Index";
 import optionsHelper from "./lib/options";
 export default {
   components: {

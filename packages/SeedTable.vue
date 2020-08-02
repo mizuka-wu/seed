@@ -1,5 +1,5 @@
 <script>
-import SeedTable from "./components/SeedTable/Index.vue";
+import SeedTable from "#/components/SeedTable/Index.vue";
 import SeedForm from "./SeedForm.vue";
 import optionsHelper from "./lib/options";
 import { Message } from "element-ui";

@@ -1,25 +1,35 @@
+const path = require("path");
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
+
 module.exports = {
   title: "Seed",
   base: "/seed/",
+  chainWebpack: (config) => {
+    config.resolve.alias
+      .set("@", resolve("examples"))
+      .set("#", resolve("packages"));
+  },
   locales: {
     // 键名是该语言所属的子路径
     // 作为特例，默认语言可以使用 '/' 作为其路径。
     "/": {
       lang: "zh-CN", // 将会被设置为 <html> 的 lang 属性
       title: "Seed",
-      description: "一个构建后台页面的快捷组件"
+      description: "一个构建后台页面的快捷组件",
     },
     "/en/": {
       lang: "en-US",
       title: "Seed",
-      description: "A component for building backend manage page"
-    }
+      description: "A component for building backend manage page",
+    },
   },
   themeConfig: {
     sidebarDepth: 2,
     sidebar: {
       "/guide/": ["", "SEED", "DSL", "EXCEL"],
-      "/components/": ["Form.html", "Table.html"]
+      "/components/": ["Form.html", "Table.html"],
     },
     nav: [
       {
@@ -31,23 +41,23 @@ module.exports = {
               { text: "起步", link: "/guide/index.html" },
               { text: "SEED配置", link: "/guide/SEED" },
               { text: "DSL说明", link: "/guide/DSL" },
-              { text: "Excel相关说明", link: "/guide/EXCEL" }
-            ]
+              { text: "Excel相关说明", link: "/guide/EXCEL" },
+            ],
           },
           {
             text: "组件",
             items: [
               { text: "Form", link: "/components/Form.html" },
-              { text: "Table", link: "/components/Table.html" }
-            ]
-          }
-        ]
+              { text: "Table", link: "/components/Table.html" },
+            ],
+          },
+        ],
       },
       {
         text: "贡献/提问",
-        link: "https://github.com/mizuka-wu/seed/issues"
+        link: "https://github.com/mizuka-wu/seed/issues",
       },
-      { text: "Github", link: "https://github.com/mizuka-wu/seed" }
+      { text: "Github", link: "https://github.com/mizuka-wu/seed" },
     ],
     displayAllHeaders: true,
     repo: "mizuka-wu/seed",
@@ -55,7 +65,7 @@ module.exports = {
     docsBranch: "gh-pages",
     editLinks: true,
     docsDir: "docs",
-    editLinkText: "帮助我们改善此页面！"
+    editLinkText: "帮助我们改善此页面！",
   },
   plugins: [
     [
@@ -70,9 +80,9 @@ module.exports = {
           // GitHub repository. 存储评论的 repo
           repo: "mizuka-wu/seed",
           owner: "mizuka-wu",
-          language: "zh-CN"
-        }
-      }
-    ]
-  ]
+          language: "zh-CN",
+        },
+      },
+    ],
+  ],
 };

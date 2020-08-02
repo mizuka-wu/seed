@@ -6,6 +6,7 @@
     "checkJs": false,
     "paths": {
       "@/*": ["./examples/*"],
+      "#/*": ["./packages/*"],
       "types/*": ["types/*"]
     }
   },

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Seed from "../packages/SeedContainer.vue";
+import Seed from "#/SeedContainer.vue";
 import resource from "./mock/resource";
 
 export default {
@@ -32,6 +32,7 @@ export default {
           key: "name",
           label: "名字",
           render(h, value) {
+            console.log(value);
             return `"${value}"`;
           },
           options: {

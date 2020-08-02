@@ -8,7 +8,7 @@ export default {
   props: ["value"],
   computed: {
     dateValue({ value }) {
-      return new dayjs(value).format("YYYY-MM-DD HH:mm:ss");
+      return new dayjs(value).format("YYYY/MM/DD HH:mm:ss");
     }
   }
 };

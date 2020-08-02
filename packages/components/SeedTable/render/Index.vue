@@ -1,22 +1,11 @@
 <script>
 import valueHelper from "#/lib/value";
-// const modules = require.context("./", false, /^\.\/(.*)\.vue$/);
-
-// const components = modules.keys().reduce((components, id) => {
-//   const renderName = `${/^\.\/(.*)\.vue$/.exec(id)[1]}Render`;
-//   if (renderName === "indexRender") {
-//     return components;
-//   }
-//   components[renderName] = modules(id);
-//   return components;
-// }, {});
 
 /**
  * 一个默认的实现显示组件，包含对类型的判断以及相关修正
  * 现在还承担Excel的格式化工作
  */
 export default {
-  // components,
   name: "ColumnRender",
   props: {
     // scope
@@ -24,7 +13,6 @@ export default {
       type: Object,
       required: true
     },
-    //
     seed: {
       type: Object
     }
@@ -34,26 +22,31 @@ export default {
       const { row } = this.scope;
       return valueHelper(row, this.seed);
     },
-    isCustomerRender: ({ seed }) => typeof seed.render === "function",
-    Tag({ isCustomerRender, seed, $seedRender = {} }) {
-      const components = $seedRender.table || {};
-      if (isCustomerRender) {
-        return "div";
-      }
-      const render = seed.render + "Render";
-      return render in components ? render : "div";
-    }
+    isCustomerRender: ({ seed }) => typeof seed.render === "function"
   },
   render(h) {
-    const { value, Tag, seed, scope, isCustomerRender } = this;
+    const { value, seed, scope, isCustomerRender, $seedRender = {} } = this;
     const props = {
       value,
       seed,
       ...scope
     };
-    return (
-      <Tag {...props}>{isCustomerRender ? seed.render(h, props) : value}</Tag>
-    );
+    const renderHub = $seedRender.table || {};
+
+    // 自定义渲染器优先
+    if (isCustomerRender) {
+      return seed.render(h.props);
+    }
+
+    // 找得到的渲染器其次
+    const renderName = `${seed.render}Render`;
+    if (renderName in renderHub) {
+      return h(renderHub[renderName], {
+        props
+      });
+    }
+
+    return h("div", value);
   }
 };
 </script>

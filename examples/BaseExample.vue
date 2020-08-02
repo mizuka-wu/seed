@@ -32,13 +32,7 @@ export default {
           key: "name",
           label: "名字",
           options: {
-            required: true,
-            form: {
-              render(h, value) {
-                console.log(value);
-                console.log(value + "1");
-              }
-            }
+            required: true
           }
         },
         {

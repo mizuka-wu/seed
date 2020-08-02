@@ -45,14 +45,14 @@ import SeedPagination from "./SeedPagination.vue";
 import SeedTable from "./SeedTable.vue";
 import SeedFilter from "./SeedFilter.vue";
 import { Notification } from "element-ui";
-import ExcelUploader from "./ExcelUploader";
+import ExcelUploader from "#/components/ExcelUploader";
 
 // 函数
 import debounce from "lodash/debounce";
 import isEqual from "lodash/isEqual";
-import guid from "./lib/guid";
-import optionsHelper from "./lib/options.js";
-import { generateExcel, download } from "./lib/excel";
+import guid from "#/lib/guid";
+import optionsHelper from "#/lib/options.js";
+import { generateExcel, download } from "#/lib/excel";
 
 const OFFSET = 16; // table距离filter的偏移量，保证不完全吸顶
 

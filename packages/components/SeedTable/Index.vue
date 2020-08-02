@@ -58,7 +58,7 @@
 </template>
 <script>
 import Render from "./render/Index.vue";
-import optionsHelper from "../../lib/options";
+import optionsHelper from "#/lib/options";
 import Sortable from "sortablejs";
 
 const TIME = 500;

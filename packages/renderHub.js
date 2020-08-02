@@ -32,7 +32,57 @@ const renderHub = renderComponents
 
 export default {
   install(Vue) {
-    const $seedRender = renderHub;
+    const $seedRender = {
+      ...renderHub
+    };
+
+    const registeRender = (registerOptions = {}) => {
+      const { renderType, type, render, form, table } = registerOptions;
+
+      // 如果按照form， table命名，则自动再调用自身
+      const autoRegisters = [
+        { name: "form", value: form },
+        { name: "table", value: table }
+      ].filter(register => register.value);
+      if (autoRegisters.length > 0) {
+        autoRegisters.forEach(register => {
+          registeRender({
+            renderType: register.name,
+            type,
+            render: register.value
+          });
+        });
+        return;
+      }
+
+      /**
+       * 检测是否合法
+       */
+      if (!renderType || !(renderType in $seedRender)) {
+        throw new Error("无法注册该渲染器，请检查指定为table/form类型");
+      }
+
+      if (!type) {
+        throw new Error("请填写类型名称");
+      }
+
+      if (!render) {
+        throw new Error("请检查是否传入渲染方法");
+      }
+
+      const renderName = `${type.toLowerCase()}Render`;
+
+      // warning
+      if (renderName in $seedRender[renderType]) {
+        console.warn(type, "默认渲染器将被覆盖");
+      }
+
+      // 注入
+      $seedRender[renderType] = render.default || render;
+    };
+
+    $seedRender.registeRender = registeRender;
+
     Vue.prototype.$seedRender = $seedRender;
   }
 };

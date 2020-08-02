@@ -1,5 +1,5 @@
 <script>
-import valueHelper from "../../../lib/value";
+import valueHelper from "#/lib/value";
 const modules = require.context("./", false, /^\.\/(.*)\.vue$/);
 
 const components = modules.keys().reduce((components, id) => {

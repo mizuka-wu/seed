@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <Seed :fetchList="fetchList" :seeds="seeds" :addItem="addItem" sortable>
+    <SeedPagingTable
+      :fetchList="fetchList"
+      :seeds="seeds"
+      :addItem="addItem"
+      sortable
+    >
       <template #batchList="{ rows }">
         <el-button size="small" type="danger"
           >{{ rows.length }}已选择</el-button
@@ -12,19 +17,15 @@
       <template #tools>
         hello
       </template>
-    </Seed>
+    </SeedPagingTable>
   </div>
 </template>
 
 <script>
-import Seed from "#/templates/PagingTable.vue";
-import resource from "./mock/resource";
+import resource from "@/mock/resource";
 
 export default {
   name: "app",
-  components: {
-    Seed
-  },
   data() {
     return {
       seeds: [

@@ -4,7 +4,7 @@
 function initHub() {
   return {
     table: {},
-    form: {},
+    form: {}
   };
 }
 
@@ -12,5 +12,5 @@ export default {
   install(Vue) {
     const $seedRender = initHub();
     Vue.$seedRender = $seedRender;
-  },
+  }
 };

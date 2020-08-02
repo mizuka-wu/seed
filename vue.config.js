@@ -4,7 +4,7 @@ function resolve(dir) {
 }
 
 module.exports = {
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     config.resolve.alias
       .set("@", resolve("examples"))
       .set("#", resolve("packages"));
@@ -13,8 +13,8 @@ module.exports = {
         "element-ui": {
           commonjs: "element-ui",
           commonjs2: "element-ui",
-          root: "ELEMENT",
-        },
+          root: "ELEMENT"
+        }
       });
     }
   },
@@ -22,8 +22,8 @@ module.exports = {
     index: {
       entry: "examples/main.js",
       template: "public/index.html",
-      filename: "index.html",
-    },
+      filename: "index.html"
+    }
   },
-  css: { extract: false },
+  css: { extract: false }
 };

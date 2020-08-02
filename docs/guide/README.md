@@ -12,7 +12,7 @@
 
 > 目前处于开发阶段，实际上会不断的进行修改
 
-请直接拷贝`packages`下的所有文件，引入`SeedContainer.vue`即可
+请直接拷贝`packages`下的所有文件，引入`templates/PagingTable.vue`即可
 
 给你的文件加入以下两个选项即可
 

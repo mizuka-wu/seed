@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Seed from "#/SeedContainer.vue";
+import Seed from "#/templates/PagingTable.vue";
 import resource from "./mock/resource";
 
 export default {

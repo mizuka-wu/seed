@@ -56,7 +56,8 @@ export default {
           key: "birthday"
         },
         {
-          key: "addtime"
+          key: "addtime",
+          render: "date"
         },
         {
           key: "updatetime"

@@ -37,6 +37,7 @@
   "dependencies": {
     "ant-design-vue": "^1.2.4",
     "core-js": "^3.6.4",
+    "dayjs": "^1.8.31",
     "element-ui": "^2.4.5",
     "exceljs": "^3.10.0",
     "file-saver": "^2.0.2",

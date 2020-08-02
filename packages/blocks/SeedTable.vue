@@ -48,11 +48,11 @@ export default {
         tableSeeds.push({
           key: "_control",
           label: "操作",
-          render(h, value, column, scope) {
-            const row = scope.row;
+          render(h, props) {
+            const { row, ...scope } = props;
             return (
               <div class="control-column">
-                {scopeControl && scopeControl(scope)}
+                {scopeControl && scopeControl({ row, ...scope })}
                 {updateItem && (
                   <ElButton
                     type="warning"

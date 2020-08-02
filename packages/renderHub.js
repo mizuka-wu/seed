@@ -11,6 +11,6 @@ function initHub() {
 export default {
   install(Vue) {
     const $seedRender = initHub();
-    Vue.$seedRender = $seedRender;
+    Vue.prototype.$seedRender = $seedRender;
   }
 };

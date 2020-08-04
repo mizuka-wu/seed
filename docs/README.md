@@ -19,8 +19,6 @@ footer: MIT Licensed | Copyright © 2020-present Edward Wu
 
 > 茅场晶彦托付给桐人老爷的`世界的种子`可以说是所有`vrmmo`的基础，这里也希望`Seed`这个组件能够成为一个通用的，能够成为后台页面生成的种子，才不是中二病
 
-![Seed](https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=46c9b88b75f08202399f996d2a929088/c8ea15ce36d3d5395d82536b3c87e950342ab0df.jpg)
-
 Seed，脱胎于在票牛网工作时，为了方便老的`ng`后台页面迁移到新的`vue`框架而诞生的一个**vue 组件系统**，Seed 的设计理念就是，足够的轻量，引入一个组件就可以解决所有的问题，足够的简单，一套 DSL 就能生成 `form` + `table` + `filter`，足够的定制化，大量的 **[slot](https://cn.vuejs.org/v2/guide/components-slots.html)** 插槽能够自定义基本所有显示区域。
 
 当然啦，Seed 也是有自身局限性的，诞生之初他就只是为了后台管理页面而生，脱离这个使用场景反而显得它很奇怪

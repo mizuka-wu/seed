@@ -1,17 +1,5 @@
 <script>
-const modules = require.context("./", false, /^\.\/(.*)\.vue$/);
-
-const components = modules.keys().reduce((components, id) => {
-  const renderName = `${/^\.\/(.*)\.vue$/.exec(id)[1]}Render`;
-  if (renderName === "indexRender") {
-    return components;
-  }
-  components[renderName] = modules(id);
-  return components;
-}, {});
-
 export default {
-  components,
   name: "FormRender",
   props: {
     seed: {

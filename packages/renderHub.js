@@ -37,12 +37,12 @@ export default {
     };
 
     const registeRender = (registerOptions = {}) => {
-      const { renderType, type, render, form, table } = registerOptions;
+      const { renderType, type, render } = registerOptions;
 
       // 如果按照form， table命名，则自动再调用自身
       const autoRegisters = [
-        { name: "form", value: form },
-        { name: "table", value: table }
+        // { name: "form", value: registerOptions.form },
+        { name: "table", value: registerOptions.table }
       ].filter(register => register.value);
       if (autoRegisters.length > 0) {
         autoRegisters.forEach(register => {

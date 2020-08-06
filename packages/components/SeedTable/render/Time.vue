@@ -4,12 +4,12 @@
 const timeFormat = function(time, fmt) {
   const date = new Date(time);
   const o = {
-    "M+": this.getMonth() + 1, //月份
-    "d+": this.getDate(), //日
-    "h+": this.getHours(), //小时
-    "m+": this.getMinutes(), //分
-    "s+": this.getSeconds(), //秒
-    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+    "M+": date.getMonth() + 1, //月份
+    "d+": date.getDate(), //日
+    "h+": date.getHours(), //小时
+    "m+": date.getMinutes(), //分
+    "s+": date.getSeconds(), //秒
+    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
     S: date.getMilliseconds() //毫秒
   };
   if (/(y+)/.test(fmt))
@@ -29,7 +29,7 @@ export default {
   functional: true,
   props: ["value"],
   render: function(h, context) {
-    return h("div", timeFormat(context.props.value, "YYYY-MM-dd hh:mm:ss"));
+    return h("div", timeFormat(context.props.value, "yyyy-MM-dd hh:mm:ss"));
   }
 };
 </script>

@@ -14,7 +14,7 @@
     />
     <template slot="footer">
       <el-button size="small" type="primary" @click="submit">提交</el-button>
-      <el-button size="small">取消</el-button>
+      <el-button size="small" @click="cancel">取消</el-button>
     </template>
   </el-dialog>
 </template>
@@ -46,6 +46,13 @@ export default {
       this.defaultForm = form;
       this.isEdit = !!form;
       this.visible = true;
+    },
+    /**
+     * @todo 增加校验
+     */
+    cancel() {
+      this.visible = false;
+      this.defaultForm = false;
     },
     submit() {
       const form = this.$refs.form;

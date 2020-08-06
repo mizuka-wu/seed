@@ -57,10 +57,11 @@ export default {
         },
         {
           key: "addtime",
-          render: "date"
+          render: "time"
         },
         {
-          key: "updatetime"
+          key: "updatetime",
+          render: "time"
         }
       ]
     };

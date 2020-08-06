@@ -41,7 +41,7 @@ export default {
 
       // 如果按照form， table命名，则自动再调用自身
       const autoRegisters = [
-        // { name: "form", value: registerOptions.form },
+        { name: "form", value: registerOptions.form },
         { name: "table", value: registerOptions.table }
       ].filter(register => register.value);
       if (autoRegisters.length > 0) {

@@ -12,7 +12,7 @@
         >
       </template>
       <template #control="scope">
-        <el-button>审核{{ scope.row }}</el-button>
+        <el-button>审核{{ scope.row.name }}</el-button>
       </template>
       <template #tools>
         hello

@@ -92,7 +92,7 @@ export default {
       if (e) {
         vm.loadingSourceCode = true;
         fetch(
-          `https://cdn.jsdelivr.net/gh/mizuka-wu/seed/examples/${this.example}.vue`
+          `https://cdn.jsdelivr.net/gh/mizuka-wu/seed@master/examples/${this.example}.vue`
         )
           .then(function(response) {
             return response.text();

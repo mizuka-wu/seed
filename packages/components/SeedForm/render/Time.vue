@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import moment from 'moment'
-
 export default {
   props: {
     value: {
@@ -24,15 +22,13 @@ export default {
   data() {
     return {
       val: this.value
-    }
+    };
   },
 
   methods: {
     timeChange(e) {
-      // console.log(moment(e).valueOf());
-      // this.val = moment(e).valueOf()
-      this.$emit('input', moment(e).valueOf())
+      this.$emit("input", e);
     }
   }
-}
+};
 </script>

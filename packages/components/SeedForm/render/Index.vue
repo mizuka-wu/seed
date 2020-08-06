@@ -17,13 +17,6 @@ export default {
   },
   computed: {
     isCustomerRender: ({ seed }) => typeof seed.render === "function",
-    Tag({ isCustomerRender, seed }) {
-      if (isCustomerRender) {
-        return "div";
-      }
-      const render = seed.render + "Render";
-      return render in components ? render : "ElInput";
-    },
     value() {
       const { seed, form } = this;
       return form.get(seed.key);
@@ -40,21 +33,36 @@ export default {
     }
   },
   render(h) {
-    const { handerChange, value, Tag, isCustomerRender, form, seed } = this;
-    return (
-      <Tag value={value} onInput={handerChange}>
-        {isCustomerRender &&
-          seed.render(
-            h,
-            value,
-            {
-              handerChange,
-              form
-            },
-            seed
-          )}
-      </Tag>
-    );
+    const {
+      value,
+      seed,
+      form,
+      scope,
+      isCustomerRender,
+      $seedRender = {}
+    } = this;
+    const props = {
+      value,
+      seed,
+      form,
+      ...scope
+    };
+    const renderHub = $seedRender.form || {};
+
+    // 自定义渲染器优先
+    if (isCustomerRender) {
+      return seed.render(h, props);
+    }
+
+    // 找得到的渲染器其次
+    const renderName = `${seed.render}Render`;
+    if (renderName in renderHub) {
+      return h(renderHub[renderName], {
+        props
+      });
+    }
+
+    return h("ElInput", props);
   }
 };
 </script>

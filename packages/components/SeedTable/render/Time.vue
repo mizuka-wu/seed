@@ -29,7 +29,7 @@ export default {
   functional: true,
   props: ["value"],
   render: function(h, context) {
-    return h("div", timeFormat(context.props.value));
+    return h("div", timeFormat(context.props.value, "YYYY-MM-dd hh:mm:ss"));
   }
 };
 </script>

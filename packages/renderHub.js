@@ -74,6 +74,7 @@ export default {
 
       // warning
       if (renderName in $seedRender[renderType]) {
+        // eslint-disable-next-line
         console.warn(type, "默认渲染器将被覆盖");
       }
 

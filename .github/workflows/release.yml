@@ -19,9 +19,9 @@ jobs:
         id: read_changelog
         uses: GenesisSam/get-simple-file-action@v1.0.4
         with:
-          file-name: ${{ './lib/CHANGELOG.md' }}
+          file-name: ${{ './dist/CHANGELOG.md' }}
       - name: Build project # This would actually build your project, using zip for an example artifact
-        run: zip -r lib.zip lib
+        run: zip -r lib.zip dist
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1.0.0

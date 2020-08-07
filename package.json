@@ -3,14 +3,14 @@
   "version": "0.4.0",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --dest lib --name seed packages/index.js",
+    "build": "vue-cli-service build --target lib --dest dist --name seed packages/index.js",
     "build-analysis": "npm run build --report",
     "docs:dev": "npx vuepress dev docs",
     "docs:build": "npx vuepress build docs",
     "test:unit": "vue-cli-service test:unit",
     "postversion": "git push --follow-tags",
     "lint": "vue-cli-service lint",
-    "changelog": "npx conventional-changelog -p angular -i ./lib/CHANGELOG.md -s -r 0"
+    "changelog": "npx conventional-changelog -p angular -i ./dist/CHANGELOG.md -s -r 0"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -28,11 +28,12 @@
   },
   "files": [
     "packages/",
+    "dist",
     "lib/",
     "README.md",
     "types/"
   ],
-  "main": "lib/seed.umd.min.js",
+  "main": "dist/seed.umd.min.js",
   "keywords": [
     "vue",
     "seed",

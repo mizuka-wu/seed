@@ -12,7 +12,7 @@ module.exports = {
     config.resolve.alias
       .set("@", resolve("examples"))
       .set("seed/packages", resolve("packages"))
-      .set("seed/lib", resolve('lib'))
+      .set("seed/lib", resolve("lib"));
     if (process.env.NODE_ENV === "production") {
       config.externals({
         "element-ui": {

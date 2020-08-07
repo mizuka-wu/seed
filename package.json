@@ -31,7 +31,8 @@
     "dist",
     "lib/",
     "README.md",
-    "types/"
+    "types/",
+    "LICENSE"
   ],
   "main": "dist/seed.umd.min.js",
   "keywords": [

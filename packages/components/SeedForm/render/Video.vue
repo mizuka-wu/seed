@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import Media from "#/components/SeedTable/render/Media";
+import Media from "seed/packages/components/SeedTable/render/Media";
 import debounce from "lodash-es/debounce";
 
 export default {

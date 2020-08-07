@@ -3,40 +3,36 @@
 <template>
   <div class="block">
     <el-input v-model="val"></el-input>
-    <div
-      style="color: #999; font-size: 12px;"
-      v-if="item.hint"
-    >{{ item.hint }}</div>
+    <div style="color: #999; font-size: 12px;" v-if="item.hint">
+      {{ item.hint }}
+    </div>
   </div>
 </template>
 
 <script>
 /** @format */
-
-import moment from 'moment'
-
 export default {
   props: {
     item: {
       type: Object,
-      required: true,
+      required: true
     },
     value: {
-      type: String,
-    },
+      type: String
+    }
   },
 
   data() {
     return {
-      val: this.value,
-    }
+      val: this.value
+    };
   },
   watch: {
     val() {
-      this.$emit('input', this.val)
-    },
-  },
-}
+      this.$emit("input", this.val);
+    }
+  }
+};
 </script>
 
 <style>

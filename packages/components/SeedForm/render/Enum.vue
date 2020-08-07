@@ -37,14 +37,14 @@ export default {
    * 自动更新type
    */
   created() {
-    let options = this.item.enum
-    let type = typeof (options[0] || {}).value
+    let options = this.item.enum;
+    let type = typeof (options[0] || {}).value;
     this.$emit(
-      'update:rules',
+      "update:rules",
       Object.assign({}, this.rules, {
         type
       })
-    )
-  },
-}
+    );
+  }
+};
 </script>

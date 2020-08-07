@@ -5,10 +5,25 @@
     "baseUrl": ".",
     "checkJs": false,
     "paths": {
-      "@/*": ["./examples/*"],
-      "#/*": ["./packages/*"],
-      "types/*": ["types/*"]
+      "@/*": [
+        "./examples/*"
+      ],
+      "seed/packages/*": [
+        "./packages/*"
+      ],
+      "seed/lib/*": [
+        "./lib/*"
+      ],
+      "types/*": [
+        "types/*"
+      ]
     }
   },
-  "exclude": ["node_modules", "lib", "docs", ".github", "public"]
+  "exclude": [
+    "node_modules",
+    "lib",
+    "docs",
+    ".github",
+    "public"
+  ]
 }

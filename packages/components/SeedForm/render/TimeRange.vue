@@ -19,84 +19,84 @@
 <script>
 /** @format */
 
-import moment from 'moment'
+import moment from "moment";
 function today() {
-  return moment().toDate()
+  return moment().toDate();
 }
 /**
  * @returns {Date} - 今天的23:59:59秒
  */
 function endOfToday() {
   return moment()
-    .endOf('day')
-    .toDate()
+    .endOf("day")
+    .toDate();
 }
 
 function startOfToday() {
   return moment()
-    .startOf('day')
-    .toDate()
+    .startOf("day")
+    .toDate();
 }
 
 export default {
-  props: ['value', 'item', 'form', 'options', 'rules'],
+  props: ["value", "item", "form", "options", "rules"],
   data() {
-    const end = endOfToday()
-    const start = startOfToday()
-    const defaultValue = [start, end]
+    const end = endOfToday();
+    const start = startOfToday();
+    const defaultValue = [start, end];
     return {
       defaultValue,
       pickerOptions: {
         shortcuts: [
           {
-            text: '最近一周',
+            text: "最近一周",
             onClick(picker) {
-              const end = today()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-              picker.$emit('pick', [start, end])
-            },
+              const end = today();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", [start, end]);
+            }
           },
           {
-            text: '最近一个月',
+            text: "最近一个月",
             onClick(picker) {
-              const end = today()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-              picker.$emit('pick', [start, end])
-            },
+              const end = today();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            }
           },
           {
-            text: '最近三个月',
+            text: "最近三个月",
             onClick(picker) {
-              const end = today()
-              const start = new Date()
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-              picker.$emit('pick', [start, end])
-            },
-          },
-        ],
-      },
-    }
+              const end = today();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit("pick", [start, end]);
+            }
+          }
+        ]
+      }
+    };
   },
   methods: {
     handleInput(e) {
-      let [start, end] = e
-      this.$emit('input', [new Date(start), new Date(end)])
+      let [start, end] = e;
+      this.$emit("input", [new Date(start), new Date(end)]);
     },
     validate(value, callback) {
       if ((this.rules.required && !value) || !value.length) {
-        callback(new Error('请选择时间范围'))
+        callback(new Error("请选择时间范围"));
       } else {
-        callback()
+        callback();
       }
     },
     updatePicker(value) {
       this.$nextTick(() => {
-        let picker = this.$refs.picker
-        picker.emitInput(value || this.defaultValue)
-      })
-    },
+        let picker = this.$refs.picker;
+        picker.emitInput(value || this.defaultValue);
+      });
+    }
   },
   watch: {
     /**
@@ -106,27 +106,27 @@ export default {
       immediate: true,
       handler(value) {
         if (!value) {
-          this.updatePicker()
+          this.updatePicker();
         }
-      },
+      }
     },
     form() {
-      let val = this.form[this.item.key]
-      this.updatePicker(val)
-    },
+      let val = this.form[this.item.key];
+      this.updatePicker(val);
+    }
   },
   mounted() {
     let val = this.item.options.keys
       .map(key => {
-        const v = this.form[key]
-        return v ? new Date(v) : null
+        const v = this.form[key];
+        return v ? new Date(v) : null;
       })
-      .filter(v => v)
+      .filter(v => v);
     if (val.length) {
-      this.updatePicker(val)
+      this.updatePicker(val);
     }
-  },
-}
+  }
+};
 </script>
 
 <style></style>

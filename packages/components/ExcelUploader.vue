@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import { download, readExcelFromTemplate, generateExcel } from "seed/lib/excel";
-import optionsHelper from "seed/lib/options";
+import { download, readExcelFromTemplate, generateExcel } from "seed-toolkit/lib/excel";
+import optionsHelper from "seed-toolkit/lib/options";
 export default {
   props: {
     seeds: {

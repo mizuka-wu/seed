@@ -11,8 +11,8 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias
       .set("@", resolve("examples"))
-      .set("seed/packages", resolve("packages"))
-      .set("seed/lib", resolve("lib"));
+      .set("seed-toolkit/packages", resolve("packages"))
+      .set("seed-toolkit/lib", resolve("lib"));
     if (process.env.NODE_ENV === "production") {
       config.externals({
         "element-ui": {

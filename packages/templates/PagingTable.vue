@@ -41,18 +41,18 @@
  * 容器组件，负责基本布局系统，传递参数
  * @todo 探讨是不是需要拆成mixins
  */
-import SeedPagination from "seed/packages/blocks/SeedPagination.vue";
-import SeedTable from "seed/packages/blocks/SeedTable.vue";
-import SeedFilter from "seed/packages/blocks/SeedFilter.vue";
+import SeedPagination from "seed-toolkit/packages/blocks/SeedPagination.vue";
+import SeedTable from "seed-toolkit/packages/blocks/SeedTable.vue";
+import SeedFilter from "seed-toolkit/packages/blocks/SeedFilter.vue";
 import { Notification } from "element-ui";
-import ExcelUploader from "seed/packages/components/ExcelUploader";
+import ExcelUploader from "seed-toolkit/packages/components/ExcelUploader";
 
 // 函数
 import debounce from "lodash/debounce";
 import isEqual from "lodash/isEqual";
-import guid from "seed/lib/guid";
-import optionsHelper from "seed/lib/options.js";
-import { generateExcel, download } from "seed/lib/excel";
+import guid from "seed-toolkit/lib/guid";
+import optionsHelper from "seed-toolkit/lib/options.js";
+import { generateExcel, download } from "seed-toolkit/lib/excel";
 
 const OFFSET = 16; // table距离filter的偏移量，保证不完全吸顶
 

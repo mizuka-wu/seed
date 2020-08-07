@@ -8,10 +8,10 @@
       "@/*": [
         "./examples/*"
       ],
-      "seed/packages/*": [
+      "seed-toolkit/packages/*": [
         "./packages/*"
       ],
-      "seed/lib/*": [
+      "seed-toolkit/lib/*": [
         "./lib/*"
       ],
       "types/*": [

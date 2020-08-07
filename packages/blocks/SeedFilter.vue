@@ -17,8 +17,8 @@
 /**
  * 内部使用SeedForm的查询条件生成系统
  */
-import SeedForm from "seed/packages/components/SeedForm/Index";
-import optionsHelper from "seed/lib/options";
+import SeedForm from "seed-toolkit/packages/components/SeedForm/Index";
+import optionsHelper from "seed-toolkit/lib/options";
 export default {
   components: {
     SeedForm

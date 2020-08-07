@@ -1,7 +1,7 @@
 import Element from "element-ui";
 import VueClipboard from "vue-clipboard2";
 import "element-ui/lib/theme-chalk/index.css";
-import Seed from "seed/packages/index";
+import Seed from "seed-toolkit/packages/index";
 
 export default ({ Vue }) => {
   VueClipboard.config.autoSetContainer = true;

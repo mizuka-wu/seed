@@ -1,7 +1,7 @@
 <script>
-import SeedTable from "seed/packages/components/SeedTable/Index.vue";
+import SeedTable from "seed-toolkit/packages/components/SeedTable/Index.vue";
 import SeedForm from "./SeedForm.vue";
-import optionsHelper from "seed/lib/options";
+import optionsHelper from "seed-toolkit/lib/options";
 import { Message } from "element-ui";
 
 const injectErrorCatch = function(promise) {

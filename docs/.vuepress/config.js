@@ -9,8 +9,8 @@ module.exports = {
   chainWebpack: (config) => {
     config.resolve.alias
       .set("@", resolve("examples"))
-      .set("seed/packages", resolve("packages"))
-      .set("seed/lib", resolve('lib'))
+      .set("seed-toolkit/packages", resolve("packages"))
+      .set("seed-toolkit/lib", resolve('lib'))
   },
   locales: {
     // 键名是该语言所属的子路径

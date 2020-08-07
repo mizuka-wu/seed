@@ -1,5 +1,5 @@
 <script>
-import valueHelper from "seed/lib/value";
+import valueHelper from "seed-toolkit/lib/value";
 
 /**
  * 一个默认的实现显示组件，包含对类型的判断以及相关修正

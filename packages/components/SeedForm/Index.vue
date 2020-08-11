@@ -14,6 +14,7 @@
     >
       <Render
         :seed="formItem"
+        :model="model"
         :scope="{ row: form, column: null, $index: index }"
         :form.sync="form"
       />

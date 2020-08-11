@@ -28,11 +28,11 @@
     "url": "https://www.mizuka.top"
   },
   "files": [
-    "packages/",
+    "packages",
     "dist",
-    "lib/",
+    "lib",
     "README.md",
-    "types/",
+    "types",
     "LICENSE"
   ],
   "main": "dist/seed-toolkit.umd.min.js",

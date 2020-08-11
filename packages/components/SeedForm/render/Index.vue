@@ -10,9 +10,6 @@ export default {
       type: Object,
       required: true
     },
-    model: {
-      type: Object
-    },
     form: {
       type: Object,
       required: true
@@ -39,7 +36,6 @@ export default {
     const {
       value,
       seed,
-      model,
       scope,
       isCustomerRender,
       handleChange,
@@ -48,7 +44,6 @@ export default {
     const props = {
       value,
       seed,
-      model,
       ...scope
     };
 

@@ -31,19 +31,22 @@ export default {
       seed,
       ...scope
     };
+
+    const context = {
+      props
+    };
+
     const renderHub = $seedRender.table || {};
 
     // 自定义渲染器优先
     if (isCustomerRender) {
-      return seed.render(h, props);
+      return seed.render(h, context);
     }
 
     // 找得到的渲染器其次
     const renderName = `${seed.render}Render`;
     if (renderName in renderHub) {
-      return h(renderHub[renderName], {
-        props
-      });
+      return h(renderHub[renderName], context);
     }
 
     return h("div", value);

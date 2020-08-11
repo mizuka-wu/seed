@@ -14,8 +14,7 @@
     >
       <Render
         :seed="formItem"
-        :model="model"
-        :scope="{ row: form, column: null, $index: index }"
+        :scope="{ model, $index: index }"
         :form.sync="form"
       />
     </el-form-item>

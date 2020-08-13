@@ -27,6 +27,7 @@ import debounce from "lodash/debounce";
 import Render from "./render/Index.vue";
 
 export default {
+  name: "SeedForm",
   components: {
     Render
   },

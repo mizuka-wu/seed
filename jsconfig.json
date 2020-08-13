@@ -17,7 +17,7 @@
       "types/*": [
         "types/*"
       ]
-    }
+    },
   },
   "exclude": [
     "node_modules",

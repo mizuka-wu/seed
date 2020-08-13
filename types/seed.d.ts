@@ -11,6 +11,9 @@ export interface FormRenderContext {
     $index: number;
   };
   on: {
+    /**
+     * 自动更新form对应数据的方法
+     */
     input: Function;
   };
 }

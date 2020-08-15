@@ -12,11 +12,7 @@
       v-for="(formItem, index) of seeds"
       :label="formItem.label || formItem.key"
     >
-      <Render
-        :seed="formItem"
-        :scope="{ model, $index: index }"
-        :form.sync="form"
-      />
+      <Render :seed="formItem" :scope="{ model, index }" :form.sync="form" />
     </el-form-item>
   </el-form>
 </template>

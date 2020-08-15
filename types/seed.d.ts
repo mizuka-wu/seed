@@ -3,12 +3,12 @@ import { VNode } from "vue/types/vnode.d.ts";
 import { CreateElement } from "vue";
 import { TableColumn } from "element-ui/types/table-column";
 
-export interface FormRenderContext {
+export interface FormRenderContext<T = Object> {
   props: {
     value: any;
     seed: Seed;
-    model: Object;
-    $index: number;
+    model: T;
+    index: number;
   };
   on: {
     /**
@@ -18,13 +18,17 @@ export interface FormRenderContext {
   };
 }
 
-export interface TableRenderContext {
+export interface TableRenderContext<T = Object> {
   props: {
     value: any;
     seed: Seed;
-    row: Object;
-    $index: number;
-    column: TableColumn;
+    model: T;
+    index: number;
+    scope: {
+      row: T;
+      $index: number;
+      column: TableColumn;
+    };
   };
 }
 

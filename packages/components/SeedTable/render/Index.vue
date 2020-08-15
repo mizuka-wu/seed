@@ -29,7 +29,9 @@ export default {
     const props = {
       value,
       seed,
-      ...scope
+      model: scope.row,
+      index: scope.$index,
+      scope
     };
 
     const context = {

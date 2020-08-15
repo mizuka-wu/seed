@@ -77,6 +77,9 @@ export default {
       type: [String, Function],
       default: "_key"
     },
+    /**
+     * @type { import('types/seed').Seed[] }
+     */
     seeds: {
       type: Array,
       required: true

@@ -35,7 +35,7 @@
     "types",
     "LICENSE"
   ],
-  "main": "dist/seed-toolkit.umd.min.js",
+  "main": "dist/seed-toolkit.common.min.js",
   "keywords": [
     "vue",
     "seed",

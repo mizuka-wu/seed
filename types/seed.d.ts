@@ -33,6 +33,8 @@ export function render(
   context: FormRenderContext | TableRenderContext
 ): VNode | string {}
 
+export function showCondition<T = Object>(model: T): boolean
+
 export interface SeedOptions {
   excel?: SeedOptions;
   table?: SeedOptions;
@@ -45,7 +47,7 @@ export interface SeedOptions {
 export interface Seed {
   key: string;
   label?: string;
-  show?: boolean;
-  render?: string | render;
+  show?: boolean | typeof showCondition;
+  render?: string | typeof render;
   options?: SeedOptions;
 }

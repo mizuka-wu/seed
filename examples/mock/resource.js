@@ -23,6 +23,18 @@ function log(log) {
  * @param {string} updatetime
  */
 
+export const ENUM = {
+  ["0"]: "未通过",
+  ["1"]: "已通过",
+  ["2"]: "已驳回"
+};
+
+export function getEnum() {
+  return Promise.resolve(
+    Object.entries(ENUM).map(([key, value]) => ({ key, value }))
+  );
+}
+
 /**
  * 获取数据的方法
  * @param params
@@ -48,6 +60,7 @@ export function getList(params) {
       description: "@cparagraph",
       blog: "@url",
       ip: "@ip",
+      ["status|1"]: Object.keys(ENUM),
       birthday: '@datetime("yyyy-MM-dd")',
       addtime: "@datetime",
       updatetime: "@datetime"

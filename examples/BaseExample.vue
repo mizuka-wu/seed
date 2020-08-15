@@ -52,6 +52,7 @@ export default {
         {
           key: "ip"
         },
+        { key: "status" },
         {
           key: "birthday"
         },

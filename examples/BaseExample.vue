@@ -52,7 +52,7 @@ export default {
         {
           key: "ip"
         },
-        { key: "status" },
+        { key: "status", type: "enum" },
         {
           key: "birthday"
         },

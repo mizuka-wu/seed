@@ -48,16 +48,16 @@ export default {
         tableSeeds.push({
           key: "_control",
           label: "操作",
-          render(h, props) {
-            const { row, ...scope } = props;
+          render(h, context) {
+            const { props, model } = context;
             return (
               <div class="control-column">
-                {scopeControl && scopeControl({ row, ...scope })}
+                {scopeControl && scopeControl(props.scope)}
                 {updateItem && (
                   <ElButton
                     type="warning"
                     size="small"
-                    onClick={() => openForm(row)}
+                    onClick={() => openForm(model)}
                   >
                     编辑
                   </ElButton>
@@ -67,7 +67,7 @@ export default {
                     confirmButtonText="确定"
                     cancelButtonText="取消"
                     title="您确定删除该记录么？"
-                    onOnConfirm={() => deleteRow(row)}
+                    onOnConfirm={() => deleteRow(model)}
                   >
                     <ElButton type="danger" size="small" slot="reference">
                       删除

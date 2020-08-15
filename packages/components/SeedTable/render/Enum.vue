@@ -10,15 +10,6 @@ function getValue(context) {
   return target.label || target;
 }
 export default {
-  excelRenderer(column, data) {
-    let context = {
-      props: {
-        column,
-        data
-      }
-    };
-    return getValue(context);
-  },
   render: function(h, context) {
     return h("div", getValue(context));
   },

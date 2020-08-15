@@ -32,19 +32,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  /**
-   * 自动更新type
-   */
-  created() {
-    let options = this.item.enum;
-    let type = typeof (options[0] || {}).value;
-    this.$emit(
-      "update:rules",
-      Object.assign({}, this.rules, {
-        type
-      })
-    );
   }
 };
 </script>

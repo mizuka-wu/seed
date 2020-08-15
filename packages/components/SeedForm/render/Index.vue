@@ -43,7 +43,11 @@ export default {
     } = this;
     const props = {
       value,
-      seed,
+      disabled: seed.options && seed.options.disabled,
+      seed: {
+        ...seed,
+        options: seed.options || {}
+      },
       ...scope
     };
 

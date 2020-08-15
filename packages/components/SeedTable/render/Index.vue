@@ -28,7 +28,10 @@ export default {
     const { value, seed, scope, isCustomerRender, $seedRender = {} } = this;
     const props = {
       value,
-      seed,
+      seed: {
+        ...seed,
+        options: seed.options || {}
+      },
       model: scope.row,
       index: scope.$index,
       scope

@@ -15,7 +15,6 @@ function getValue({ props, value }) {
 }
 export default {
   render: function(h, context) {
-    console.log(context);
     return h("div", getValue(context));
   },
   functional: true,

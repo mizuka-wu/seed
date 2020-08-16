@@ -41,7 +41,9 @@ export default {
           label: "地址"
         },
         {
-          key: "pic"
+          key: "pic",
+          label: "图片",
+          render: "image"
         },
         {
           key: "description"

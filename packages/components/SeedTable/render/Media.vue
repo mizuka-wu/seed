@@ -77,63 +77,51 @@
 /**
  * 图片/视频预览装置
  * 因为无法使用functional 所以性能会有损失
- *
  * @format
  */
 
-import throttle from "lodash/throttle";
 import prettyBytes from "pretty-bytes";
+import throttle from "lodash-es/throttle";
 
+function getType(url = "") {
+  // 确定用img解析
+  if (/\w+\\.(bmp|jpg|png|tif|gif|pcx|tga|exif|fpx|svg|webp)/.test(url)) {
+    return "img";
+  } else if (/\w+\\.(mp4|mov)/.test(url)) {
+    return "video";
+  }
+  console.warn(url, "无法明确确定类型");
+  return "img"; // 默认用img解析
+}
+
+/**
+ * 考虑兼容问题，暂时不使用
+ */
 export default {
   name: "MediaPreview",
   props: {
-    data: {
-      type: [Object, Array, String]
-    },
-    noLazy: {
-      type: Boolean,
-      default: false
-    }
-  },
-  inject: {
     seed: {
-      default() {
-        return {
-          container: window
-        };
-      }
+      type: Object,
+      required: true
+    },
+    value: {
+      type: [Object, Array, String]
     }
   },
   data() {
-    let that = this;
     return {
       dialogTableVisible: false,
       target: 0,
+      container: null,
       isInScreen: false,
-      lazyScrollHandler: throttle(function() {
-        let container = that.seed.container;
-        let scrollTop = container.documentElement
-          ? container.documentElement.scrollTop || container.body.scrollTop
-          : container.scrollTop;
-        let containerHeight =
-          container.clientHeight || container.documentElement.clientHeight;
-        let toTop = 0; // 距离顶部的距离
-        let elm = that.$el;
-        while (elm.offsetParent) {
-          toTop += elm.offsetTop;
-          elm = elm.offsetParent;
-        }
-        if (scrollTop < toTop && scrollTop + containerHeight > toTop) {
-          that.isInScreen = true;
-          container.removeEventListener("scroll", that.lazyScrollHandler, true);
-        }
-        elm = null;
-        container = null;
-      }, 1000),
-      zoomIn: false
+      zoomIn: false,
+      intersectionObserver: null
     };
   },
   computed: {
+    noLazy() {
+      return (this.seed.options || {}).noLazy;
+    },
     /**
      * 显示的数据
      * @param url
@@ -141,47 +129,46 @@ export default {
      * @param {enum: ["img", "video"]} type
      */
     medias() {
-      let data = this.data || [];
+      let data = this.value || [];
       data = Array.isArray(data) ? data : [data];
       return data
         .filter(item => item)
         .map(item => {
-          let type = "img";
-          let url = item;
-          let thumbnail = item;
+          let url = "";
+          let type = "";
           let size = 0;
-          // 这里是视频的判断条件
-          if (item.poster) {
-            thumbnail = item.poster;
+          let thumbnail = "";
+
+          if (typeof item === "string") {
+            url = item;
+            type = getType(url);
+            thumbnail = item;
+          } else if (typeof item === "object") {
             url = item.url;
-            type = "video";
+            type = getType(item.url);
+            thumbnail = item.thumbnail;
+            if (!thumbnail && type === "img") {
+              thumbnail = item.url;
+            }
             size = item.size;
-          } else if (item.format) {
-            /**
-             * @todo 通过format进行图片类型判断
-             */
-            thumbnail = item.url;
-            url = item.url;
-            type = "img";
           }
-          const result = {
-            loading: true,
+
+          return {
             url,
             thumbnail,
             type,
             size
           };
-          return result;
-        });
+        })
+        .filter(item => item.type);
     },
     lazyMedias() {
-      if (this.isInScreen || this.noLazy) {
+      if (this.noLazy || this.isInScreen) {
         return this.medias;
       } else {
         return this.medias.map(item => ({
-          loading: true,
           type: item.type,
-          thumbnail: "https://static.piaoniu.com/pc/ui/img/default-poster.png"
+          thumbnail: `https://dummyimage.com/300/&text=${location.hostname}`
         }));
       }
     }
@@ -228,6 +215,14 @@ export default {
     }, 10),
     getSize(size = 0) {
       return prettyBytes(size);
+    },
+    observerCallback(entries) {
+      if (entries[0]) {
+        this.isInScreen = entries[0].isIntersecting;
+        if (this.isInScreen) {
+          this.intersectionObserver.disconnect();
+        }
+      }
     }
   },
   watch: {
@@ -243,37 +238,34 @@ export default {
     }
   },
   mounted() {
-    if (!this.noLazy) {
-      this.seed.container.addEventListener(
-        "scroll",
-        this.lazyScrollHandler,
-        true
+    if (!this.noLazy && window.IntersectionObserver) {
+      this.intersectionObserver = new IntersectionObserver(
+        this.observerCallback.bind(this)
       );
-      this.lazyScrollHandler();
+      this.intersectionObserver.observe(document.body);
+    } else {
+      this.isInScreen = true;
+
+      if (!window.IntersectionObserver) {
+        console.warn("IntersectionObserver", "不支持");
+      }
     }
   },
   activated() {
-    if (!this.noLazy) {
-      this.seed.container.addEventListener(
-        "scroll",
-        this.lazyScrollHandler,
-        true
-      );
+    if (this.intersectionObserver) {
+      this.intersectionObserver.observe();
     }
   },
   deactivated() {
-    this.seed.container.removeEventListener(
-      "scroll",
-      this.lazyScrollHandler,
-      true
-    );
+    if (this.intersectionObserver) {
+      this.intersectionObserver.disconnect();
+    }
   },
   beforeDestroy() {
-    this.seed.container.removeEventListener(
-      "scroll",
-      this.lazyScrollHandler,
-      true
-    );
+    if (this.intersectionObserver) {
+      this.intersectionObserver.disconnect();
+      this.intersectionObserver = null;
+    }
   }
 };
 </script>
@@ -338,6 +330,7 @@ export default {
     position: relative;
 
     .placeholder {
+      z-index: 1;
       position: absolute;
       width: 100%;
       top: 0;
@@ -347,7 +340,7 @@ export default {
       align-items: center;
 
       i {
-        color: #ffffff;
+        color: #000000;
         font-size: 32px;
       }
     }

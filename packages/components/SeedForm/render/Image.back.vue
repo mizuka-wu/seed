@@ -17,7 +17,9 @@
       list-type="picture-card"
     >
       <i class="el-icon-plus"></i>
-      <div v-if="item.description" slot="tip" class="el-upload__tip">{{ item.description }}</div>
+      <div v-if="item.description" slot="tip" class="el-upload__tip">
+        {{ item.description }}
+      </div>
     </el-upload>
     <!-- 上传按钮 -->
     <el-button
@@ -27,7 +29,8 @@
       style="margin-top: 10px;"
       size="large"
       type="primary"
-    >上传</el-button>
+      >上传</el-button
+    >
   </div>
 </template>
 
@@ -38,170 +41,170 @@
  * @format
  */
 
-import prettyBytes from 'pretty-bytes'
+import prettyBytes from "pretty-bytes";
 export default {
   props: {
     value: {
-      type: [String, Array],
+      type: [String, Array]
     },
     item: {
       type: Object,
-      required: true,
+      required: true
     },
     multiple: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     let uploadConfig = Object.assign(
       {},
       {
-        path: '/opapi/file/upload',
+        path: "/opapi/file/upload",
         data: {
-          name: 'poster',
-          prefix: 'misc',
+          name: "poster",
+          prefix: "misc"
         },
         maxSize: 1024 * 1024,
-        accept: 'image/jpeg,image/png,image/gif',
+        accept: "image/jpeg,image/png,image/gif"
       },
       this.item.validator
-    )
+    );
     return {
       uploadConfig: uploadConfig,
-      files: this.initFiles(), // 需要转换成标准格式
-    }
+      files: this.initFiles() // 需要转换成标准格式
+    };
   },
   computed: {
     // 判断list是否只能传一个用的 默认应该是unique
     isUnique() {
-      return !this.item.multiple
+      return !this.item.multiple;
     },
     // 自动禁止上传
     uploadDisabled() {
-      return !this.files.filter(file => file.status !== 'success').length
+      return !this.files.filter(file => file.status !== "success").length;
     },
     maxFiles() {
       // 有指定用指定，否则无所谓
-      return this.multiple ? this.uploadConfig.max || 999 : 1
+      return this.multiple ? this.uploadConfig.max || 999 : 1;
     },
     isVerify() {
-      return this.$store.state.seed.isVerify
-    },
+      return this.$store.state.seed.isVerify;
+    }
   },
   methods: {
     initFiles() {
-      let files = this.multiple ? this.value : [this.value]
+      let files = this.multiple ? this.value : [this.value];
       return files
         .filter(file => file)
-        .map(file => ({ name: file, url: file, status: 'success' }))
+        .map(file => ({ name: file, url: file, status: "success" }));
     },
     // size格式化
     sizeFormatter(value = 0) {
-      return prettyBytes(value)
+      return prettyBytes(value);
     },
     // 上传文件检测
     fileCheck(file) {
-      let { width, height, maxSize } = this.uploadConfig
-      let showMessage = this.$message.error
+      let { width, height, maxSize } = this.uploadConfig;
+      let showMessage = this.$message.error;
       if (maxSize < file.size) {
-        showMessage('图片超过大小限制:  ' + this.sizeFormatter(maxSize))
-        return false
+        showMessage("图片超过大小限制:  " + this.sizeFormatter(maxSize));
+        return false;
       }
       // 宽度高度校验，需呀生成一张临时图片
       if (this.isVerify && (width || height)) {
         return new Promise((resolve, reject) => {
-          let reader = new FileReader()
-          reader.onerror = reject
+          let reader = new FileReader();
+          reader.onerror = reject;
           reader.onload = function(e) {
-            let src = e.target.result
-            let image = new Image()
+            let src = e.target.result;
+            let image = new Image();
             // 加载图片
             image.onload = function() {
-              let err = ''
+              let err = "";
               if (width && image.width != width) {
-                err += `图片宽度${image.width} 不等于 ${width}`
+                err += `图片宽度${image.width} 不等于 ${width}`;
               }
               if (height && image.height != height) {
-                err += `图片高度${image.height} 不等于 ${height}`
+                err += `图片高度${image.height} 不等于 ${height}`;
               }
               if (err) {
-                showMessage(err)
-                reject(new Error(err))
+                showMessage(err);
+                reject(new Error(err));
               }
-              resolve()
-            }
-            image.onerror = reject
-            image.src = src
-          }
-          reader.readAsDataURL(file)
-        })
+              resolve();
+            };
+            image.onerror = reject;
+            image.src = src;
+          };
+          reader.readAsDataURL(file);
+        });
       }
-      return true
+      return true;
     },
     // 预览
     handlePictureCardPreview(file) {
       this.$alert(`<img src="${file.url}" width="100%" />`, file.name, {
         dangerouslyUseHTMLString: true,
-        showClose: false,
-      })
+        showClose: false
+      });
     },
     handleChange(file, fileList) {
       if (this.isUnique && fileList.length > 1) {
-        fileList.shift()
+        fileList.shift();
       }
       // 更新回去，如果有上传成功的，就删除掉response
       this.files = fileList.map(file => {
-        if (file.response && file.status === 'success') {
-          file.url = file.response.data
-          delete file.response
-          delete file.raw
+        if (file.response && file.status === "success") {
+          file.url = file.response.data;
+          delete file.response;
+          delete file.raw;
         }
-        return file
-      })
-    },
+        return file;
+      });
+    }
   },
   watch: {
     value() {
-      this.files = this.initFiles()
+      this.files = this.initFiles();
     },
     // 更新value 决定是否显示upload button的
     files: {
       immediate: true,
       handler(files) {
         let value = files
-          .filter(file => file.status === 'success')
-          .map(file => file.url)
+          .filter(file => file.status === "success")
+          .map(file => file.url);
         if (this.isUnique) {
-          value = value.length > 0 ? value[0] : ''
+          value = value.length > 0 ? value[0] : "";
         }
-        this.$emit('input', value)
+        this.$emit("input", value);
         /**
          * 检测是否能够显示上传按钮
          */
         this.$nextTick(() => {
-          let uploader = this.$refs.uploader
+          let uploader = this.$refs.uploader;
           if (uploader) {
-            let uploadButton = uploader.$el.querySelector('.el-upload')
-            let maxFiles = this.isVerify ? this.maxFiles : 99999
+            let uploadButton = uploader.$el.querySelector(".el-upload");
+            let maxFiles = this.isVerify ? this.maxFiles : 99999;
             if (files.length >= maxFiles) {
-              uploadButton.style.visibility = 'hidden'
+              uploadButton.style.visibility = "hidden";
             } else {
-              uploadButton.style.visibility = 'visible'
+              uploadButton.style.visibility = "visible";
             }
           }
-        })
-      },
-    },
-  },
-}
+        });
+      }
+    }
+  }
+};
 </script>
 <style lang="less">
 /** @format */
 
 .form-upload {
   .el-upload-list__item.is-ready:after {
-    content: '尚未上传';
+    content: "尚未上传";
     position: absolute;
     left: 0;
     right: 0;

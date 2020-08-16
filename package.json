@@ -1,6 +1,6 @@
 {
   "name": "seed-toolkit",
-  "version": "0.4.4",
+  "version": "0.5.0-0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --dest dist --name seed-toolkit packages/index.js",

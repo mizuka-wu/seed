@@ -4,7 +4,6 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --dest dist --name seed-toolkit packages/index.js",
-    "build-analysis": "npm run build --report",
     "docs:dev": "npx vuepress dev docs",
     "docs:build": "npx vuepress build docs",
     "test:unit": "vue-cli-service test:unit",

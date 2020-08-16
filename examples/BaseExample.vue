@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import resource from "@/mock/resource";
+import resource, { ENUM } from "@/mock/resource";
 
 export default {
   name: "app",
@@ -52,7 +52,13 @@ export default {
         {
           key: "ip"
         },
-        { key: "status", type: "enum" },
+        {
+          key: "status",
+          render: "enum",
+          options: {
+            enum: ENUM
+          }
+        },
         {
           key: "birthday"
         },

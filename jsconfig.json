@@ -14,8 +14,8 @@
       "seed-toolkit/lib/*": [
         "./lib/*"
       ],
-      "types/*": [
-        "types/*"
+      "seed-toolkit/types/*": [
+        "./types/*"
       ]
     },
   },

@@ -54,7 +54,6 @@ export default {
     // 找得到的渲染器其次
     const renderName = `${seed.render}Render`;
     if (renderName in renderHub) {
-      console.log(renderHub);
       return h(renderHub[renderName], context);
     }
 

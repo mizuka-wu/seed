@@ -1,12 +1,17 @@
 <!-- @format -->
 
 <script>
-function getValue({ props, value }) {
-  const { options = {} } = props;
+/**
+ * @param { import('types/seed').TableRenderContext } context
+ */
+function getValue({ props }) {
+  const { seed, value } = props;
+  const options = seed.options || {};
   const enumConfig = options.enum || {};
+  console.log(enumConfig, value);
   if (Array.isArray(enumConfig)) {
     const target = enumConfig.find(
-      enumItem => enumItem.value === value || enumItem === value
+      enumItem => enumItem.value == value || enumItem == value
     );
     return target ? target.label || target : value;
   } else {

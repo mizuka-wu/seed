@@ -1,25 +1,48 @@
 <!-- @format -->
 
-<template functional>
+<template>
   <el-popover
     placement="top-start"
     trigger="hover"
     width="300"
-    :disabled="(props.data || '').length < 50"
+    :disabled="!showClamp"
   >
-    <code>{{ props.data }}</code>
+    <div class="popover" v-html="value"></div>
     <div slot="reference">
-      {{
-        (props.data || "").length > 50
-          ? props.data.substring(0, 48) + "..."
-          : props.data
-      }}
+      <div :style="{ height: `${line * 1.5}em`, overflow: 'hidden' }">
+        <div v-html="value" ref="reference"></div>
+      </div>
+      <span v-if="showClamp">...</span>
     </div>
   </el-popover>
 </template>
 
 <script>
 export default {
-  props: ["column", "data"]
+  props: ["value", "seed"],
+  data() {
+    return {
+      showClamp: false,
+      line: 3
+    };
+  },
+  mounted() {
+    const { options = {} } = this.seed;
+    const { line = 3 } = options;
+    this.line = line;
+    this.$nextTick(() => {
+      const valueContainer = this.$refs.reference;
+      if (valueContainer) {
+        this.showClamp =
+          valueContainer.clientHeight > valueContainer.parentNode.clientHeight;
+      }
+    });
+  }
 };
 </script>
+<style scoped>
+.popover {
+  max-height: 400px;
+  overflow: auto;
+}
+</style>

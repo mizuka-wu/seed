@@ -46,7 +46,8 @@ export default {
           render: "image"
         },
         {
-          key: "description"
+          key: "description",
+          render: "textarea"
         },
         {
           key: "blog"

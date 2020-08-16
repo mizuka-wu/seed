@@ -28,6 +28,7 @@
 | image   | ☑️           |          | 支持字符串或{url, thumbnail?, size?} |
 | video   | ☑️           |          | 支持字符串或{url, thumbnail?, size?} |
 | media   | ☑️           |          | 自动判断视频还是图片，慎用，支持字符串或{url, thumbnail?, size?} |
+| textarea   | ☑️           |          | 大文本，表格内默认为3行，可通过设定line来配置数量，form中为富文本 |
 
 ## 不同的组件渲染方案不一样的情况
 

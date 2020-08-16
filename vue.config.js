@@ -4,6 +4,9 @@ function resolve(dir) {
 }
 
 module.exports = {
+  devServer: {
+    disableHostCheck: true
+  },
   chainWebpack: config => {
     config.resolve.alias
       .set("@", resolve("examples"))

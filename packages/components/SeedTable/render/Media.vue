@@ -83,17 +83,6 @@
 import prettyBytes from "pretty-bytes";
 import throttle from "lodash-es/throttle";
 
-function getType(url = "") {
-  // 确定用img解析
-  if (/\w+\\.(bmp|jpg|png|tif|gif|pcx|tga|exif|fpx|svg|webp)/.test(url)) {
-    return "img";
-  } else if (/\w+\\.(mp4|mov)/.test(url)) {
-    return "video";
-  }
-  console.warn(url, "无法明确确定类型");
-  return "img"; // 默认用img解析
-}
-
 /**
  * 考虑兼容问题，暂时不使用
  */
@@ -141,11 +130,11 @@ export default {
 
           if (typeof item === "string") {
             url = item;
-            type = getType(url);
+            type = this.getType(url);
             thumbnail = item;
           } else if (typeof item === "object") {
             url = item.url;
-            type = getType(item.url);
+            type = this.getType(item.url);
             thumbnail = item.thumbnail;
             if (!thumbnail && type === "img") {
               thumbnail = item.url;
@@ -215,6 +204,16 @@ export default {
     }, 10),
     getSize(size = 0) {
       return prettyBytes(size);
+    },
+    getType(url = "") {
+      // 确定用img解析
+      if (/\w+\\.(bmp|jpg|png|tif|gif|pcx|tga|exif|fpx|svg|webp)/.test(url)) {
+        return "img";
+      } else if (/\w+\\.(mp4|mov)/.test(url)) {
+        return "video";
+      }
+      console.warn(url, "无法明确确定类型");
+      return "img"; // 默认用img解析
     },
     observerCallback(entries) {
       if (entries[0]) {

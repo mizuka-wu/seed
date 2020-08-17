@@ -1,6 +1,7 @@
 {
   "name": "seed-toolkit",
   "version": "0.5.0",
+  "description": "One step generating pages from data",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --dest dist --name seed-toolkit packages/index.js",
@@ -34,7 +35,7 @@
     "types",
     "LICENSE"
   ],
-  "main": "dist/seed-toolkit.common.min.js",
+  "main": "dist/seed-toolkit.umd.min.js",
   "keywords": [
     "vue",
     "seed",

@@ -16,7 +16,7 @@ export default {
       const component = templates(compoentPath).default;
       Vue.component(`Seed${upperFirstCharacter(componentName)}`, component);
       if (componentName === defaultComponent) {
-        Vue.component('Seed', component);
+        Vue.component("Seed", component);
       }
     });
   }

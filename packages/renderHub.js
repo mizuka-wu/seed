@@ -31,18 +31,22 @@ const renderHub = renderComponents
   );
 
 /**
- * @param { file } file
+ * @param { File[] | File } file
  * @returns { Promise<string> }
  */
 export function defaultUpload(file) {
-  const fileReader = new FileReader();
-  return new Promise((resolve, reject) => {
-    fileReader.onload(() => {
-      resolve(fileReader.result);
+  if (Array.isArray(file)) {
+    return Promise.all(defaultUpload(file));
+  } else {
+    const fileReader = new FileReader();
+    return new Promise((resolve, reject) => {
+      fileReader.onload(() => {
+        resolve(fileReader.result);
+      });
+      fileReader.onerror(e => reject(e));
+      fileReader.readAsDataURL(file);
     });
-    fileReader.onerror(e => reject(e));
-    fileReader.readAsDataURL(file);
-  });
+  }
 }
 
 export default {

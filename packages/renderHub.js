@@ -30,8 +30,23 @@ const renderHub = renderComponents
     }
   );
 
+/**
+ * @param { file } file
+ * @returns { Promise<string> }
+ */
+export function defaultUpload(file) {
+  const fileReader = new FileReader();
+  return new Promise((resolve, reject) => {
+    fileReader.onload(() => {
+      resolve(fileReader.result);
+    });
+    fileReader.onerror(e => reject(e));
+    fileReader.readAsDataURL(file);
+  });
+}
+
 export default {
-  install(Vue) {
+  install(Vue, options = {}) {
     const $seedRender = {
       ...renderHub
     };
@@ -83,6 +98,8 @@ export default {
     };
 
     $seedRender.registeRender = registeRender;
+
+    $seedRender.fileUploader = options.fileUploader || defaultUpload;
 
     Vue.prototype.$seedRender = $seedRender;
   }

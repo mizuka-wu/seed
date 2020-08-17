@@ -2,7 +2,7 @@
 
 ![upload release asset](https://github.com/mizuka-wu/Seed/workflows/upload%20release%20asset/badge.svg)
 ![publish to npm](https://github.com/mizuka-wu/Seed/workflows/publish%20to%20npm/badge.svg)
-A simple `Vue` component collection for build backstage page
+One step generating pages from data define!
 ![Publish docs to github actions](https://github.com/mizuka-wu/Seed/workflows/Publish%20docs%20to%20github%20actions/badge.svg)
 
 ## Getting Started

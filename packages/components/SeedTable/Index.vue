@@ -33,19 +33,16 @@
       <!-- sortable控制 -->
       <el-table-column v-if="sortable" width="50">
         <template slot-scope="{ $index }">
-          <div
-            v-for="{ icon, target, isShow } of sortControls"
-            :key="icon"
-            style="padding: 5px"
-          >
-            <el-button
-              circle
-              :icon="icon"
-              size="small"
-              v-if="isShow($index)"
-              @click="exchangeRow($index, target($index), true)"
-            />
-          </div>
+          <template v-for="{ icon, target, isShow } of sortControls">
+            <div :key="icon" style="padding: 5px" v-if="isShow($index)">
+              <el-button
+                circle
+                :icon="icon"
+                size="small"
+                @click="exchangeRow($index, target($index), true)"
+              />
+            </div>
+          </template>
         </template>
       </el-table-column>
     </el-table>

@@ -9,6 +9,13 @@ function log(log) {
   );
 }
 
+const VIDEOS = [
+  "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
+  "https://media.w3.org/2010/05/sintel/trailer.mp4",
+  "http://vjs.zencdn.net/v/oceans.mp4",
+  ""
+];
+
 /**
  * @typedef MockItem mock
  * @param {number} [id]
@@ -57,6 +64,7 @@ export function getList(params) {
       name: "@cname",
       address: "@county(true)",
       pic: "@image",
+      ["video|1"]: VIDEOS,
       description: "@cparagraph",
       blog: "@url",
       ip: "@ip",

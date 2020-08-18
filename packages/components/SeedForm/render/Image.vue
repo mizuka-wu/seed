@@ -4,7 +4,7 @@
   <div class="form-upload">
     <el-upload
       action="/"
-      accept="image/jpeg,image/png,image/jpg"
+      :accept="accept"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleChange"
       :file-list="files"
@@ -58,6 +58,7 @@ export default {
   },
   data() {
     return {
+      accept: "image/jpeg,image/png,image/jpg",
       files: this.initFiles() // 需要转换成标准格式
     };
   },
@@ -68,7 +69,13 @@ export default {
     },
     // 自动禁止上传
     uploadDisabled() {
-      return !this.files.filter(file => file.status !== "success").length;
+      const files = this.files || [];
+      return (
+        // 无可上传的
+        !files.filter(file => file.status !== "success").length &&
+        // 最大数量超了
+        files.length >= this.maxFiles
+      );
     },
     maxFiles() {
       // 有指定用指定，否则无所谓
@@ -78,10 +85,23 @@ export default {
   methods: {
     initFiles() {
       const { multiple = false } = {};
-      let files = multiple ? this.value : [this.value];
-      return files
+      let files = (multiple ? this.value : [this.value])
         .filter(file => file)
-        .map(file => ({ name: file, url: file, status: "success" }));
+        .map(file => {
+          return {
+            ...(typeof file === "string"
+              ? {
+                  name: file,
+                  url: file
+                }
+              : file),
+            status: "success"
+          };
+        });
+      return [
+        ...files,
+        ...(this.files || []).filter(({ status }) => status !== "success")
+      ];
     },
     // size格式化
     sizeFormatter(value = 0) {
@@ -129,30 +149,19 @@ export default {
     },
     // 更新value 决定是否显示upload button的
     files: {
-      immediate: true,
-      handler(files) {
+      handler(files = []) {
         let value = files
           .filter(file => file.status === "success")
           .map(file => file.url);
         if (this.isUnique) {
           value = value.length > 0 ? value[0] : "";
-        }
-        this.$emit("input", value);
-        /**
-         * 检测是否能够显示上传按钮
-         */
-        this.$nextTick(() => {
-          let uploader = this.$refs.uploader;
-          if (uploader) {
-            let uploadButton = uploader.$el.querySelector(".el-upload");
-            let maxFiles = this.isVerify ? this.maxFiles : 99999;
-            if (files.length >= maxFiles) {
-              uploadButton.style.visibility = "hidden";
-            } else {
-              uploadButton.style.visibility = "visible";
-            }
+          this.$emit("input", value);
+        } else {
+          // 多选情况需要先判断数组有没有变化
+          if (value.sort().join() !== this.value.sort().join()) {
+            this.$emit("input", value);
           }
-        });
+        }
       }
     }
   }

@@ -38,12 +38,21 @@ export default {
         },
         {
           key: "address",
-          label: "地址"
+          label: "地址",
+          render(h, { props }) {
+            return props.value + "地址";
+          }
         },
         {
           key: "pic",
           label: "图片",
           render: "image"
+        },
+        {
+          key: "video",
+          label: "视频",
+          render: "video",
+          options: {}
         },
         {
           key: "description",

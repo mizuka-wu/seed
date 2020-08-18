@@ -17,9 +17,13 @@
         <el-badge :value="getSize(media.size)" :hidden="!media.size > 0">
           <div
             class="image"
-            :style="{ backgroundImage: 'url(' + media.thumbnail + ')' }"
+            :style="{
+              backgroundImage: 'url(' + media.thumbnail + ')',
+              backgroundColor: media.thumbnail ? 'transparent' : '#AAAAAA'
+            }"
           ></div>
         </el-badge>
+        <slot :media="media" />
       </div>
     </div>
     <!-- 弹窗 -->
@@ -131,7 +135,7 @@ export default {
           if (typeof item === "string") {
             url = item;
             type = this.getType(url);
-            thumbnail = item;
+            thumbnail = type === "img" ? item : "";
           } else if (typeof item === "object") {
             url = item.url;
             type = this.getType(item.url);

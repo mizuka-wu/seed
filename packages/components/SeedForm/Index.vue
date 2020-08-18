@@ -7,12 +7,12 @@
     v-if="form"
   >
     <el-form-item
-      :key="formItem.key"
-      :prop="formItem.key"
-      v-for="(formItem, index) of seeds"
-      :label="formItem.label || formItem.key"
+      :key="seed.key"
+      :prop="seed.key"
+      v-for="(seed, index) of seeds"
+      :label="seed.label || seed.key"
     >
-      <Render :seed="formItem" :scope="{ model, index }" :form.sync="form" />
+      <Render :seed="seed" :scope="{ model, index }" :form.sync="form" />
     </el-form-item>
   </el-form>
 </template>

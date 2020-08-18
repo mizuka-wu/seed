@@ -4,6 +4,8 @@
       :fetchList="fetchList"
       :seeds="seeds"
       :addItem="addItem"
+      :deleteItem="deleteItem"
+      :updateItem="updateItem"
       sortable
     >
       <template #batchList="{ rows }">

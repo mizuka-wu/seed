@@ -23,7 +23,7 @@
       <el-table-column v-if="isShowBatchList" type="selection" />
       <!-- 正常渲染 -->
       <el-table-column
-        v-for="seed of tableSeeds"
+        v-for="seed of seeds"
         :key="seed.key"
         :label="seed.label || seed.key"
         v-bind="seed.options || {}"
@@ -64,7 +64,6 @@
 </template>
 <script>
 import Render from "./render/Index.vue";
-import optionsHelper from "seed-toolkit/lib/options";
 import Sortable from "sortablejs";
 
 const TIME = 500;
@@ -105,9 +104,6 @@ export default {
     };
   },
   computed: {
-    tableSeeds() {
-      return optionsHelper(this.seeds, "table");
-    },
     sortControls({ data }) {
       return [
         // 置顶

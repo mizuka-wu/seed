@@ -10,6 +10,10 @@ export default {
       type: Object,
       required: true
     },
+    slots: {
+      type: Object,
+      required: true
+    },
     form: {
       type: Object,
       required: true
@@ -37,6 +41,7 @@ export default {
       value,
       seed,
       scope,
+      slots,
       isCustomerRender,
       handleChange,
       $seedRender = {}
@@ -57,6 +62,11 @@ export default {
         input: handleChange
       }
     };
+
+    const slotRender = slots[`${seed.key}Render`];
+    if (slotRender) {
+      return slotRender(context.props);
+    }
 
     const renderHub = $seedRender.form || {};
 

@@ -84,13 +84,14 @@ export default {
     },
     // 给table用的渲染data
     tableVnodeData({ $attrs, $listeners, $parent, openForm, addItem, $slots }) {
-      const { batchList } = $parent.$scopedSlots;
+      const { batchList, blogRender } = $parent.$scopedSlots;
       const { tools } = $parent.$slots;
       return {
         props: $attrs,
         on: $listeners,
         scopedSlots: {
           batchList,
+          blogRender,
           default: () => {
             return (
               <div>

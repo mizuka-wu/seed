@@ -31,22 +31,27 @@ const renderHub = renderComponents
   );
 
 /**
- * @param { File[] | File } file
+ * 默认的处理上传方案，建议替换
+ * @see @url https://github.com/ElemeFE/element/issues/9759
+ * @param { import('./node_modules/element-ui/types/upload').HttpRequestOptions } options
  * @returns { Promise<string> }
  */
-export function defaultUpload(file) {
-  if (Array.isArray(file)) {
-    return Promise.all(defaultUpload(file));
-  } else {
-    const fileReader = new FileReader();
-    return new Promise((resolve, reject) => {
-      fileReader.onload(() => {
-        resolve(fileReader.result);
+export function defaultUpload({ file, onSuccess, onError }) {
+  const fileReader = new FileReader();
+  return new Promise((resolve, reject) => {
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+    fileReader.onerror = e => reject(e);
+    fileReader.readAsDataURL(file);
+  })
+    .then(url => {
+      onSuccess({
+        data: url
       });
-      fileReader.onerror(e => reject(e));
-      fileReader.readAsDataURL(file);
-    });
-  }
+      return url;
+    })
+    .catch(e => onError(e));
 }
 
 export default {
@@ -103,6 +108,12 @@ export default {
 
     $seedRender.registeRender = registeRender;
 
+    if (options.fileUploader) {
+      console.info(
+        "fileUploader请务必参照相关issue实现onSuccess",
+        "https://github.com/ElemeFE/element/issues/9759"
+      );
+    }
     $seedRender.fileUploader = options.fileUploader || defaultUpload;
 
     Vue.prototype.$seedRender = $seedRender;

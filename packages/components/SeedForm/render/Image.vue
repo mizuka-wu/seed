@@ -3,9 +3,8 @@
 <template>
   <div class="form-upload">
     <el-upload
-      :action="uploadConfig.path"
-      :data="uploadConfig.data"
-      :accept="uploadConfig.accept"
+      action="/"
+      accept="image/jpeg,image/png,image/jpg"
       :on-preview="handlePictureCardPreview"
       :on-remove="handleChange"
       :file-list="files"
@@ -14,11 +13,16 @@
       :auto-upload="false"
       :before-upload="fileCheck"
       :on-change="handleChange"
+      :http-request="handleUpload"
       list-type="picture-card"
     >
       <i class="el-icon-plus"></i>
-      <div v-if="item.description" slot="tip" class="el-upload__tip">
-        {{ item.description }}
+      <div
+        v-if="(seed.options || {}).description"
+        slot="tip"
+        class="el-upload__tip"
+      >
+        {{ (seed.options || {}).description }}
       </div>
     </el-upload>
     <!-- 上传按钮 -->
@@ -45,40 +49,22 @@ import prettyBytes from "pretty-bytes";
 export default {
   props: {
     value: {
-      type: [String, Array]
+      type: String,
+      required: false
     },
-    item: {
-      type: Object,
-      required: true
-    },
-    multiple: {
-      type: Boolean,
-      default: false
+    seed: {
+      type: Object
     }
   },
   data() {
-    let uploadConfig = Object.assign(
-      {},
-      {
-        path: "/opapi/file/upload",
-        data: {
-          name: "poster",
-          prefix: "misc"
-        },
-        maxSize: 1024 * 1024,
-        accept: "image/jpeg,image/png,image/gif"
-      },
-      this.item.validator
-    );
     return {
-      uploadConfig: uploadConfig,
       files: this.initFiles() // 需要转换成标准格式
     };
   },
   computed: {
     // 判断list是否只能传一个用的 默认应该是unique
     isUnique() {
-      return !this.item.multiple;
+      return !(this.seed.options || {}).multiple;
     },
     // 自动禁止上传
     uploadDisabled() {
@@ -86,15 +72,13 @@ export default {
     },
     maxFiles() {
       // 有指定用指定，否则无所谓
-      return this.multiple ? this.uploadConfig.max || 999 : 1;
-    },
-    isVerify() {
-      return this.$store.state.seed.isVerify;
+      return this.multiple ? (this.seed.options || {}).maxFiles || 999 : 1;
     }
   },
   methods: {
     initFiles() {
-      let files = this.multiple ? this.value : [this.value];
+      const { multiple = false } = {};
+      let files = multiple ? this.value : [this.value];
       return files
         .filter(file => file)
         .map(file => ({ name: file, url: file, status: "success" }));
@@ -105,40 +89,9 @@ export default {
     },
     // 上传文件检测
     fileCheck(file) {
-      let { width, height, maxSize } = this.uploadConfig;
-      let showMessage = this.$message.error;
-      if (maxSize < file.size) {
-        showMessage("图片超过大小限制:  " + this.sizeFormatter(maxSize));
-        return false;
-      }
-      // 宽度高度校验，需呀生成一张临时图片
-      if (this.isVerify && (width || height)) {
-        return new Promise((resolve, reject) => {
-          let reader = new FileReader();
-          reader.onerror = reject;
-          reader.onload = function(e) {
-            let src = e.target.result;
-            let image = new Image();
-            // 加载图片
-            image.onload = function() {
-              let err = "";
-              if (width && image.width != width) {
-                err += `图片宽度${image.width} 不等于 ${width}`;
-              }
-              if (height && image.height != height) {
-                err += `图片高度${image.height} 不等于 ${height}`;
-              }
-              if (err) {
-                showMessage(err);
-                reject(new Error(err));
-              }
-              resolve();
-            };
-            image.onerror = reject;
-            image.src = src;
-          };
-          reader.readAsDataURL(file);
-        });
+      const { options = {} } = this.seed;
+      if (options.fileCheck) {
+        return options.fileCheck(file);
       }
       return true;
     },
@@ -162,6 +115,12 @@ export default {
         }
         return file;
       });
+    },
+    /**
+     * 上传
+     */
+    handleUpload(options) {
+      this.$seedRender.fileUploader(options);
     }
   },
   watch: {

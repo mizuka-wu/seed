@@ -14,6 +14,10 @@ export default {
       required: true
     },
     seed: {
+      type: Object,
+      required: true
+    },
+    slots: {
       type: Object
     }
   },
@@ -25,7 +29,14 @@ export default {
     isCustomerRender: ({ seed }) => typeof seed.render === "function"
   },
   render(h) {
-    const { value, seed, scope, isCustomerRender, $seedRender = {} } = this;
+    const {
+      value,
+      seed,
+      scope,
+      slots,
+      isCustomerRender,
+      $seedRender = {}
+    } = this;
     const props = {
       value,
       seed: {
@@ -44,14 +55,20 @@ export default {
       props
     };
 
-    const renderHub = $seedRender.table || {};
-
-    // 自定义渲染器优先
-    if (isCustomerRender) {
-      return seed.render(h, context);
+    // slotsScoped优先
+    const slotRender = slots[`${seed.key}Render`];
+    if (slotRender) {
+      return slotRender(context.props);
     }
 
-    // 找得到的渲染器其次
+    const renderHub = $seedRender.table || {};
+
+    // 自定义渲染器其次
+    if (isCustomerRender) {
+      return <div>{seed.render(h, context)}</div>;
+    }
+
+    // 找得到的渲染器再其次
     const renderName = `${seed.render}Render`;
     if (renderName in renderHub) {
       return h(renderHub[renderName], context);

@@ -62,7 +62,7 @@ export default {
 
     // 自定义渲染器优先
     if (isCustomerRender) {
-      return seed.render(h, context);
+      return <div>{seed.render(h, context)}</div>;
     }
 
     // 找得到的渲染器其次

@@ -39,8 +39,12 @@ export default {
         {
           key: "address",
           label: "地址",
-          render(h, { props }) {
-            return props.value + "地址";
+          options: {
+            table: {
+              render(h, { props }) {
+                return props.value + "11112121212";
+              }
+            }
           }
         },
         {

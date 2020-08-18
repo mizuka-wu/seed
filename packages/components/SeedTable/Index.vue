@@ -28,7 +28,12 @@
         :label="seed.label || seed.key"
         v-bind="seed.options || {}"
       >
-        <Render slot-scope="scope" :seed="seed" :scope="scope" />
+        <Render
+          slot-scope="scope"
+          :slots="$scopedSlots"
+          :seed="seed"
+          :scope="scope"
+        />
       </el-table-column>
       <!-- sortable控制 -->
       <el-table-column v-if="sortable" width="50">

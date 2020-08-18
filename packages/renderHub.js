@@ -109,6 +109,7 @@ export default {
     $seedRender.registeRender = registeRender;
 
     if (options.fileUploader) {
+      // eslint-disable-next-line
       console.info(
         "fileUploader请务必参照相关issue实现onSuccess",
         "https://github.com/ElemeFE/element/issues/9759"

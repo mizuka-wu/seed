@@ -15,6 +15,10 @@
       :row-key="rowKey"
       @selection-change="onSelectionChange"
     >
+      <!-- 排序 -->
+      <el-table-column v-if="sortable" width="28">
+        <i class="sortable-grasp el-icon-rank" />
+      </el-table-column>
       <!-- 批量选择 -->
       <el-table-column v-if="isShowBatchList" type="selection" />
       <!-- 正常渲染 -->
@@ -281,7 +285,8 @@ export default {
 
       let el = this.$el.querySelector(".el-table tbody");
       Sortable.create(el, {
-        delay: 300,
+        delay: 0,
+        handle: ".sortable-grasp",
         onEnd({ oldIndex, newIndex }) {
           that.exchangeRow(oldIndex, newIndex);
         }
@@ -298,6 +303,10 @@ export default {
   display flex
   margin 10px 0
   align-items center
+
+.sortable-grasp
+  font-size 16px
+  cursor move
 .sticky-head
   >>>.el-table
     overflow visible

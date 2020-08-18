@@ -17,7 +17,7 @@
         <el-button>审核{{ scope.row.name }}</el-button>
       </template>
       <template #blogRender="{ value }"> {{ value }} hello </template>
-      <template #tools>
+      <template>
         hello
       </template>
     </SeedPagingTable>

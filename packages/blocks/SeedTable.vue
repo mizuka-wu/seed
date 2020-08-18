@@ -29,6 +29,9 @@ export default {
     },
     deleteItem: {
       type: Function
+    },
+    controlColumnOptions: {
+      type: Object
     }
   },
   computed: {
@@ -48,6 +51,7 @@ export default {
         tableSeeds.push({
           key: "_control",
           label: "操作",
+          options: this.controlColumnOptions || {},
           render(h, context) {
             const { props, model } = context;
             return (
@@ -55,6 +59,7 @@ export default {
                 {scopeControl && scopeControl(props.scope)}
                 {updateItem && (
                   <ElButton
+                    class="control-button"
                     type="warning"
                     size="small"
                     onClick={() => openForm(model)}
@@ -64,6 +69,7 @@ export default {
                 )}
                 {deleteItem && (
                   <ElPopconfirm
+                    class="control-button"
                     confirmButtonText="确定"
                     cancelButtonText="取消"
                     title="您确定删除该记录么？"
@@ -86,6 +92,7 @@ export default {
     tableVnodeData({ $attrs, $listeners, $parent, openForm, addItem, $slots }) {
       const { batchList, blogRender } = $parent.$scopedSlots;
       const { tools } = $parent.$slots;
+
       return {
         props: $attrs,
         on: $listeners,
@@ -96,7 +103,7 @@ export default {
             return (
               <div>
                 {
-                  // slot的工具栏
+                  // slot的工具栏,混合了template和更外层的模版的slot
                   (tools, $slots.tools)
                 }
                 {// 添加按钮
@@ -195,7 +202,6 @@ export default {
 .table-container
   margin 16px 0
   >>> .control-column
-    display inline-flex
-    justify-content space-between
-    min-width 120px
+   .control-button + .control-button
+    margin-left 8px
 </style>

@@ -25,7 +25,7 @@
 | string | ☑️           | ☑️          | 默认的显示方案，直接纯字符串        |
 | time   | ☑️           | ☑️          | 显示时间，默认为yyyy-MM-DD hh:mm:ss |
 | enum   | ☑️           | ☑️          | 读取options内的enum自动匹配显示，支持{[key: any]: string}, {value: any, label:any}[], string[]等方案 |
-| image   | ☑️           |          | 支持字符串或{url, thumbnail?, size?} |
+| image   | ☑️           | ☑️          | 支持字符串或{url, thumbnail?, size?} |
 | video   | ☑️           |          | 支持字符串或{url, thumbnail?, size?} |
 | media   | ☑️           |          | 自动判断视频还是图片，慎用，支持字符串或{url, thumbnail?, size?} |
 | textarea   | ☑️           | ☑️         | 大文本，表格内默认为3行，可通过设定line来配置数量，支持内容为富文本，form中不支持可视化编辑富文本 |

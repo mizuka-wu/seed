@@ -1,6 +1,6 @@
 {
   "name": "seed-toolkit",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "One step generating pages from data",
   "scripts": {
     "serve": "vue-cli-service serve",

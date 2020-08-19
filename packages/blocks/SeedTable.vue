@@ -46,7 +46,7 @@ export default {
       openForm,
       deleteRow
     }) {
-      const tableSeeds = optionsHelper(seeds, "table");
+      const tableSeeds = [...optionsHelper(seeds, "table")];
 
       // 判断是否需要增加工具列
       const scopeControl = $parent.$scopedSlots.control;
@@ -59,7 +59,7 @@ export default {
             const { props } = context;
             return (
               <div class="control-column">
-                {scopeControl && scopeControl(props.scope)}
+                {scopeControl && scopeControl({ ...props, ...props.scope })}
                 {updateItem && (
                   <ElButton
                     class="control-button"

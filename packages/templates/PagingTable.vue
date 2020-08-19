@@ -16,7 +16,8 @@
       v-bind="$attrs"
       :seeds="seeds"
     >
-      <template #tools>
+      <template>
+        <slot />
         <ElButton size="small" type="success" @click="exportExcel">
           导出为Excel
         </ElButton>

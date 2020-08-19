@@ -91,7 +91,6 @@ export default {
     // 给table用的渲染data
     tableVnodeData({ $attrs, $listeners, $parent, openForm, addItem, $slots }) {
       const { batchList, blogRender } = $parent.$scopedSlots;
-      const { tools } = $parent.$slots;
 
       return {
         props: $attrs,
@@ -104,7 +103,7 @@ export default {
               <div>
                 {
                   // slot的工具栏,混合了template和更外层的模版的slot
-                  (tools, $slots.tools)
+                  $slots.default
                 }
                 {// 添加按钮
                 addItem && (

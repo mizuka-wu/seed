@@ -53,7 +53,7 @@ export default {
           label: "操作",
           options: this.controlColumnOptions || {},
           render(h, context) {
-            const { props, model } = context;
+            const { props } = context;
             return (
               <div class="control-column">
                 {scopeControl && scopeControl(props.scope)}
@@ -62,7 +62,7 @@ export default {
                     class="control-button"
                     type="warning"
                     size="small"
-                    onClick={() => openForm(model)}
+                    onClick={() => openForm(props.model)}
                   >
                     编辑
                   </ElButton>
@@ -73,7 +73,7 @@ export default {
                     confirmButtonText="确定"
                     cancelButtonText="取消"
                     title="您确定删除该记录么？"
-                    onOnConfirm={() => deleteRow(model)}
+                    onOnConfirm={() => deleteRow(props.model)}
                   >
                     <ElButton type="danger" size="small" slot="reference">
                       删除
@@ -89,15 +89,22 @@ export default {
       return tableSeeds;
     },
     // 给table用的渲染data
-    tableVnodeData({ $attrs, $listeners, $parent, openForm, addItem, $slots }) {
-      const { batchList, blogRender } = $parent.$scopedSlots;
+    tableVnodeData({
+      $attrs,
+      $listeners,
+      $scopedSlots,
+      openForm,
+      addItem,
+      $slots
+    }) {
+      const { batchList, ...scopedSlots } = $scopedSlots;
 
       return {
         props: $attrs,
         on: $listeners,
         scopedSlots: {
+          ...scopedSlots,
           batchList,
-          blogRender,
           default: () => {
             return (
               <div>

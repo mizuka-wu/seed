@@ -19,6 +19,9 @@
  */
 import SeedForm from "seed-toolkit/packages/components/SeedForm/Index";
 import optionsHelper from "seed-toolkit/lib/options";
+
+export const FILTER_SCOPE = "filter";
+
 export default {
   components: {
     SeedForm
@@ -31,7 +34,11 @@ export default {
     }
   },
   computed: {
-    filterSeeds: ({ seeds }) => optionsHelper(seeds, "filter")
+    filterSeeds: ({ seeds }) => optionsHelper(seeds, "filter"),
+    filterScopedSlots({ $scopedSlots }) {
+      console.log($scopedSlots);
+      return {};
+    }
   },
   methods: {
     handlerSearch() {

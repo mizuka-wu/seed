@@ -1,46 +1,6 @@
-<template>
-  <div class="seed-container">
-    <!-- filter -->
-    <SeedFilter
-      ref="filter"
-      v-if="fetchList"
-      v-bind="$attrs"
-      @search="handleSearch"
-      :seeds="seeds"
-    />
-    <!-- table -->
-    <SeedTable
-      ref="table"
-      v-loading="loading"
-      :data="data"
-      v-bind="$attrs"
-      :seeds="seeds"
-    >
-      <template>
-        <slot />
-        <ElButton size="small" type="success" @click="exportExcel">
-          导出为Excel
-        </ElButton>
-        <ExcelUploader
-          :seeds="seeds"
-          @uploaded="rows => $emit('uploaded', rows)"
-        />
-      </template>
-    </SeedTable>
-    <!-- pagination -->
-    <SeedPagination
-      @scrollUp="scrollUp"
-      v-if="fetchList"
-      :params.sync="paginationParams"
-      ref="pagination"
-    />
-  </div>
-</template>
-
 <script>
 /**
  * 容器组件，负责基本布局系统，传递参数
- * @todo 探讨是不是需要拆成mixins
  */
 import SeedPagination from "seed-toolkit/packages/blocks/SeedPagination.vue";
 import SeedTable from "seed-toolkit/packages/blocks/SeedTable.vue";
@@ -58,12 +18,68 @@ import { generateExcel, download } from "seed-toolkit/lib/excel";
 const OFFSET = 16; // table距离filter的偏移量，保证不完全吸顶
 
 export default {
+  render() {
+    const vm = this;
+    const {
+      fetchList,
+      $attrs,
+      $slots,
+      $scopedSlots,
+      seeds,
+      handleSearch,
+      loading,
+      data,
+      exportExcel,
+      scrollUp,
+      paginationParams
+    } = vm;
+
+    return (
+      <div class="seed-container">
+        {fetchList && (
+          <SeedFilter
+            scopedSlots={$scopedSlots}
+            ref="filter"
+            {...$attrs}
+            onSearch={handleSearch}
+            seeds={seeds}
+          ></SeedFilter>
+        )}
+        <SeedTable
+          ref="table"
+          scopedSlots={$scopedSlots}
+          v-loading={loading}
+          data={data}
+          seeds={seeds}
+          props={$attrs}
+        >
+          {$slots.default}
+          <ElButton size="small" type="success" onClick={exportExcel}>
+            导出为Excel
+          </ElButton>
+          <ExcelUploader
+            seeds={seeds}
+            onUploaded={rows => vm.$emit("uploaded", rows)}
+          />
+        </SeedTable>
+        {fetchList && (
+          <SeedPagination
+            onScrollUp={scrollUp}
+            params={paginationParams}
+            ref="pagination"
+            on={{ "update:params": e => (vm.paginationParams = e) }}
+          />
+        )}
+      </div>
+    );
+  },
   components: {
     SeedPagination,
     SeedTable,
     SeedFilter,
     ExcelUploader
   },
+  name: "pagingTable",
   props: {
     /**
      * 获取数据
@@ -97,6 +113,18 @@ export default {
       fetchData: null,
       loading: false
     };
+  },
+  computed: {
+    /**
+     * 混合之后的params, 分页的未初始化的话，不进行请求
+     */
+    queryParams({ paginationParams, params, extraParams }) {
+      return {
+        ...paginationParams,
+        ...params,
+        ...extraParams
+      };
+    }
   },
   methods: {
     handleSearch(params) {
@@ -170,18 +198,6 @@ export default {
       const workbook = await generateExcel(rows, seeds);
       notify.close();
       download(workbook);
-    }
-  },
-  computed: {
-    /**
-     * 混合之后的params, 分页的未初始化的话，不进行请求
-     */
-    queryParams({ paginationParams, params, extraParams }) {
-      return {
-        ...paginationParams,
-        ...params,
-        ...extraParams
-      };
     }
   },
   watch: {

@@ -24,11 +24,9 @@ export interface TableRenderContext<T = Object> {
     seed: Seed;
     model: T;
     index: number;
-    scope: {
-      row: T;
-      $index: number;
-      column: TableColumn;
-    };
+    row: T;
+    $index: number;
+    column: TableColumn;
   };
 }
 

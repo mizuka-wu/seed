@@ -59,7 +59,7 @@ export default {
             const { props } = context;
             return (
               <div class="control-column">
-                {scopeControl && scopeControl({ ...props, ...props.scope })}
+                {scopeControl && scopeControl(props)}
                 {updateItem && (
                   <ElButton
                     class="control-button"

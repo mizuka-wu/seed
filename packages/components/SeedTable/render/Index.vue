@@ -45,7 +45,7 @@ export default {
       },
       model: scope.row,
       index: scope.$index,
-      scope
+      ...scope
     };
 
     /**

@@ -1,28 +1,55 @@
-<template>
-  <el-dialog :visible.sync="visible" v-on="$listeners" destroy-on-close>
-    <template slot="title">
-      {{ isEdit ? "编辑" : "添加" }}
-      <slot name="title" />
-    </template>
-    <SeedForm
-      ref="form"
-      :seeds="formSeeds"
-      v-if="visible"
-      :defaultForm="defaultForm"
-      v-on="$listeners"
-      v-bind="$attrs"
-    />
-    <template slot="footer">
-      <el-button size="small" type="primary" @click="submit">提交</el-button>
-      <el-button size="small" @click="cancel">取消</el-button>
-    </template>
-  </el-dialog>
-</template>
-
 <script>
 import SeedForm from "seed-toolkit/packages/components/SeedForm/Index";
 import optionsHelper from "seed-toolkit/lib/options";
+import scopedSlotsHelper from "seed-toolkit/lib/scopedSlots";
+
+export const FORM_SCOPE = "form";
+export const UPDATE_FORM_SCOPE = "update";
+export const ADD_FORM_SCOPE = "add";
+
 export default {
+  render() {
+    const vm = this;
+    const {
+      $listeners,
+      visible,
+      formSeeds,
+      defaultForm,
+      isEdit,
+      $slots,
+      submit,
+      cancel
+    } = this;
+    return (
+      <el-dialog
+        visible={visible}
+        on={{ ...$listeners, "update:visible": e => (vm.visible = e) }}
+        destroy-on-close
+      >
+        <div slot="title">
+          {isEdit ? "编辑" : "添加"}
+          {$slots.title}
+        </div>
+        {visible && (
+          <SeedForm
+            ref="form"
+            seeds={formSeeds}
+            defaultForm={defaultForm}
+            v-on="$listeners"
+            v-bind="$attrs"
+          />
+        )}
+        <template slot="footer">
+          <el-button size="small" type="primary" onClick={submit}>
+            提交
+          </el-button>
+          <el-button size="small" onClick={cancel}>
+            取消
+          </el-button>
+        </template>
+      </el-dialog>
+    );
+  },
   components: {
     SeedForm
   },
@@ -40,6 +67,26 @@ export default {
       visible: false,
       defaultForm: null
     };
+  },
+  computed: {
+    subFormType({ isEdit }) {
+      return isEdit ? UPDATE_FORM_SCOPE : ADD_FORM_SCOPE;
+    },
+    scopedSlots({ $scopedSlots, subFormType }) {
+      const formScopedSlots = scopedSlotsHelper($scopedSlots, FORM_SCOPE);
+      const overWriteScopedSlots = scopedSlotsHelper($scopedSlots, subFormType);
+      return {
+        ...formScopedSlots,
+        ...overWriteScopedSlots
+      };
+    },
+    /**
+     * 根据类型动态调整
+     */
+    formSeeds({ seeds, subFormType }) {
+      const formSeeds = optionsHelper(seeds, FORM_SCOPE);
+      return optionsHelper(formSeeds, subFormType);
+    }
   },
   methods: {
     open(form = null) {
@@ -72,16 +119,6 @@ export default {
           // eslint-disable-next-line
           console.error(e);
         });
-    }
-  },
-  computed: {
-    /**
-     * 根据类型动态调整
-     */
-    formSeeds() {
-      const { seeds, isEdit } = this;
-      const formSeeds = optionsHelper(seeds, "form");
-      return optionsHelper(formSeeds, isEdit ? "update" : "add");
     }
   }
 };

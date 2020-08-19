@@ -17,6 +17,8 @@
         <el-button>审核{{ scope.row.name }}</el-button>
       </template>
       <template #table:blogRender="{ value }"> {{ value }} hello </template>
+      <template #filter:blogRender="{ value }"> {{ value }} hello </template>
+
       <template>
         hello
       </template>

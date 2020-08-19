@@ -135,10 +135,11 @@ export default {
       };
     },
     // 给form用的基础渲染data
-    formVnodeData({ $attrs, $listeners }) {
+    formVnodeData({ $attrs, $listeners, $scopedSlots }) {
       return {
         props: $attrs,
-        on: $listeners
+        on: $listeners,
+        scopedSlots: $scopedSlots
       };
     }
   },

@@ -9,7 +9,7 @@
     <el-form-item
       :key="seed.key"
       :prop="seed.key"
-      v-for="(seed, index) of seeds"
+      v-for="(seed, index) of tableSeeds"
       :label="seed.label || seed.key"
     >
       <Render
@@ -53,6 +53,7 @@ export default {
     return {
       isUpdating: false,
       form,
+      tableSeeds: [...this.seeds],
       // eslint-disable-next-line
       _formCache: form // form的缓存，不需要vue遍历
     };
@@ -87,6 +88,23 @@ export default {
   },
   methods: {
     update: debounce(function(form) {
+      Promise.all(
+        this.seeds.map(({ show, key }) => {
+          if (typeof show === "function") {
+            return Promise.resolve(show(form.toJS()));
+          } else {
+            return Promise.resolve(key);
+          }
+        })
+      )
+        .then(keys => {
+          this.tableSeeds = this.seeds.filter(({ key }) => keys.includes(key));
+        })
+        .catch(e => {
+          // eslint-disable-next-line
+          console.error(e)
+          this.tableSeeds = [...this.seeds];
+        });
       const { $data } = this;
       this.$emit("endUpdate", form.toJS(), $data._formCache.toJS());
       $data._formCache = form;

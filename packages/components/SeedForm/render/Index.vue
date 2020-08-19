@@ -27,13 +27,13 @@ export default {
     }
   },
   methods: {
-    handleChange(value) {
+    handleChange(value, _key) {
       const {
         seed: { key },
         form
       } = this;
 
-      this.$emit("update:form", form.set(key, value));
+      this.$emit("update:form", form.set(_key || key, value));
     }
   },
   render(h) {
@@ -59,13 +59,13 @@ export default {
     const context = {
       props,
       on: {
-        input: handleChange
+        input: handleChange.bind(this)
       }
     };
 
     const slotRender = slots[`${seed.key}Render`];
     if (slotRender) {
-      return slotRender(context.props);
+      return slotRender({ ...context.props, onInput: context.on.input });
     }
 
     const renderHub = $seedRender.form || {};

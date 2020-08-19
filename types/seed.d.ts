@@ -14,7 +14,7 @@ export interface FormRenderContext<T = Object> {
     /**
      * 自动更新form对应数据的方法
      */
-    input: Function;
+    input: (value: any, key: [string]) => void;
   };
 }
 

@@ -2,6 +2,7 @@
 import SeedTable from "seed-toolkit/packages/components/SeedTable/Index.vue";
 import SeedForm from "./SeedForm.vue";
 import optionsHelper from "seed-toolkit/lib/options";
+import scopedSlotsHelper from "seed-toolkit/lib/scopedSlots";
 import { Message } from "element-ui";
 
 const injectErrorCatch = function(promise) {
@@ -9,6 +10,8 @@ const injectErrorCatch = function(promise) {
     Message.error(e.message);
   });
 };
+
+export const TABLE_SCOPE = "table";
 
 export default {
   components: {
@@ -99,11 +102,14 @@ export default {
     }) {
       const { batchList, ...scopedSlots } = $scopedSlots;
 
+      // 分离table用的
+      const tableScopedSlots = scopedSlotsHelper(scopedSlots, TABLE_SCOPE);
+
       return {
         props: $attrs,
         on: $listeners,
         scopedSlots: {
-          ...scopedSlots,
+          ...tableScopedSlots,
           batchList,
           default: () => {
             return (

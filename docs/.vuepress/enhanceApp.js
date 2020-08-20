@@ -1,3 +1,4 @@
+import '@babel/polyfill'
 import Element from "element-ui";
 import VueClipboard from "vue-clipboard2";
 import "element-ui/lib/theme-chalk/index.css";

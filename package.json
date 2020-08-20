@@ -65,6 +65,7 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.10.4",
     "@vue/cli-plugin-babel": "^4.2.0",
     "@vue/cli-plugin-eslint": "^4.2.0",
     "@vue/cli-plugin-unit-mocha": "^4.2.0",

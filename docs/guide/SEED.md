@@ -33,3 +33,5 @@
 一部分需要`slot`才知道是否能够控制显示，主要还是设计上的问题，个人期望这块将之后的行为控制完全交给使用者
 
 - **batchList** 增加一个选择列，选择结果将回给这个 **slot-scope**
+
+        exclude: /node_modules\/(?!(@mycompany)\/).*/,

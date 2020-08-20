@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import qs from "qs";
 const exampleContext = require.context("./", false, /\.vue/);
 const Examples = exampleContext
   .keys()
@@ -32,6 +33,10 @@ export default {
   },
   computed: {
     currentExample({ example, examples }) {
+      const query = qs.parse((location.search || "").replace(/^\?/, ""));
+
+      example = example || query.example;
+
       if (examples.includes(example)) {
         return example;
       } else {

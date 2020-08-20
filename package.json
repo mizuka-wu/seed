@@ -50,7 +50,6 @@
   "typings": "typings/index.d.ts",
   "dependencies": {
     "ant-design-vue": "^1.2.4",
-    "core-js": "^3.6.4",
     "dayjs": "^1.8.31",
     "element-ui": "^2.4.5",
     "exceljs": "^3.10.0",
@@ -76,6 +75,7 @@
     "babel-eslint": "^10.0.3",
     "chai": "^4.1.2",
     "conventional-changelog-cli": "^2.0.31",
+    "core-js": "^3.6.5",
     "defer-to-connect": "^2.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",

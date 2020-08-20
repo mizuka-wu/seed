@@ -16,6 +16,7 @@
       <el-step description="上传excel">
         <template #title>
           <input
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
             type="file"
             :disabled="loading"
             v-loading="loading"

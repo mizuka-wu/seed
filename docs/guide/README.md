@@ -10,11 +10,23 @@
 
 ## 起步
 
-> 目前处于开发阶段，实际上会不断的进行修改
+> `seed-toolkit`依赖于`element-ui`请先安装`element-ui`
 
-请直接拷贝`packages`下的所有文件，引入`templates/PagingTable.vue`即可
+```bash
+npm i --save seed-toolkit
 
-给你的文件加入以下两个选项即可
+# 或者
+
+yarn add seed-toolkit
+```
+
+在你的`main.js`中
+
+```js
+import Seed from "seed-toolkit";
+Vue.use(Seed);
+
+```
 
 ### 以下是一个简单的例子
 

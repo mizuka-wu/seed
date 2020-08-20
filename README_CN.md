@@ -7,19 +7,19 @@ One step generating pages from data define!
 
 [中文](https://github.com/mizuka-wu/seed/blob/master/README_CN.md)
 
-## Getting Started
+## 开始
 
-This project try to provide a simple way, to help you generate a back-stage management page by online define the `data model` and it will auto generate the `table` and `form`
+这个项目尝试简化后台页面的开发流程，通过提供`模版`和`区块`还有`一些通用组件`的方式，让您在仅需要提供一个`数据模型`定义的基础上，生成页面的`table`和`form`
 
-seed-toolkit provide a simple [DSL](https://www.mizuka.top/seed/guide/DSL.html) for describe the request and response json
+seed-toolkit 通过提供一个简单的 [DSL](https://www.mizuka.top/seed/guide/DSL.html) 定义方案，用来描述页面使用的数据模型（request/response）
 
-and provide some template for quick generate the page
+同时提供一系列的`预置`的模版方便快速页面生成
 
-(only paging table current)
+（当前仅提供分页筛选表格）
 
 ![preview](https://cdn.jsdelivr.net/gh/mizuka-wu/seed@master/docs/.vuepress/public/preview.png)
 
-### Installing
+### 安装
 
 ```bash
 npm i seed-toolkit
@@ -30,27 +30,25 @@ yarn add seed-toolkit
 
 ```
 
-### Docs
+### 文档
 
-- [Chinese](https://www.mizuka.top/seed/)
+- [中文文档](https://www.mizuka.top/seed/)
 
-- [English](https://www.mizuka.top/seed/) is Building
-
-### Prerequisites
+### 需求
 
 `Element-UI >= 2.4.5`
 
-`Vue >= 2.6.2`
+`Vue >= 2.5.0`
 
-## Deployment
+## 开发
 
-fork this project
+fork本项目
 
-see the example page under the `examples`
+开发页面在`examples`下
 
-the `component file` is under `packages`
+具体`component`代码在`packages`下，根据命名分类
 
-wellcome pull request
+欢迎提pull request
 
 ## Built With
 
@@ -59,6 +57,6 @@ wellcome pull request
 
 ## License
 
-This project is licensed under the [MIT License](./LICENSE)
+本项目基于 [MIT License](./LICENSE)
 
 ![donate](https://cdn.jsdelivr.net/gh/mizuka-wu/mizuka-wu.github.io@master/assets/donate.jpg)

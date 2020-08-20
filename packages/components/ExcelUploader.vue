@@ -3,14 +3,25 @@
     <el-steps direction="vertical">
       <el-step title="步骤 1" description="下载对应模版进行填写">
         <template #title>
-          <el-button type="text" style="padding: 0" @click="downloadTemplate"
+          <el-button
+            v-loading="loading"
+            type="text"
+            :disabled="loading"
+            style="padding: 0"
+            @click="downloadTemplate"
             >下载模版</el-button
           >
         </template>
       </el-step>
       <el-step description="上传excel">
         <template #title>
-          <input type="file" ref="fileReader" @change="readExcelFromTemplate" />
+          <input
+            type="file"
+            :disabled="loading"
+            v-loading="loading"
+            ref="fileReader"
+            @change="readExcelFromTemplate"
+          />
         </template>
       </el-step>
     </el-steps>
@@ -40,6 +51,11 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      loading: false
+    };
+  },
   computed: {
     excelSeeds({ seeds }) {
       return optionsHelper(seeds, "excel");
@@ -49,13 +65,25 @@ export default {
     async readExcelFromTemplate(e) {
       const file = e.target.files[0];
       if (file) {
-        const rows = await readExcelFromTemplate(file, this.excelSeeds);
-        this.$emit("uploaded", rows);
+        this.loading = true;
+        try {
+          const rows = await readExcelFromTemplate(file, this.excelSeeds);
+          this.$emit("uploaded", rows);
+        } catch (e) {
+          this.$message.error(e);
+        }
       }
+      this.loading = false;
       this.$refs.fileReader.value = "";
     },
     async downloadTemplate() {
-      await download(generateExcel([], this.excelSeeds));
+      this.loading = true;
+      try {
+        await download(generateExcel([], this.excelSeeds));
+      } catch (e) {
+        this.$message.error(e);
+      }
+      this.loading = false;
     }
   }
 };

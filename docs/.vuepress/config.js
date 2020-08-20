@@ -3,6 +3,25 @@ function resolve(dir) {
   return path.resolve(__dirname, '..', '..', dir);
 }
 
+// 顶栏
+const nav = [
+  {
+    text: "文档",
+    items: [
+      { text: "起步", link: "/guide/index.html" },
+      { text: "DSL说明", link: "/guide/DSL" },
+      { text: "Excel相关说明", link: "/guide/EXCEL" },
+    ],
+  },
+  {
+    text: "组件",
+    items: [
+      { text: "Form", link: "/components/Form.html" },
+      { text: "Table", link: "/components/Table.html" },
+    ],
+  },
+]
+
 module.exports = {
   title: "Seed",
   base: "/seed/",
@@ -27,32 +46,10 @@ module.exports = {
     },
   },
   themeConfig: {
-    sidebarDepth: 2,
-    sidebar: {
-      "/guide/": ["", "SEED", "DSL", "EXCEL"],
-      "/components/": ["Form.html", "Table.html"],
-    },
     nav: [
       {
         text: "学习",
-        items: [
-          {
-            text: "文档",
-            items: [
-              { text: "起步", link: "/guide/index.html" },
-              { text: "SEED配置", link: "/guide/SEED" },
-              { text: "DSL说明", link: "/guide/DSL" },
-              { text: "Excel相关说明", link: "/guide/EXCEL" },
-            ],
-          },
-          {
-            text: "组件",
-            items: [
-              { text: "Form", link: "/components/Form.html" },
-              { text: "Table", link: "/components/Table.html" },
-            ],
-          },
-        ],
+        items: nav,
       },
       {
         text: "贡献/提问",
@@ -60,6 +57,24 @@ module.exports = {
       },
       { text: "Github", link: "https://github.com/mizuka-wu/seed" },
     ],
+    sidebarDepth: 2,
+    // 根据navbar自动生成
+    sidebar: nav.reduce((sidebar, { items }) => ({
+      ...sidebar,
+      ...items.reduce((_sidebar, item) => {
+        const { link } = item
+
+        const { scope, name } = ((/(?<scope>\/.*?\/)(?<name>\w*)\.?.*/.exec(link) || {}).groups) || {}
+
+        if (!(scope in _sidebar)) {
+          _sidebar[scope] = []
+        }
+
+        _sidebar[scope].push(name === 'index' ? '' : name)
+
+        return _sidebar
+      }, {})
+    }), {}),
     displayAllHeaders: true,
     repo: "mizuka-wu/seed",
     repoLabel: "查看源码",

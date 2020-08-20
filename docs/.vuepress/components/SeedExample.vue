@@ -124,7 +124,7 @@ export default {
   border 1px solid #ddd
   border-radius 4px
   max-height 900px
-  overflow scroll
+  overflow auto
   .control
     padding 0 10px
     display flex

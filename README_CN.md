@@ -5,7 +5,7 @@
 One step generating pages from data define!
 ![Publish docs to github actions](https://github.com/mizuka-wu/Seed/workflows/Publish%20docs%20to%20github%20actions/badge.svg)
 
-[中文](https://github.com/mizuka-wu/seed/blob/master/README_CN.md)
+[英文](https://github.com/mizuka-wu/seed/blob/master/README_CN.md)
 
 ## 开始
 

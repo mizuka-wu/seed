@@ -17,6 +17,7 @@ export default {
       defaultForm,
       isEdit,
       $slots,
+      scopedSlots,
       submit,
       cancel
     } = this;
@@ -35,6 +36,7 @@ export default {
             ref="form"
             seeds={formSeeds}
             defaultForm={defaultForm}
+            scopedSlots={scopedSlots}
             v-on="$listeners"
             v-bind="$attrs"
           />

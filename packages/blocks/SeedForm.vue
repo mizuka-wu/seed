@@ -57,6 +57,10 @@ export default {
   },
   name: "SeedFromContainer",
   props: {
+    issueSlots: {
+      type: Boolean,
+      default: false
+    },
     seeds: {
       type: Array,
       required: true
@@ -74,8 +78,10 @@ export default {
     subFormType({ isEdit }) {
       return isEdit ? UPDATE_FORM_SCOPE : ADD_FORM_SCOPE;
     },
-    scopedSlots({ $scopedSlots, subFormType }) {
-      const formScopedSlots = scopedSlotsHelper($scopedSlots, FORM_SCOPE);
+    scopedSlots({ $scopedSlots, subFormType, issueSlots }) {
+      const formScopedSlots = issueSlots
+        ? scopedSlotsHelper($scopedSlots, FORM_SCOPE)
+        : $scopedSlots;
       const overWriteScopedSlots = scopedSlotsHelper($scopedSlots, subFormType);
       return {
         ...formScopedSlots,

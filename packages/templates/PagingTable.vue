@@ -53,6 +53,7 @@ export default {
           <SeedFilter
             scopedSlots={$scopedSlots}
             ref="filter"
+            issueSlots={true}
             {...$attrs}
             onSearch={handleSearch}
             seeds={seeds}
@@ -63,6 +64,7 @@ export default {
           scopedSlots={$scopedSlots}
           v-loading={loading}
           data={data}
+          issueSlots={true}
           seeds={seeds}
           props={$attrs}
         >

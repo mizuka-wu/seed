@@ -20,6 +20,10 @@ export default {
   },
   name: "SeedTableContainer",
   props: {
+    issueSlots: {
+      type: Boolean,
+      default: false
+    },
     seeds: {
       type: Array,
       required: true
@@ -98,12 +102,15 @@ export default {
       $scopedSlots,
       openForm,
       addItem,
+      issueSlots,
       $slots
     }) {
       const { batchList, ...scopedSlots } = $scopedSlots;
 
       // 分离table用的
-      const tableScopedSlots = scopedSlotsHelper(scopedSlots, TABLE_SCOPE);
+      const tableScopedSlots = issueSlots
+        ? scopedSlotsHelper(scopedSlots, TABLE_SCOPE)
+        : scopedSlots;
 
       return {
         props: $attrs,
@@ -199,6 +206,7 @@ export default {
         <SeedTable seeds={tableSeeds} {...tableVnodeData} />
         {(addItem || updateItem) && (
           <SeedForm
+            issueSlots={true}
             onSubmit={submit}
             seeds={seeds}
             ref="form"

@@ -39,6 +39,10 @@ export default {
   },
   name: "SeedFilterContainer",
   props: {
+    issueSlots: {
+      type: Boolean,
+      default: false
+    },
     seeds: {
       type: Array,
       required: true
@@ -46,8 +50,10 @@ export default {
   },
   computed: {
     filterSeeds: ({ seeds }) => optionsHelper(seeds, "filter"),
-    filterScopedSlots({ $scopedSlots }) {
-      const filterScopedSlots = scopedSlotsHelper($scopedSlots, FILTER_SCOPE);
+    filterScopedSlots({ $scopedSlots, issueSlots }) {
+      const filterScopedSlots = issueSlots
+        ? scopedSlotsHelper($scopedSlots, FILTER_SCOPE)
+        : $scopedSlots;
       return filterScopedSlots;
     }
   },

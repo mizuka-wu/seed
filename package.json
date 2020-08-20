@@ -52,7 +52,7 @@
     "ant-design-vue": "^1.2.4",
     "dayjs": "^1.8.31",
     "element-ui": "^2.4.5",
-    "exceljs": "^3.10.0",
+    "exceljs": "3.3.1",
     "file-saver": "^2.0.2",
     "immutable": "^4.0.0-rc.12",
     "less": "^3.11.1",

@@ -28,6 +28,9 @@
         :label="seed.label || seed.key"
         v-bind="seed.options || {}"
       >
+        <template slot="header" slot-scope="scope">
+          <slot :name="`${key}HeaderRender`" v-bind="scope"></slot>
+        </template>
         <Render
           slot-scope="scope"
           :slots="$scopedSlots"

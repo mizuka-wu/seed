@@ -1,7 +1,7 @@
 import renderHub from "./renderHub";
 const templates = require.context("./templates", false, /\.vue$/);
 
-const defaultComponent = "pagingTable";
+const defaultComponent = "PagingTable";
 
 function upperFirstCharacter(targetString = "") {
   return targetString.charAt(0).toUpperCase() + targetString.slice(1);

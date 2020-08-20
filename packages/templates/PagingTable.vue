@@ -31,8 +31,21 @@ export default {
       data,
       exportExcel,
       scrollUp,
-      paginationParams
+      paginationParams,
+      excel
     } = vm;
+
+    // excel 上传下载配置
+    const excelConfig =
+      excel === true
+        ? {
+            upload: true,
+            download: true
+          }
+        : excel || {};
+
+    const excelUpload = excelConfig.upload;
+    const excelDownload = excelConfig.download;
 
     return (
       <div class="seed-container">
@@ -54,13 +67,17 @@ export default {
           props={$attrs}
         >
           {$slots.default}
-          <ElButton size="small" type="success" onClick={exportExcel}>
-            导出为Excel
-          </ElButton>
-          <ExcelUploader
-            seeds={seeds}
-            onUploaded={rows => vm.$emit("uploaded", rows)}
-          />
+          {excelDownload && (
+            <ElButton size="small" type="success" onClick={exportExcel}>
+              导出为Excel
+            </ElButton>
+          )}
+          {excelUpload && (
+            <ExcelUploader
+              seeds={seeds}
+              onUploaded={rows => vm.$emit("uploaded", rows)}
+            />
+          )}
         </SeedTable>
         {fetchList && (
           <SeedPagination
@@ -102,6 +119,10 @@ export default {
     seeds: {
       type: Array,
       required: true
+    },
+    excel: {
+      type: [Boolean, Object],
+      default: false
     }
   },
   data() {

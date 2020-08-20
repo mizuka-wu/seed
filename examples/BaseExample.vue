@@ -7,13 +7,14 @@
       :deleteItem="deleteItem"
       :updateItem="updateItem"
       sortable
+      excel
     >
       <template #batchList="{ rows }">
         <el-button size="small" type="danger"
           >{{ rows.length }}已选择</el-button
         >
       </template>
-      <template #control="scope">
+      <template slot="control" slot-scope="scope">
         <el-button>审核{{ scope.row.name }}</el-button>
       </template>
       <template #table:blogRender="{ value }"> {{ value }} hello </template>

@@ -29,7 +29,10 @@
         v-bind="seed.options || {}"
       >
         <template slot="header" slot-scope="scope">
-          <slot :name="`${seed.key}HeaderRender`" v-bind="{...scope, ...this.$refs}">
+          <slot
+            :name="`${seed.key}HeaderRender`"
+            v-bind="{ ...scope, ...this.$refs }"
+          >
             {{ seed.label || seed.key }}
           </slot>
         </template>

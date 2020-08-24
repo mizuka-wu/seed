@@ -26,6 +26,7 @@ export default {
       $slots,
       $scopedSlots,
       seeds,
+      refresh,
       handleSearch,
       loading,
       data,
@@ -67,6 +68,7 @@ export default {
           issueSlots={true}
           seeds={seeds}
           props={$attrs}
+          onRefresh={refresh}
         >
           {$slots.default}
           {excelDownload && (

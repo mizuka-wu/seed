@@ -44,16 +44,16 @@ export default {
   computed: {
     tableSeeds({
       seeds,
-      $parent,
       updateItem,
       deleteItem,
       openForm,
-      deleteRow
+      deleteRow,
+      $scopedSlots
     }) {
       const tableSeeds = [...optionsHelper(seeds, "table")];
 
       // 判断是否需要增加工具列
-      const scopeControl = $parent.$scopedSlots.control;
+      const scopeControl = $scopedSlots.control;
       if (scopeControl || updateItem || deleteItem) {
         tableSeeds.push({
           key: "_control",
@@ -160,7 +160,7 @@ export default {
       }
     },
     refresh() {
-      this.$parent.refresh();
+      this.$emit("refresh");
     },
     submit({ form, isAdd } = {}) {
       if (form) {

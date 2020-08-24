@@ -11,27 +11,38 @@ export const FILTER_SCOPE = "filter";
 export default {
   render() {
     const vm = this;
-    const { $attrs, filterSeeds, handlerSearch, filterScopedSlots } = this;
+    const {
+      $attrs,
+      filterSeeds,
+      handlerSearch,
+      filterScopedSlots,
+      show
+    } = this;
+
+    const isShowFilter = show && filterSeeds.length > 0;
+
     return (
-      <el-card shadow="hover">
-        <el-row>
-          <SeedForm
-            ref="form"
-            scopedSlots={filterScopedSlots}
-            props={$attrs}
-            seeds={filterSeeds}
-            inline
-          />
-        </el-row>
-        <el-row>
-          <el-button size="small" onClick={handlerSearch} type="primary">
-            查询
-          </el-button>
-          <el-button size="small" onClick={() => vm.$emit("reset")}>
-            重置
-          </el-button>
-        </el-row>
-      </el-card>
+      isShowFilter && (
+        <el-card shadow="hover">
+          <el-row>
+            <SeedForm
+              ref="form"
+              scopedSlots={filterScopedSlots}
+              props={$attrs}
+              seeds={filterSeeds}
+              inline
+            />
+          </el-row>
+          <el-row>
+            <el-button size="small" onClick={handlerSearch} type="primary">
+              查询
+            </el-button>
+            <el-button size="small" onClick={() => vm.$emit("reset")}>
+              重置
+            </el-button>
+          </el-row>
+        </el-card>
+      )
     );
   },
   components: {
@@ -42,6 +53,11 @@ export default {
     issueSlots: {
       type: Boolean,
       default: false
+    },
+    show: {
+      type: Boolean,
+      required: false,
+      default: true
     },
     seeds: {
       type: Array,

@@ -13,7 +13,7 @@
 > seed-toolkit是一个从模版到组件的集合库，实现了从分析模型到生成整个页面的所有步骤  
 > 底层的组件库目前采用了element-ui方案，安装Seed之前请先安装element-ui以及引入它😊
 
-``` bash
+``` sh
 npm i --save seed-toolkit
 # 或者
 yarn add seed-toolkit
@@ -149,4 +149,4 @@ Vue.use(renderHub)
 
 ## 准备好了吗
 
-基本的概念差不多理解了，接下来，就从使用[PagingTable](/seed/templates/PagingTable)模版开始做起，一步步跟随实例来掌握这个后台页面管理工具吧
+基本的概念差不多理解了，接下来，就该熟悉一下[Seed DSL](./DSL)系统了，可以说，`Seed`的基础都和这个有关，请务必学习！不过配置项我也尽量做的简单了，所以请不必担心学习成本很高！甚至之后还打算做`Swagger`的相关插件来方便**可视化**，**自动化**开发！

@@ -10,7 +10,6 @@ const nav = [
     items: [
       { text: "起步", link: "/guide/index.html" },
       { text: "DSL说明", link: "/guide/DSL" },
-      { text: "Excel相关说明", link: "/guide/EXCEL" },
     ],
   },
   {

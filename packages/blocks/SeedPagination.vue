@@ -13,7 +13,7 @@
 </template>
 
 <script>
-const DEFAULT_PAGESIZE = 2;
+const DEFAULT_PAGESIZE = 10;
 
 export default {
   name: "SeedPaginationContainer",

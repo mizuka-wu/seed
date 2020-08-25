@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'sticky-head': stickyHead }" class="seed-container">
+  <div class="seed-container">
     <!-- 控制栏 -->
     <div class="control-container">
       <div>
@@ -107,10 +107,6 @@ export default {
     sortable: {
       type: Boolean,
       default: false
-    },
-    stickyHead: {
-      type: Boolean,
-      default: true
     }
   },
   data() {
@@ -324,21 +320,4 @@ export default {
 .sortable-grasp
   font-size 16px
   cursor move
-.sticky-head
-  >>>.el-table
-    overflow-y auto
-    .el-table__header-wrapper
-      overflow-y auto
-      position sticky
-      top 0
-      z-index 10
-      table
-        position sticky
-        top 0
-        thead
-          position relative
-          th
-            position sticky
-            top 0
-            z-index 10
 </style>

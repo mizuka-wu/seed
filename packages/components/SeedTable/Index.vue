@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'sticky-head': stickyHead }">
+  <div :class="{ 'sticky-head': stickyHead }" class="seed-container">
     <!-- 控制栏 -->
     <div class="control-container">
       <div>
@@ -12,7 +12,7 @@
     <el-table
       ref="table"
       :data="data"
-      style="width: 100%"
+      class="seed-container"
       :row-key="rowKey"
       @selection-change="onSelectionChange"
     >
@@ -303,6 +303,8 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+.seed-container
+  width 100%
 .control-container
   display flex
   justify-content space-between

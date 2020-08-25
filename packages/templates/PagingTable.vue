@@ -294,4 +294,5 @@ export default {
 <style lang="stylus" scoped>
 .seed-container
   padding 10px
+  width 100%
 </style>

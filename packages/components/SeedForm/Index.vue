@@ -1,5 +1,6 @@
 <template>
   <el-form
+    class="seed-container"
     ref="form"
     :model="model"
     :inline="inline"
@@ -126,3 +127,7 @@ export default {
   }
 };
 </script>
+<style lang="stylus" scoped>
+.seed-container
+  width 100%
+</style>

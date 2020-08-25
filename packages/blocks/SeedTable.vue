@@ -203,7 +203,11 @@ export default {
 
     return (
       <div class="table-container">
-        <SeedTable seeds={tableSeeds} {...tableVnodeData} />
+        <SeedTable
+          seeds={tableSeeds}
+          {...tableVnodeData}
+          style="width: 100%;"
+        />
         {(addItem || updateItem) && (
           <SeedForm
             issueSlots={true}

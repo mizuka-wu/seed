@@ -12,6 +12,7 @@
     <el-table
       ref="table"
       :data="data"
+      style="width: 100%"
       :row-key="rowKey"
       @selection-change="onSelectionChange"
     >

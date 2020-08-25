@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Seed :fetchList="fetchList" :seeds="seeds" />
+    <Seed :fetchList="fetchList" :border="true" :seeds="seeds" />
   </div>
 </template>
 
@@ -16,7 +16,9 @@ export default {
           key: "name",
           label: "名字",
           options: {
+            width: 200,
             required: true
+            // fixed: "left"
           }
         },
         {
@@ -26,6 +28,21 @@ export default {
           options: {
             enum: ENUM
           }
+        },
+        {
+          key: "address"
+        },
+        {
+          key: "description",
+          options: {
+            width: 300
+          }
+        },
+        {
+          key: "blog"
+        },
+        {
+          key: "ip"
         }
       ]
     };

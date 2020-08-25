@@ -203,11 +203,7 @@ export default {
 
     return (
       <div class="table-container">
-        <SeedTable
-          seeds={tableSeeds}
-          {...tableVnodeData}
-          style="width: 100%;"
-        />
+        <SeedTable seeds={tableSeeds} {...tableVnodeData} />
         {(addItem || updateItem) && (
           <SeedForm
             issueSlots={true}
@@ -226,6 +222,7 @@ export default {
 <style lang="stylus" scoped>
 .table-container
   margin 16px 0
+  width 100%
   >>> .control-column
    .control-button + .control-button
     margin-left 8px

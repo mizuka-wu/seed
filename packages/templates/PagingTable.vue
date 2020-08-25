@@ -62,12 +62,12 @@ export default {
         )}
         <SeedTable
           ref="table"
+          {...$attrs}
           scopedSlots={$scopedSlots}
           v-loading={loading}
           data={data}
           issueSlots={true}
           seeds={seeds}
-          props={$attrs}
           onRefresh={refresh}
         >
           {$slots.default}
@@ -293,6 +293,6 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .seed-container
-  padding 10px
+  padding 10px 0px
   width 100%
 </style>

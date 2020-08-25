@@ -12,8 +12,9 @@
     <el-table
       ref="table"
       :data="data"
-      class="seed-container"
+      class="table-container"
       :row-key="rowKey"
+      border
       @selection-change="onSelectionChange"
     >
       <!-- 排序 -->
@@ -34,7 +35,7 @@
             :name="`${seed.key}HeaderRender`"
             v-bind="{ ...scope, ...$refs }"
           >
-            {{ seed.label || seed.key }}
+            {{ scope.column.label }}
           </slot>
         </template>
         <Render
@@ -97,6 +98,10 @@ export default {
     seeds: {
       type: Array,
       required: true
+    },
+    border: {
+      type: Boolean,
+      default: false
     },
     sortable: {
       type: Boolean,
@@ -305,6 +310,9 @@ export default {
 <style lang="stylus" scoped>
 .seed-container
   width 100%
+  overflow auto
+  .table-container
+    width 100%
 .control-container
   display flex
   justify-content space-between

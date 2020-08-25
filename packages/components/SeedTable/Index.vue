@@ -12,6 +12,7 @@
     <el-table
       ref="table"
       :data="data"
+      :sfit="false"
       class="table-container"
       :row-key="rowKey"
       border
@@ -310,7 +311,6 @@ export default {
 <style lang="stylus" scoped>
 .seed-container
   width 100%
-  overflow auto
   .table-container
     width 100%
 .control-container
@@ -326,9 +326,9 @@ export default {
   cursor move
 .sticky-head
   >>>.el-table
-    overflow visible
+    overflow-y auto
     .el-table__header-wrapper
-      overflow visible
+      overflow-y auto
       position sticky
       top 0
       z-index 10

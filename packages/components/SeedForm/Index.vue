@@ -28,7 +28,7 @@
 
 <script>
 import Immutable from "immutable";
-import debounce from "lodash/debounce";
+// import debounce from "lodash/debounce";
 import Render from "./render/Index.vue";
 
 export default {
@@ -88,7 +88,7 @@ export default {
     model: ({ form }) => form.toJS()
   },
   methods: {
-    update: debounce(function(form) {
+    update(form) {
       Promise.all(
         this.seeds.map(({ show, key }) => {
           if (typeof show === "function") {
@@ -107,9 +107,10 @@ export default {
           this.tableSeeds = [...this.seeds];
         });
       const { $data } = this;
-      this.$emit("endUpdate", form.toJS(), $data._formCache.toJS());
+      // this.$emit("endUpdate", form.toJS(), $data._formCache.toJS());
       $data._formCache = form;
-    }, 1000),
+    },
+
     validate() {
       const form = this.$refs.form;
       return form.validate();

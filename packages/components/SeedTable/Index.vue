@@ -31,7 +31,7 @@
         <template slot="header" slot-scope="scope">
           <slot
             :name="`${seed.key}HeaderRender`"
-            v-bind="{ ...scope, ...this.$refs }"
+            v-bind="{ ...scope, ...$refs }"
           >
             {{ seed.label || seed.key }}
           </slot>

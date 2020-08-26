@@ -24,6 +24,7 @@ export default {
       fetchList,
       $attrs,
       $slots,
+      $listeners,
       $scopedSlots,
       seeds,
       refresh,
@@ -55,20 +56,26 @@ export default {
             scopedSlots={$scopedSlots}
             ref="filter"
             issueSlots={true}
-            {...$attrs}
-            onSearch={handleSearch}
+            attrs={$attrs}
+            on={{
+              ...$listeners,
+              search: handleSearch
+            }}
             seeds={seeds}
           ></SeedFilter>
         )}
         <SeedTable
           ref="table"
-          {...$attrs}
+          attrs={$attrs}
           scopedSlots={$scopedSlots}
           v-loading={loading}
           data={data}
           issueSlots={true}
           seeds={seeds}
-          onRefresh={refresh}
+          on={{
+            ...$listeners,
+            refresh
+          }}
         >
           {$slots.default}
           {excelDownload && (

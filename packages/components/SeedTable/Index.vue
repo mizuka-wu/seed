@@ -18,7 +18,7 @@
       @selection-change="onSelectionChange"
     >
       <!-- 排序 -->
-      <el-table-column v-if="sortable" width="28">
+      <el-table-column v-if="sortable" width="32">
         <i class="sortable-grasp el-icon-rank" />
       </el-table-column>
       <!-- 批量选择 -->

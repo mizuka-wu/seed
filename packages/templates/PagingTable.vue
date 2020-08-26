@@ -116,6 +116,10 @@ export default {
       type: Function,
       required: false
     },
+    syncRoute: {
+      type: Boolean,
+      default: true
+    },
     lazy: {
       type: Boolean,
       required: false,

@@ -1,19 +1,28 @@
 <template>
   <div id="app">
+    <template v-if="!example">
+      <el-radio
+        v-for="exampleName of examples"
+        :key="exampleName"
+        :label="exampleName"
+        v-model="currentExample"
+        >{{ exampleName }}</el-radio
+      >
+    </template>
     <component v-if="currentExample" :is="currentExample" />
   </div>
 </template>
 
 <script>
-import qs from "qs";
 const exampleContext = require.context("./", false, /\.vue/);
 const Examples = exampleContext
   .keys()
   .filter(item => item !== "./App.vue")
   .reduce((_examples, example) => {
-    const component = exampleContext(example);
+    const component = exampleContext(example).default;
     const componentName = example.replace(/\.\/(.*)\.vue/, "$1");
-    return (_examples[componentName] = component);
+    _examples[componentName] = component;
+    return _examples;
   }, {});
 
 export default {
@@ -27,22 +36,14 @@ export default {
     }
   },
   data() {
+    const examples = Object.keys(Examples);
+    const currentExample = examples.includes(this.example)
+      ? this.example
+      : examples[0];
     return {
+      currentExample,
       examples: Object.keys(Examples)
     };
-  },
-  computed: {
-    currentExample({ example, examples }) {
-      const query = qs.parse((location.search || "").replace(/^\?/, ""));
-
-      example = example || query.example;
-
-      if (examples.includes(example)) {
-        return example;
-      } else {
-        return examples[0];
-      }
-    }
   }
 };
 </script>

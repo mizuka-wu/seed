@@ -15,7 +15,6 @@
       :sfit="false"
       class="table-container"
       :row-key="rowKey"
-      border
       @selection-change="onSelectionChange"
     >
       <!-- 排序 -->
@@ -49,16 +48,18 @@
       <!-- sortable控制 -->
       <el-table-column v-if="sortable" width="50">
         <template slot-scope="{ $index }">
-          <template v-for="{ icon, target, isShow } of sortControls">
-            <div :key="icon" style="padding: 5px" v-if="isShow($index)">
-              <el-button
-                circle
-                :icon="icon"
-                size="small"
-                @click="exchangeRow($index, target($index), true)"
-              />
-            </div>
-          </template>
+          <div class="sortable-control">
+            <template v-for="{ icon, target, isShow } of sortControls">
+              <div :key="icon" style="padding: 5px" v-if="isShow($index)">
+                <el-button
+                  circle
+                  :icon="icon"
+                  size="small"
+                  @click="exchangeRow($index, target($index), true)"
+                />
+              </div>
+            </template>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -316,6 +317,12 @@ export default {
   display flex
   margin 10px 0
   align-items center
+
+.sortable-control
+  min-height 120px
+  display flex
+  flex-direction column
+  justify-content center
 
 .sortable-grasp
   font-size 16px

@@ -26,6 +26,8 @@ export default {
       $slots,
       $listeners,
       $scopedSlots,
+      $route,
+      syncRoute,
       seeds,
       refresh,
       handleSearch,
@@ -56,6 +58,7 @@ export default {
             scopedSlots={$scopedSlots}
             ref="filter"
             issueSlots={true}
+            defaultForm={syncRoute ? $route.query : null}
             attrs={$attrs}
             on={{
               ...$listeners,
@@ -249,6 +252,14 @@ export default {
         }
         this.$nextTick(() => {
           params && this.refresh();
+          if (this.syncRoute && this.$router) {
+            this.$router.push({
+              query: {
+                ...this.$route.query,
+                ...params
+              }
+            });
+          }
         });
       }
     }

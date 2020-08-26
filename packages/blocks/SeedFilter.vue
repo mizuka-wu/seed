@@ -13,6 +13,7 @@ export default {
     const vm = this;
     const {
       $attrs,
+      defaultForm,
       filterSeeds,
       handlerSearch,
       filterScopedSlots,
@@ -28,6 +29,7 @@ export default {
             <SeedForm
               ref="form"
               scopedSlots={filterScopedSlots}
+              defaultForm={defaultForm}
               props={$attrs}
               seeds={filterSeeds}
               inline
@@ -53,6 +55,9 @@ export default {
     issueSlots: {
       type: Boolean,
       default: false
+    },
+    defaultForm: {
+      type: Object
     },
     show: {
       type: Boolean,
